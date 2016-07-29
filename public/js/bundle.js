@@ -27564,16 +27564,6 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	//Set up firebase
-	var firebase = __webpack_require__(/*! firebase */ 241);
-	var config = {
-	  apiKey: "AIzaSyD7uebkapR_L7MApC-zpdZAdwt8aMsiT8Q",
-	  authDomain: "alirt-ab979.firebaseapp.com",
-	  databaseURL: "https://alirt-ab979.firebaseio.com",
-	  storageBucket: "alirt-ab979.appspot.com"
-	};
-	firebase.initializeApp(config);
-	
 	var DropzoneDemo = function (_Component) {
 	  _inherits(DropzoneDemo, _Component);
 	
@@ -27587,27 +27577,6 @@
 	    key: 'onDrop',
 	    value: function onDrop(file) {
 	      console.log('Received files: ', file);
-	      var storageRef = firebase.storage().ref();
-	      // Upload the file to the path 'images/rivers.jpg'
-	      // We can use the 'name' property on the File API to get our file name
-	      var uploadTask = storageRef.child('pdf/' + file[0].name).put(file[0]);
-	      console.log("i sent the file");
-	      // Register three observers:
-	      // 1. 'state_changed' observer, called any time the state changes
-	      // 2. Error observer, called on failure
-	      // 3. Completion observer, called on successful completion
-	      uploadTask.on('state_changed', function (snapshot) {
-	        // Observe state change events such as progress, pause, and resume
-	        // See below for more detail
-	      }, function (error) {
-	        console.log("error" + error);
-	        // Handle unsuccessful uploads
-	      }, function () {
-	        // Handle successful uploads on complete
-	        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-	        var downloadURL = uploadTask.snapshot.downloadURL;
-	        console.log(downloadURL);
-	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -27864,6 +27833,10 @@
 	
 	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 	
+	var _firebasemodule = __webpack_require__(/*! ../../../../lib/firebasemodule */ 241);
+	
+	var _firebasemodule2 = _interopRequireDefault(_firebasemodule);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27883,8 +27856,29 @@
 	
 	  _createClass(DropzoneDemo, [{
 	    key: 'onDrop',
-	    value: function onDrop(files) {
-	      console.log('Received files: ', files);
+	    value: function onDrop(file) {
+	      console.log('Received files: ', file);
+	      var storageRef = _firebasemodule2.default.storage.ref();
+	      // Upload the file to the path 'images/rivers.jpg'
+	      // We can use the 'name' property on the File API to get our file name
+	      var uploadTask = storageRef.child('pdf/' + file[0].name).put(file[0]);
+	      console.log("i sent the file");
+	      // Register three observers:
+	      // 1. 'state_changed' observer, called any time the state changes
+	      // 2. Error observer, called on failure
+	      // 3. Completion observer, called on successful completion
+	      uploadTask.on('state_changed', function (snapshot) {
+	        // Observe state change events such as progress, pause, and resume
+	        // See below for more detail
+	      }, function (error) {
+	        console.log("error" + error);
+	        // Handle unsuccessful uploads
+	      }, function () {
+	        // Handle successful uploads on complete
+	        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+	        var downloadURL = uploadTask.snapshot.downloadURL;
+	        console.log(downloadURL);
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -28342,6 +28336,25 @@
 
 /***/ },
 /* 241 */
+/*!*******************************!*\
+  !*** ./lib/firebasemodule.js ***!
+  \*******************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	//Set up firebase
+	var firebase = __webpack_require__(/*! firebase */ 242);
+	var config = {
+	  apiKey: "AIzaSyD7uebkapR_L7MApC-zpdZAdwt8aMsiT8Q",
+	  authDomain: "alirt-ab979.firebaseapp.com",
+	  databaseURL: "https://alirt-ab979.firebaseio.com",
+	  storageBucket: "alirt-ab979.appspot.com",
+	};
+	var realfirebase = firebase.initializeApp(config);
+	module.exports.firebase = realfirebase;
+
+
+/***/ },
+/* 242 */
 /*!****************************************!*\
   !*** ./~/firebase/firebase-browser.js ***!
   \****************************************/
@@ -28354,12 +28367,12 @@
 	 *
 	 *   firebase = require('firebase');
 	 */
-	__webpack_require__(/*! ./firebase */ 242);
+	__webpack_require__(/*! ./firebase */ 243);
 	module.exports = firebase;
 
 
 /***/ },
-/* 242 */
+/* 243 */
 /*!********************************!*\
   !*** ./~/firebase/firebase.js ***!
   \********************************/
