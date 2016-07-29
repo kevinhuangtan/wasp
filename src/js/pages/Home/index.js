@@ -1,9 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-
 import Navbar from '../../components/Navbar';
 import Pdfs from '../Pdfs';
 import Upload from '../Upload';
-
 
 class Home extends Component {
   componentDidMount(){
@@ -27,6 +25,7 @@ class Home extends Component {
 
 
     return (
+
       <div>
         <Navbar/>
         {Page}
