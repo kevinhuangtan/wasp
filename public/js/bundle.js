@@ -21672,14 +21672,6 @@
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Page = __webpack_require__(/*! ../Page1 */ 237);
-	
-	var _Page2 = _interopRequireDefault(_Page);
-	
-	var _Page3 = __webpack_require__(/*! ../Page2 */ 238);
-	
-	var _Page4 = _interopRequireDefault(_Page3);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27548,15 +27540,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Navbar = __webpack_require__(/*! ../../components/Navbar */ 240);
+	var _Navbar = __webpack_require__(/*! ../../components/Navbar */ 237);
 	
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 	
-	var _Pdfs = __webpack_require__(/*! ../Pdfs */ 241);
+	var _Pdfs = __webpack_require__(/*! ../Pdfs */ 238);
 	
 	var _Pdfs2 = _interopRequireDefault(_Pdfs);
 	
-	var _Upload = __webpack_require__(/*! ../Upload */ 242);
+	var _Upload = __webpack_require__(/*! ../Upload */ 239);
 	
 	var _Upload2 = _interopRequireDefault(_Upload);
 	
@@ -27613,12 +27605,16 @@
 
 /***/ },
 /* 237 */
-/*!*************************************!*\
-  !*** ./src/js/pages/Page1/index.js ***!
-  \*************************************/
+/*!*******************************************!*\
+  !*** ./src/js/components/Navbar/index.js ***!
+  \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -27633,6 +27629,131 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Navbar = function (_Component) {
+	  _inherits(Navbar, _Component);
+	
+	  function Navbar() {
+	    _classCallCheck(this, Navbar);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Navbar).apply(this, arguments));
+	  }
+	
+	  _createClass(Navbar, [{
+	    key: "render",
+	    value: function render() {
+	      var activeUpload = "";
+	      var activePDFs = "";
+	      switch (window.location.pathname) {
+	        case "/":
+	          activeUpload = "active";
+	          break;
+	        case "/pdfs":
+	          activePDFs = "active";
+	          break;
+	        case "/upload":
+	          activeUpload = "active";
+	          break;
+	      }
+	
+	      return _react2.default.createElement(
+	        "nav",
+	        { className: "navbar navbar-default navbar-fixed-top" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "container-fluid" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "navbar-header" },
+	            _react2.default.createElement(
+	              "a",
+	              { className: "navbar-brand", href: "/" },
+	              _react2.default.createElement(
+	                "p",
+	                null,
+	                "Alirt Research"
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "collapse navbar-collapse" },
+	            _react2.default.createElement(
+	              "ul",
+	              { className: "nav navbar-nav navbar-right" },
+	              _react2.default.createElement(
+	                "li",
+	                { className: activePDFs },
+	                _react2.default.createElement(
+	                  "a",
+	                  { href: "/pdfs" },
+	                  "PDFS"
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "li",
+	                { className: activeUpload },
+	                _react2.default.createElement(
+	                  "a",
+	                  { href: "/upload" },
+	                  "Upload"
+	                )
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Navbar;
+	}(_react.Component);
+	
+	exports.default = Navbar;
+
+/***/ },
+/* 238 */
+/*!************************************!*\
+  !*** ./src/js/pages/Pdfs/index.js ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var styles = {
+	  box: {
+	    backgroundColor: "rgb(230,230,230)",
+	    padding: 20,
+	    margin: 20,
+	    width: 500
+	  }
+	};
+	
+	var testData = [{
+	  user: "kevin.tan@yale.edu",
+	  fileName: 'myPdfFile.pdf',
+	  data: 'adfbaieufbaiuebfiu',
+	  date: new Date()
+	}, {
+	  user: "peter.zhou@yale.edu",
+	  fileName: 'monthlyreport.pdf',
+	  data: '323ff2',
+	  date: new Date()
+	}];
 	
 	var Page1 = function (_Component) {
 	  _inherits(Page1, _Component);
@@ -27644,20 +27765,41 @@
 	  }
 	
 	  _createClass(Page1, [{
-	    key: 'componentDidMount',
+	    key: "componentDidMount",
 	    value: function componentDidMount() {}
 	  }, {
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	
 	      return _react2.default.createElement(
-	        'div',
+	        "div",
 	        null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Page 1'
-	        )
+	        testData.map(function (data) {
+	          return _react2.default.createElement(
+	            "div",
+	            { style: styles.box },
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              data.user
+	            ),
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              data.fileName
+	            ),
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              data.date.toString()
+	            ),
+	            _react2.default.createElement(
+	              "button",
+	              { className: "btn btn-primary" },
+	              "Download"
+	            )
+	          );
+	        })
 	      );
 	    }
 	  }]);
@@ -27668,10 +27810,10 @@
 	module.exports = Page1;
 
 /***/ },
-/* 238 */
-/*!*************************************!*\
-  !*** ./src/js/pages/Page2/index.js ***!
-  \*************************************/
+/* 239 */
+/*!**************************************!*\
+  !*** ./src/js/pages/Upload/index.js ***!
+  \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27682,6 +27824,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactDropzone = __webpack_require__(/*! react-dropzone */ 240);
+	
+	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27690,30 +27836,94 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Page2 = function (_Component) {
-	  _inherits(Page2, _Component);
+	var styles = {
+	  dropzone: {
+	    padding: 20
+	  }
+	};
+	
+	var DropzoneDemo = function (_Component) {
+	  _inherits(DropzoneDemo, _Component);
+	
+	  function DropzoneDemo() {
+	    _classCallCheck(this, DropzoneDemo);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DropzoneDemo).call(this));
+	
+	    _this.onDrop = _this.onDrop.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(DropzoneDemo, [{
+	    key: 'onDrop',
+	    value: function onDrop(files) {
+	      console.log('Received files: ', files);
+	      this.props.uploadedFile();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          _reactDropzone2.default,
+	          { onDrop: this.onDrop },
+	          _react2.default.createElement(
+	            'div',
+	            { style: styles.dropzone },
+	            'Try dropping some files here, or click to select files to upload.'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return DropzoneDemo;
+	}(_react.Component);
+	
+	;
+	
+	var Page2 = function (_Component2) {
+	  _inherits(Page2, _Component2);
 	
 	  function Page2() {
 	    _classCallCheck(this, Page2);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Page2).apply(this, arguments));
+	    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Page2).call(this));
+	
+	    _this2.state = {
+	      showButton: false
+	    };
+	    _this2.uploadedFile = _this2.uploadedFile.bind(_this2);
+	    return _this2;
 	  }
 	
 	  _createClass(Page2, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {}
 	  }, {
+	    key: 'uploadedFile',
+	    value: function uploadedFile() {
+	      this.setState({ showButton: true });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	
+	      var Button;
+	      if (this.state.showButton) {
+	        Button = _react2.default.createElement(
+	          'button',
+	          { className: 'btn' },
+	          'Upload PDF'
+	        );
+	      }
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Page 2'
-	        )
+	        _react2.default.createElement(DropzoneDemo, { uploadedFile: this.uploadedFile }),
+	        _react2.default.createElement('br', null),
+	        Button
 	      );
 	    }
 	  }]);
@@ -27724,7 +27934,7 @@
 	module.exports = Page2;
 
 /***/ },
-/* 239 */
+/* 240 */
 /*!****************************************!*\
   !*** ./~/react-dropzone/dist/index.js ***!
   \****************************************/
@@ -28123,269 +28333,6 @@
 	});
 	;
 	//# sourceMappingURL=index.js.map
-
-/***/ },
-/* 240 */
-/*!*******************************************!*\
-  !*** ./src/js/components/Navbar/index.js ***!
-  \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Navbar = function (_Component) {
-	  _inherits(Navbar, _Component);
-	
-	  function Navbar() {
-	    _classCallCheck(this, Navbar);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Navbar).apply(this, arguments));
-	  }
-	
-	  _createClass(Navbar, [{
-	    key: "render",
-	    value: function render() {
-	      var activeUpload = "";
-	      var activePDFs = "";
-	      switch (window.location.pathname) {
-	        case "/":
-	          activeUpload = "active";
-	          break;
-	        case "/pdfs":
-	          activePDFs = "active";
-	          break;
-	        case "/upload":
-	          activeUpload = "active";
-	          break;
-	      }
-	
-	      return _react2.default.createElement(
-	        "nav",
-	        { className: "navbar navbar-default navbar-fixed-top" },
-	        _react2.default.createElement(
-	          "div",
-	          { className: "container-fluid" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "navbar-header" },
-	            _react2.default.createElement(
-	              "a",
-	              { className: "navbar-brand", href: "/" },
-	              _react2.default.createElement(
-	                "p",
-	                null,
-	                "Alirt Research"
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "div",
-	            { className: "collapse navbar-collapse" },
-	            _react2.default.createElement(
-	              "ul",
-	              { className: "nav navbar-nav navbar-right" },
-	              _react2.default.createElement(
-	                "li",
-	                { className: activePDFs },
-	                _react2.default.createElement(
-	                  "a",
-	                  { href: "/pdfs" },
-	                  "PDFS"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "li",
-	                { className: activeUpload },
-	                _react2.default.createElement(
-	                  "a",
-	                  { href: "/upload" },
-	                  "Upload"
-	                )
-	              )
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Navbar;
-	}(_react.Component);
-	
-	exports.default = Navbar;
-
-/***/ },
-/* 241 */
-/*!************************************!*\
-  !*** ./src/js/pages/Pdfs/index.js ***!
-  \************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Page1 = function (_Component) {
-	  _inherits(Page1, _Component);
-	
-	  function Page1() {
-	    _classCallCheck(this, Page1);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Page1).apply(this, arguments));
-	  }
-	
-	  _createClass(Page1, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Pdf1'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Pdf2'
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Page1;
-	}(_react.Component);
-	
-	module.exports = Page1;
-
-/***/ },
-/* 242 */
-/*!**************************************!*\
-  !*** ./src/js/pages/Upload/index.js ***!
-  \**************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDropzone = __webpack_require__(/*! react-dropzone */ 239);
-	
-	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var DropzoneDemo = function (_Component) {
-	  _inherits(DropzoneDemo, _Component);
-	
-	  function DropzoneDemo() {
-	    _classCallCheck(this, DropzoneDemo);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(DropzoneDemo).apply(this, arguments));
-	  }
-	
-	  _createClass(DropzoneDemo, [{
-	    key: 'onDrop',
-	    value: function onDrop(files) {
-	      console.log('Received files: ', files);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _reactDropzone2.default,
-	          { onDrop: this.onDrop },
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            'Try dropping some files here, or click to select files to upload.'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return DropzoneDemo;
-	}(_react.Component);
-	
-	;
-	
-	var Page2 = function (_Component2) {
-	  _inherits(Page2, _Component2);
-	
-	  function Page2() {
-	    _classCallCheck(this, Page2);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Page2).apply(this, arguments));
-	  }
-	
-	  _createClass(Page2, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(DropzoneDemo, null)
-	      );
-	    }
-	  }]);
-	
-	  return Page2;
-	}(_react.Component);
-	
-	module.exports = Page2;
 
 /***/ }
 /******/ ]);
