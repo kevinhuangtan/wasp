@@ -1,4 +1,7 @@
 import React, { PropTypes, Component } from 'react';
+import Navbar from '../../components/Navbar';
+import Pdfs from '../Pdfs';
+import Upload from '../Upload';
 
 import Dropzone from 'react-dropzone';
 //Set up firebase
@@ -54,12 +57,27 @@ class Home extends Component {
   }
 
   render(){
+    var Page;
+
+    switch (window.location.pathname){
+      case "/":
+        Page = <Upload/>
+      break;
+      case "/pdfs":
+        Page = <Pdfs/>
+        break;
+      case "/upload":
+        Page = <Upload/>
+        break;
+    }
+
 
     return (
-	<div>
-        <DropzoneDemo/>
-        <input type="file" accept="application/pdf" />
-	</div>
+
+      <div>
+        <Navbar/>
+        {Page}
+      </div>
     )
   }
 }

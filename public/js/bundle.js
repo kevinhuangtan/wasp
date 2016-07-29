@@ -21672,11 +21672,11 @@
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Page = __webpack_require__(/*! ../Page1 */ 240);
+	var _Page = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../Page1\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	var _Page2 = _interopRequireDefault(_Page);
 	
-	var _Page3 = __webpack_require__(/*! ../Page2 */ 241);
+	var _Page3 = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../Page2\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	var _Page4 = _interopRequireDefault(_Page3);
 	
@@ -27548,6 +27548,18 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _Navbar = __webpack_require__(/*! ../../components/Navbar */ 242);
+	
+	var _Navbar2 = _interopRequireDefault(_Navbar);
+	
+	var _Pdfs = __webpack_require__(/*! ../Pdfs */ 243);
+	
+	var _Pdfs2 = _interopRequireDefault(_Pdfs);
+	
+	var _Upload = __webpack_require__(/*! ../Upload */ 244);
+	
+	var _Upload2 = _interopRequireDefault(_Upload);
+	
 	var _reactDropzone = __webpack_require__(/*! react-dropzone */ 237);
 	
 	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
@@ -27643,12 +27655,25 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var Page;
+	
+	      switch (window.location.pathname) {
+	        case "/":
+	          Page = _react2.default.createElement(_Upload2.default, null);
+	          break;
+	        case "/pdfs":
+	          Page = _react2.default.createElement(_Pdfs2.default, null);
+	          break;
+	        case "/upload":
+	          Page = _react2.default.createElement(_Upload2.default, null);
+	          break;
+	      }
 	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(DropzoneDemo, null),
-	        _react2.default.createElement('input', { type: 'file', accept: 'application/pdf' })
+	        _react2.default.createElement(_Navbar2.default, null),
+	        Page
 	      );
 	    }
 	  }]);
@@ -28655,10 +28680,120 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 240 */
-/*!*************************************!*\
-  !*** ./src/js/pages/Page1/index.js ***!
-  \*************************************/
+/* 240 */,
+/* 241 */,
+/* 242 */
+/*!*******************************************!*\
+  !*** ./src/js/components/Navbar/index.js ***!
+  \*******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Navbar = function (_Component) {
+	  _inherits(Navbar, _Component);
+	
+	  function Navbar() {
+	    _classCallCheck(this, Navbar);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Navbar).apply(this, arguments));
+	  }
+	
+	  _createClass(Navbar, [{
+	    key: "render",
+	    value: function render() {
+	      var activeUpload = "";
+	      var activePDFs = "";
+	      switch (window.location.pathname) {
+	        case "/":
+	          activeUpload = "active";
+	          break;
+	        case "/pdfs":
+	          activePDFs = "active";
+	          break;
+	        case "/upload":
+	          activeUpload = "active";
+	          break;
+	      }
+	
+	      return _react2.default.createElement(
+	        "nav",
+	        { className: "navbar navbar-default navbar-fixed-top" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "container-fluid" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "navbar-header" },
+	            _react2.default.createElement(
+	              "a",
+	              { className: "navbar-brand", href: "/" },
+	              _react2.default.createElement(
+	                "p",
+	                null,
+	                "Alirt Research"
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "collapse navbar-collapse" },
+	            _react2.default.createElement(
+	              "ul",
+	              { className: "nav navbar-nav navbar-right" },
+	              _react2.default.createElement(
+	                "li",
+	                { className: activePDFs },
+	                _react2.default.createElement(
+	                  "a",
+	                  { href: "/pdfs" },
+	                  "PDFS"
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "li",
+	                { className: activeUpload },
+	                _react2.default.createElement(
+	                  "a",
+	                  { href: "/upload" },
+	                  "Upload"
+	                )
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Navbar;
+	}(_react.Component);
+	
+	exports.default = Navbar;
+
+/***/ },
+/* 243 */
+/*!************************************!*\
+  !*** ./src/js/pages/Pdfs/index.js ***!
+  \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28697,9 +28832,14 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          'h1',
+	          'p',
 	          null,
-	          'Page 1'
+	          'Pdf1'
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Pdf2'
 	        )
 	      );
 	    }
@@ -28711,10 +28851,10 @@
 	module.exports = Page1;
 
 /***/ },
-/* 241 */
-/*!*************************************!*\
-  !*** ./src/js/pages/Page2/index.js ***!
-  \*************************************/
+/* 244 */
+/*!**************************************!*\
+  !*** ./src/js/pages/Upload/index.js ***!
+  \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28725,6 +28865,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactDropzone = __webpack_require__(/*! react-dropzone */ 237);
+	
+	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28733,8 +28877,46 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Page2 = function (_Component) {
-	  _inherits(Page2, _Component);
+	var DropzoneDemo = function (_Component) {
+	  _inherits(DropzoneDemo, _Component);
+	
+	  function DropzoneDemo() {
+	    _classCallCheck(this, DropzoneDemo);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(DropzoneDemo).apply(this, arguments));
+	  }
+	
+	  _createClass(DropzoneDemo, [{
+	    key: 'onDrop',
+	    value: function onDrop(files) {
+	      console.log('Received files: ', files);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          _reactDropzone2.default,
+	          { onDrop: this.onDrop },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            'Try dropping some files here, or click to select files to upload.'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return DropzoneDemo;
+	}(_react.Component);
+	
+	;
+	
+	var Page2 = function (_Component2) {
+	  _inherits(Page2, _Component2);
 	
 	  function Page2() {
 	    _classCallCheck(this, Page2);
@@ -28752,11 +28934,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Page 2'
-	        )
+	        _react2.default.createElement(DropzoneDemo, null)
 	      );
 	    }
 	  }]);
