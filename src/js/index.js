@@ -1,0 +1,30 @@
+////////////////////////////////////////////////
+//////////////*~ Dependencies ~*////////////////
+////////////////////////////////////////////////
+
+import React, { PropTypes, Component } from 'react';
+import ReactDOM from 'react-dom';
+
+import App from './pages/App';
+
+class YourReactApp extends Component {
+
+  render(){
+    return (
+      <section>
+        <App />
+      </section>
+    )
+  }
+}
+
+////////////////////////////////////////////////
+/////////////////*~ Render ~*///////////////////
+////////////////////////////////////////////////
+
+
+// Top of the Tree
+ReactDOM.render(
+  <YourReactApp />,
+  document.getElementById('root')
+);
