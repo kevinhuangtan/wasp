@@ -1,5 +1,23 @@
 import React, { PropTypes, Component } from 'react';
 
+import Dropzone from 'react-dropzone';
+
+class DropzoneDemo extends Component{
+    onDrop (files) {
+      console.log('Received files: ', files);
+    }
+
+    render () {
+      return (
+          <div>
+            <Dropzone onDrop={this.onDrop}>
+              <div>Try dropping some files here, or click to select files to upload.</div>
+            </Dropzone>
+          </div>
+      );
+    }
+};
+
 class Home extends Component {
   componentDidMount(){
 
@@ -9,9 +27,8 @@ class Home extends Component {
 
     return (
       <div>
-        <h1>Home</h1>
-        <p><a href="/page1">page 1</a></p>
-        <p><a href="/page2">page 2</a></p>
+        <DropzoneDemo/>
+        <input type="file" accept="application/pdf" />
       </div>
     )
   }
