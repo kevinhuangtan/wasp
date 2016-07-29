@@ -27591,6 +27591,7 @@
 	      // Upload the file to the path 'images/rivers.jpg'
 	      // We can use the 'name' property on the File API to get our file name
 	      var uploadTask = storageRef.child('pdf/' + file[0].name).put(file[0]);
+	      console.log("i sent the file");
 	      // Register three observers:
 	      // 1. 'state_changed' observer, called any time the state changes
 	      // 2. Error observer, called on failure
