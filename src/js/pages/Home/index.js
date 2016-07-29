@@ -1,22 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 
-import Dropzone from 'react-dropzone';
-
-class DropzoneDemo extends Component{
-    onDrop (files) {
-      console.log('Received files: ', files);
-    }
-
-    render () {
-      return (
-          <div>
-            <Dropzone onDrop={this.onDrop}>
-              <div>Try dropping some files here, or click to select files to upload.</div>
-            </Dropzone>
-          </div>
-      );
-    }
-};
+import Navbar from '../../components/Navbar';
+import Pdfs from '../Pdfs';
+import Upload from '../Upload';
 
 class Home extends Component {
   componentDidMount(){
@@ -24,11 +10,25 @@ class Home extends Component {
   }
 
   render(){
+    var Page;
+
+    switch (window.location.pathname){
+      case "/":
+        Page = <Upload/>
+      break;
+      case "/pdfs":
+        Page = <Pdfs/>
+        break;
+      case "/upload":
+        Page = <Upload/>
+        break;
+    }
+
 
     return (
       <div>
-        <DropzoneDemo/>
-        <input type="file" accept="application/pdf" />
+        <Navbar/>
+        {Page}
       </div>
     )
   }

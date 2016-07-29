@@ -35,7 +35,7 @@ reloadServer.watch([__dirname + "/public/css", __dirname + "/public/js", __dirna
 /////////////////*~  Routes ~*//////////////////
 ////////////////////////////////////////////////
 
-app.get('/', function (req, res)
+app.get('/*', function (req, res)
 {
   res.render('home.html');
 })

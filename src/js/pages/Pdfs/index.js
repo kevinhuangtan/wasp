@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 
-class Page2 extends Component {
+class Page1 extends Component {
   componentDidMount(){
 
   }
@@ -9,10 +9,11 @@ class Page2 extends Component {
 
     return (
       <div>
-        <h1>Page 2</h1>
+        <p>Pdf1</p>
+        <p>Pdf2</p>
       </div>
     )
   }
 }
 
-module.exports = Page2
+module.exports = Page1
