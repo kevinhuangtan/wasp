@@ -21696,16 +21696,8 @@
 	  function App() {
 	    _classCallCheck(this, App);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this));
-	
-	    _this.state = {
-	      orders: ""
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this));
 	  }
-	
-	  // router determines which components to load
-	
 	
 	  _createClass(App, [{
 	    key: 'render',

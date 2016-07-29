@@ -18,12 +18,8 @@ import Home from '../Home';
 class App extends Component {
   constructor(){
     super();
-    this.state =  {
-      orders: ""
-    };
   }
 
-  // router determines which components to load
   render(){
     return (
       <Home/>
