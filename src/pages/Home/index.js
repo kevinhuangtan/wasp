@@ -2,11 +2,21 @@ import React, { PropTypes, Component } from 'react';
 import Navbar from '../../components/Navbar';
 import Page1 from '../Page1';
 
+
+////////////////////////////////////////////////
+//////////////////*~ Styles ~*//////////////////
+////////////////////////////////////////////////
+
 const styles = {
   container: {
-    marginTop: 50, // accounts for navbar
+    marginTop: 50, // navbar height
+    padding: 20,
   }
 }
+
+////////////////////////////////////////////////
+////////////////*~ Component ~*/////////////////
+////////////////////////////////////////////////
 
 class Home extends Component {
   componentDidMount(){
@@ -26,11 +36,9 @@ class Home extends Component {
 
     return (
 
-      <div>
+      <div className="container" style={styles.container}>
         <Navbar/>
-        <div className="container" style={styles.container}>
-          {Page}
-        </div>
+        {Page}
       </div>
     )
   }
