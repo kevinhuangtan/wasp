@@ -1,10 +1,11 @@
 var path = require('path');
 var express = require('express');
-var webpack = require('webpack');
 var app = express();
 app.set('port', (process.env.PORT || 3000));
 
 if(app.get('port') == 3000){ // local
+
+  var webpack = require('webpack');
   var config = require('./webpack.config.dev');
   var compiler = webpack(config);
 
