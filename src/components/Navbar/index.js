@@ -3,17 +3,14 @@ import React, { Component } from 'react';
 class Navbar extends Component {
 
   render() {
-    var activeUpload = "";
-    var activePDFs = "";
+    var activeHome = "";
+    var activePage1 = "";
     switch (window.location.pathname){
       case "/":
-        activeUpload = "active"
+        activeHome = "active"
       break;
-      case "/pdfs":
-        activePDFs = "active"
-        break;
-      case "/upload":
-        activeUpload = "active"
+      case "/page1":
+        activePage1 = "active"
         break;
     }
 
@@ -22,14 +19,14 @@ class Navbar extends Component {
         <div className="container-fluid">
           <div className="navbar-header">
             <a className="navbar-brand" href="/">
-              <p>Alirt Research</p>
+              <p>Demo App</p>
             </a>
           </div>
 
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav navbar-right">
-              <li className={activePDFs}><a href="/pdfs">PDFS</a></li>
-              <li className={activeUpload}><a href="/upload">Upload</a></li>
+              <li className={activeHome}><a href="/">Home</a></li>
+              <li className={activePage1}><a href="/page1">Page 1</a></li>
             </ul>
           </div>
         </div>

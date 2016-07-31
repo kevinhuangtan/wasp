@@ -1,12 +1,16 @@
 Node React Firebase Template
 ============================
 
-A template for quick starting an full stack web application
------------------------------------------------------------
 
-How To Setup
+Built on https://github.com/wix/react-templates-transform-boilerplate
+
+Getting Started
 ------------
-1. npm install
-2. npm run dev
-3. npm start (in a different terminal window)
-4. go to localhost:5000 in your browser
+<pre><code>
+npm install
+npm start
+</code></pre>
+
+Production
+------------
+change webpack.config.dev.js to webpack.config.prod.js in ./index.js

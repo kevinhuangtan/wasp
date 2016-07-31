@@ -3,15 +3,14 @@
 ////////////////////////////////////////////////
 
 import React, { PropTypes, Component } from 'react';
-import { Router, Route, browserHistory } from 'react-router';
 
-//Set up firebase
+// create new project at https://console.firebase.google.com/
 import firebase from 'firebase';
 var config = {
-  apiKey: "AIzaSyD7uebkapR_L7MApC-zpdZAdwt8aMsiT8Q",
-  authDomain: "alirt-ab979.firebaseapp.com",
-  databaseURL: "https://alirt-ab979.firebaseio.com",
-  storageBucket: "alirt-ab979.appspot.com",
+  apiKey: "AIzaSyAU7WwWDLCClqH7-XkttUUKg2jsHqOl4Y4",
+  authDomain: "simple-react-firebase-app.firebaseapp.com",
+  databaseURL: "https://simple-react-firebase-app.firebaseio.com",
+  storageBucket: "simple-react-firebase-app.appspot.com",
 };
 firebase.initializeApp(config);
 
@@ -29,6 +28,13 @@ import Home from '../Home';
 class App extends Component {
   constructor(){
     super();
+  }
+
+  componentDidMount(){
+    var ref = firebase.database().ref();
+    ref.on('value', (snap) => {
+      console.log(snap.val())
+    });
   }
 
   render(){

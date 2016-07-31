@@ -1,50 +1,36 @@
+
 ////////////////////////////////////////////////
 //////////////////*~  Setup ~*//////////////////
 ////////////////////////////////////////////////
 
 // You don't need to mess with this
 
-var express = require('express')
+var path = require('path');
+var express = require('express');
+var webpack = require('webpack');
+var config = require('./webpack.config.dev'); // change for production
+
 var app = express();
-fs = require('fs');
+var compiler = webpack(config);
 
-app.set('port', (process.env.PORT || 5000));
-
-// Allows you to use files in /public folder
-app.use(express.static(__dirname + '/public'));
-
-var bodyParser = require('body-parser')
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath
 }));
 
-app.set('views', __dirname + '/views');
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'ejs');
+app.use(require('webpack-hot-middleware')(compiler));
 
-////////////////////////////////////////////////
-///////////////*~  LiveReload ~*////////////////
-////////////////////////////////////////////////
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
-var livereload = require('livereload');
-var reloadServer = livereload.createServer();
-reloadServer.watch([__dirname + "/public/css", __dirname + "/public/js", __dirname + "/views"]);
+app.use('/src', express.static('src'));
 
-////////////////////////////////////////////////
-/////////////////*~  Routes ~*//////////////////
-////////////////////////////////////////////////
+app.listen(3000, 'localhost', function(err) {
+  if (err) {
+    console.log(err);
+    return;
+  }
 
-app.get('/*', function (req, res)
-{
-  res.render('home.html');
-})
-
-
-////////////////////////////////////////////////
-/////////////////*~  Run App ~*/////////////////
-////////////////////////////////////////////////
-
-app.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'))
-})
+  console.log('Listening at http://localhost:3000');
+});
