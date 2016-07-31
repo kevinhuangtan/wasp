@@ -30,10 +30,6 @@ class App extends Component {
   }
 
   componentDidMount(){
-    var ref = firebase.database().ref();
-    ref.on('value', (snap) => {
-      console.log(snap.val())
-    });
   }
 
   render(){

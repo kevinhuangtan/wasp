@@ -33,12 +33,3 @@ exports.objectToArray = function(obj){
   })
   return ret;
 }
-
-exports.addKeyToProducts = function(parent, childName){
-  var childKeys = Object.keys(parent[childName]);
-  var children = parent[childName];
-  childKeys.map(function(key){
-    children[key]['.key'] = key;
-  })
-  return children
-}
