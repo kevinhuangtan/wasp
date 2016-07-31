@@ -6,6 +6,12 @@ import helpers from '../../helpers';
 
 
 const styles = {
+  visitorContainer:{
+    marginTop: 20,
+    padding: 20,
+    width: 400,
+    backgroundColor: 'rgb(245,245,245)'
+  },
   name:{
 
   },
@@ -33,7 +39,7 @@ class VisitorRow extends Component {
     const { visitor } = this.props;
 
     return (
-      <div onClick={this.handleDeleteVisitor}>
+      <div onClick={this.handleDeleteVisitor} style={styles.visitorContainer}>
         <p style={styles.name}>{visitor.name}</p>
         <p style={styles.timestamp}>{helpers.getTimePassed(new Date(visitor.date))} ago</p>
       </div>
@@ -82,7 +88,8 @@ export default class Page1 extends Component {
           onClick={this.handleAddVisitor}>add user</button><br/><br/>
         <hr/>
         <h2>Visitors</h2>
-        <p><i>data pulled from firebase</i></p>
+        <p><i>data pulled from <a target="_blank" 
+          href="https://console.firebase.google.com/project/simple-react-firebase-app/database/data">firebase project</a></i></p>
         {visitors.map((visitor, i) => {
           return (
             <VisitorRow key={i} visitor={visitor}/>
