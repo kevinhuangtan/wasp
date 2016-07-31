@@ -13,4 +13,9 @@ npm start
 
 Production
 ------------
-change webpack.config.dev.js to webpack.config.prod.js in ./index.js
+This is when you host on heroku.
+
+<pre><code>npm run build
+</code></pre>
+
+change build.js in the index.html file.
