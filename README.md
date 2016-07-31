@@ -6,7 +6,7 @@ Built on https://github.com/wix/react-templates-transform-boilerplate
 
 Getting Started
 ------------
-<pre><code>https://github.com/CelenaConsortium/node-react-firebase-template
+<pre><code>git clone https://github.com/CelenaConsortium/node-react-firebase-template
 npm install
 npm start
 </code></pre>
