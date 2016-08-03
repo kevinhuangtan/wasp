@@ -17,5 +17,3 @@ This is when you host on heroku.
 
 <pre><code>npm run build
 </code></pre>
-
-change build.js in the index.html file.

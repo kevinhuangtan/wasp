@@ -18,7 +18,7 @@ if(app.get('port') == 3000){ // local
 
 }
 else{
-  app.use(express.static(__dirname + '/dist'));
+  app.use('/static', express.static(__dirname + '/dist'));
 }
 
 
