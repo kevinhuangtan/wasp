@@ -1,9 +1,11 @@
 var path = require('path');
 var express = require('express');
 var app = express();
-app.set('port', (process.env.PORT || 3000));
+const localhost = 3000;
+app.set('port', (process.env.PORT || localhost));
+app.use(express.static('public')); // you can get files in public folder, i.e src="css/main.css"
 
-if(app.get('port') == 3000){ // local
+if(app.get('port') == localhost){ // local
 
   var webpack = require('webpack');
   var config = require('./webpack.config.dev');
@@ -15,18 +17,17 @@ if(app.get('port') == 3000){ // local
   }));
 
   app.use(require('webpack-hot-middleware')(compiler));
+  app.use('/src', express.static('src'));
 
 }
 else{
   app.use('/static', express.static(__dirname + '/dist'));
 }
 
-
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.use('/src', express.static('src'));
 
 app.listen(app.get('port'), function(err) {
   if (err) {
