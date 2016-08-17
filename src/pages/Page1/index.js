@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 
 import firebase from 'firebase';
-
 import helpers from '../../helpers';
 
 
@@ -13,7 +12,6 @@ const styles = {
     backgroundColor: 'rgb(245,245,245)'
   },
   name:{
-
   },
   timestamp: {
     opacity: .4
@@ -39,29 +37,31 @@ class VisitorRow extends Component {
     const { visitor } = this.props;
 
     return (
-      <div onClick={this.handleDeleteVisitor} style={styles.visitorContainer}>
+      <div style={styles.visitorContainer}>
         <p style={styles.name}>{visitor.name}</p>
         <p style={styles.timestamp}>{helpers.getTimePassed(new Date(visitor.date))} ago</p>
+        <button onClick={this.handleDeleteVisitor}>delete</button>
       </div>
     )
   }
 }
 
-export default class Page1 extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      visitors: [],
-    };
-  }
+export default class VisitorsPage extends Component {
+
+  state = {
+    visitors: [],
+  };
 
   componentDidMount(){
-    var ref = firebase.database().ref('visitors');
 
+    // this is how you reference data from firebase
+    var ref = firebase.database().ref('visitors');
     ref.on('value', (snap) => {
       var ret = [];
       snap.forEach((child) => {
         var snapChild = child.val();
+
+        // manually add key as a child
         snapChild['.key'] = child.key;
         ret.push(snapChild);
       })
@@ -83,12 +83,11 @@ export default class Page1 extends Component {
 
     return (
       <div>
-        <input type="text" ref="name"/><br/><br/>
-        <button className="btn btn-primary"
-          onClick={this.handleAddVisitor}>add user</button><br/><br/>
+        <input placeholder="name" type="text" ref="name"/><br/><br/>
+        <button onClick={this.handleAddVisitor}>add user</button><br/><br/>
         <hr/>
         <h2>Visitors</h2>
-        <p><i>data pulled from <a target="_blank" 
+        <p><i>data pulled from <a target="_blank"
           href="https://console.firebase.google.com/project/simple-react-firebase-app/database/data">firebase project</a></i></p>
         {visitors.map((visitor, i) => {
           return (

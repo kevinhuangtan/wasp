@@ -17,3 +17,16 @@ This is when you host on heroku.
 
 <pre><code>npm run build
 </code></pre>
+
+
+## App Architecture
+
+React code starts at index.js in /src
+
+App:
+/pages
+/components
+/helpers
+
+These folders aren't necessary. This is just the way we set up the structure.
+Reusable parts are in /parts.
