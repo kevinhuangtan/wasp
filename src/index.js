@@ -12,10 +12,11 @@ import ReactDOM from 'react-dom';
 
 import firebase from 'firebase';
 var config = {
-  apiKey: "AIzaSyAU7WwWDLCClqH7-XkttUUKg2jsHqOl4Y4",
-  authDomain: "simple-react-firebase-app.firebaseapp.com",
-  databaseURL: "https://simple-react-firebase-app.firebaseio.com",
-  storageBucket: "simple-react-firebase-app.appspot.com",
+ apiKey: "AIzaSyDBJh_zPIUxtAKJzHXfG3SVRVvPzIC0heE",
+ authDomain: "walt-steve-picasso.firebaseapp.com",
+ databaseURL: "https://walt-steve-picasso.firebaseio.com",
+ storageBucket: "walt-steve-picasso.appspot.com",
+ messagingSenderId: "473516392362"
 };
 firebase.initializeApp(config);
 
@@ -26,27 +27,22 @@ firebase.initializeApp(config);
 // These are modules defined by you
 
 import Page1 from './pages/Page1'; // you can 'Page1' to whatever makes sense
-import Page2 from './pages/Page2';
-import Navbar from './parts/Navbar';
 
 
 ////////////////////////////////////////////////
 ///////////////*~ React Component ~*////////////
 ////////////////////////////////////////////////
 
-// routing. only need this for root component
+// Routing
 function getCurrentPage(){
   var CurrentPage;
   switch (window.location.pathname){
     case "/":
       CurrentPage = <Page1/>
-    break;
-    case "/page1":
-      CurrentPage = <Page1/>
-      break;
-    case "/page2":
-      CurrentPage = <Page2/>
-      break;
+      break
+    default:
+      CurrentPage = <Page1/>;
+      break
   }
   return CurrentPage
 }
@@ -62,10 +58,7 @@ class YourReactApp extends Component {
     var Page = getCurrentPage();
     return (
       <section>
-        <Navbar/>
-        <section>
-          {Page}
-        </section>
+        {Page}
       </section>
     )
   }

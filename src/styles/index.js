@@ -12,3 +12,11 @@ exports.green = "#3A9B3A";
 exports.offwhite = "#F9F9F9";
 exports.blue = "#69ACD3";
 exports.orange = "#E8652F";
+const border = "1px solid rgb(200, 200, 200)";
+exports.border = border;
+const shadow = "";
+exports.box = {
+  border : border,
+  padding: 15,
+  boxShadow: 'rgb(220, 220, 220) 0px 0px 2px'
+}

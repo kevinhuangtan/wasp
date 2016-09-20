@@ -33,3 +33,14 @@ exports.objectToArray = function(obj){
   })
   return ret;
 }
+
+
+var options = {
+    weekday: "long", year: "numeric", month: "short",
+    day: "numeric", hour: "2-digit", minute: "2-digit"
+};
+
+exports.formatDate = function (dateString){
+  var dateObject = new Date(dateString);
+  return dateObject.toLocaleTimeString("en-us", options)
+}
