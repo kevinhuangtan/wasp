@@ -3,12 +3,12 @@ Node React Firebase Template
 
 TODO:
 - add more sources + links *
-- number of products next to source
 - back to top
 - price filtering
 - cart
 - popularity by clicking
 - keywords
+- redux
 
 future:
 - similar products

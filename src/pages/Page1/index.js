@@ -2,7 +2,9 @@ import React, { PropTypes, Component } from 'react';
 
 import firebase from 'firebase';
 import helpers from '../../helpers';
-import InfiniteScroll from 'react-infinite-scroller'
+import InfiniteScroll from 'react-infinite-scroller';
+var storeKeys = [  'asos', 'topman', 'uo', 'uniqlo', 'hm', 'jcrew', 'forever21'];
+
 
 const styles = {
   storeFilterSelected:{
@@ -24,16 +26,13 @@ const styles = {
     marginBottom: 5,
     display: 'inline-block',
     color: '#737373',
-  },
-  name:{
+    opacity: .7
+
   },
   productImage:{
     height: 300,
     cursor: 'pointer'
   },
-  timestamp: {
-    opacity: .4
-  }
 }
 
 class StoreFilter extends Component {
@@ -43,15 +42,17 @@ class StoreFilter extends Component {
   };
 
   render(){
-    const { store, storeFilters, storeFiltersSelected } = this.props;
+    const { store, storeFilters, storeFiltersSelected, total } = this.props;
+
+    var text = `${store} (${total})`
 
     if(storeFiltersSelected.indexOf(store) == -1){
       return (
-        <button onClick={this.handleClick} style={styles.storeFilter} onClick={this.handleClick}>{store}</button>
+        <button className="hover-opacity-reverse" onClick={this.handleClick} style={styles.storeFilter} onClick={this.handleClick}>{text}</button>
       )
     }
     return (
-      <button onClick={this.handleClick} style={styles.storeFilterSelected} onClick={this.handleClick}>{store}</button>
+      <button onClick={this.handleClick} style={styles.storeFilterSelected} onClick={this.handleClick}>{text}</button>
     )
 
   }
@@ -65,9 +66,28 @@ class StoreFilters extends Component {
     this.props.storeFilterClick(this.props.store);
   };
 
-  render(){
-    const { storeFilters, storeFiltersSelected, storeFilterClick } = this.props;
+  calculateStoreTotals = (products) => {
+    var storeTotals = {};
+    storeKeys.forEach((storeKey)=>{
+      storeTotals[storeKey] = 0;
+    })
+    products.forEach((product, i) =>{
+      var storeKey = product.store;
+      if(storeKey in storeTotals){
+        storeTotals[storeKey] += 1;
+      }
+      else{
+        storeTotals[storeKey] = 1;
+      }
+    })
+    return storeTotals
 
+  }
+
+  render(){
+    const { storeFilters, storeFiltersSelected, storeFilterClick, products } = this.props;
+
+    var storeTotals = this.calculateStoreTotals(products);
     return (
       <div style={{position: 'fixed', right: 0, display: 'flex', flexDirection:'column', alignItems:'flex-end', padding: 20}}>
         <p style={{opacity:.7, marginRight: 10}}><u>select sources</u></p>
@@ -78,6 +98,7 @@ class StoreFilters extends Component {
               store={store}
               storeFilters={storeFilters}
               storeFiltersSelected={storeFiltersSelected}
+              total={storeTotals[store]}
               storeFilterClick={storeFilterClick}/>
           )
         })}
@@ -97,7 +118,7 @@ class CategoryFilter extends Component {
 
     if(category != categoryFilterSelected){
       return (
-        <button onClick={this.handleClick} style={styles.storeFilter} onClick={this.handleClick}>{category}</button>
+        <button className="hover-opacity-reverse" onClick={this.handleClick} style={styles.storeFilter} onClick={this.handleClick}>{category}</button>
       )
     }
     return (
@@ -157,15 +178,11 @@ class Product extends Component {
   }
 }
 
-function loadFunc(){
-  console.log('load more')
-}
-
 
 export default class Home extends Component {
 
   state = {
-    storeFilters : ['uo', 'asos', 'topman', 'uniqlo', 'hm', 'jcrew', 'forever21'],
+    storeFilters : storeKeys, // HACK:
     storeFiltersSelected: [],
     categoryFilters : ['all', 'sweaters', 'loungewear', 'hoodies', 'jackets', 'shirts', 'denim', 'cardigans', 'pants', 'tees', 'polos', 'sweatpants', 'basics','vintage' ],
     categoryFilterSelected: "all",
@@ -255,14 +272,21 @@ export default class Home extends Component {
     this.setState({ page : p });
   }
 
-  filterProducts = () => {
-    var allProducts = this.state.allProducts;
+
+  filterProductsByCategory = (products) => {
     var ret = [];
-    allProducts.forEach((product, i) => {
-      if(!this.filterByStore(product)){
+    products.forEach((product, i) => {
+      if(!this.filterByCategory(product)){
         return
       }
-      if(!this.filterByCategory(product)){
+      ret.push(product);
+    });
+    return ret
+  }
+  filterProductsByStore = (products) => {
+    var ret = [];
+    products.forEach((product, i) => {
+      if(!this.filterByStore(product)){
         return
       }
       ret.push(product);
@@ -281,19 +305,19 @@ export default class Home extends Component {
 
     const { page, storeFilters, storeFiltersSelected, categoryFilters, categoryFilterSelected, allProducts } = this.state;
 
-    var Products = this.filterProducts();
-    Products = this.sortBy(Products);
+    var productsFilteredByCategory = this.filterProductsByCategory(allProducts);
+    var products = this.filterProductsByStore(productsFilteredByCategory)
+    products = this.sortBy(products);
 
     var hasMore = true;
-    if((page+1)*20 > Products.length){
+    if((page+1)*20 > products.length){
       hasMore = false;
     }
-    var ProductsSlice = Products.slice(0, (page + 1) * 15);
+    var productsSlice = products.slice(0, (page + 1) * 15);
 
     var ProductList;
-    if(ProductsSlice.length != 0){
-      ProductList =
-        ProductsSlice.map((product, i) => {
+    if(productsSlice.length != 0){
+      ProductList =  productsSlice.map((product, i) => {
           return (
             <Product product={product} key={i}/>
           )
@@ -303,14 +327,13 @@ export default class Home extends Component {
     if(storeFiltersSelected.length == 0){
       Notify = <h3 style={{float:'right'}}>start by selecting a source --------></h3>
     }
-    console.log(storeFiltersSelected)
-
     return (
-      <div style={{padding : 40, marginTop: 70, marginRight: 150}}>
+      <div style={{padding : 40, marginTop: 70, marginRight: 200}}>
         <StoreFilters
           storeFilters={storeFilters}
           storeFiltersSelected={storeFiltersSelected}
           storeFilterClick={this.storeFilterClick}
+          products={productsFilteredByCategory}
         />
         <CategoryFilters
           categoryFilters={categoryFilters}
