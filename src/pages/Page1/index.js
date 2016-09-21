@@ -10,20 +10,20 @@ const styles = {
     boxShadow: '0px 2px 4px 0px rgba(180,180,180,0.50)',
     borderRadius: '8px',
     borderWidth: '0',
-    marginBottom: 10,
+    margin: 10,
+    marginBottom: 5,
     display: 'inline-block',
     color: 'white',
-    marginRight: 10,
   },
   storeFilter:{
     backgroundColor: '#E7E7E7',
     boxShadow: '0px 2px 4px 0px rgba(180,180,180,0.50)',
     borderRadius: '8px',
     borderWidth: '0',
-    marginBottom: 10,
+    margin: 10,
+    marginBottom: 5,
     display: 'inline-block',
     color: '#737373',
-    marginRight: 10,
   },
   name:{
   },
@@ -70,7 +70,7 @@ class StoreFilters extends Component {
 
     return (
       <div style={{position: 'fixed', right: 0, display: 'flex', flexDirection:'column', alignItems:'flex-end', padding: 20}}>
-        <p style={{opacity:.7, marginRight: 10}}><u>sources</u></p>
+        <p style={{opacity:.7, marginRight: 10}}><u>select sources</u></p>
         {storeFilters.map((store, i) => {
           return (
             <StoreFilter
@@ -83,7 +83,6 @@ class StoreFilters extends Component {
         })}
       </div>
     )
-
   }
 }
 
@@ -166,10 +165,10 @@ function loadFunc(){
 export default class Home extends Component {
 
   state = {
-    storeFilters : ['uo', 'asos', 'topman'],
-    storeFiltersSelected: ['asos'],
-    categoryFilters : ['sweaters', 'loungewear', 'hoodies', 'outerwear', 'shirts', 'jeans', 'cardigans'],
-    categoryFilterSelected: "hoodies",
+    storeFilters : ['uo', 'asos', 'topman', 'uniqlo', 'hm', 'jcrew', 'forever21'],
+    storeFiltersSelected: [''],
+    categoryFilters : ['all', 'sweaters', 'loungewear', 'hoodies', 'jackets', 'shirts', 'denim', 'cardigans', 'pants', 'tees', 'polos', 'sweatpants', 'basics','vintage' ],
+    categoryFilterSelected: "all",
     allProducts : [],
     page : 0
   };
@@ -193,7 +192,7 @@ export default class Home extends Component {
     for(var i=0; i<ret.length; i++){
       var products = ret[i].products;
       for(var j=0; j<products.length; j++){
-        if(products[j].price){
+        if(products[j].price && products[j].name && products[j].image && products[j].category){
           productsRet.push({
             store: ret[i]['.key'],
             name: products[j].name[0].text,
@@ -211,7 +210,9 @@ export default class Home extends Component {
 
   filterByStore = (product) => {
     var storeFiltersSelected = this.state.storeFiltersSelected;
-
+    if(storeFiltersSelected == 'all'){
+      return true
+    }
     if(storeFiltersSelected.indexOf(product.store) == -1){
       return false
     }
@@ -219,6 +220,9 @@ export default class Home extends Component {
   }
 
   filterByCategory = (product) => {
+    if(this.state.categoryFilterSelected == 'all'){
+      return true
+    }
     if(product.category.indexOf(this.state.categoryFilterSelected) == -1){
       return false
     }
@@ -234,7 +238,10 @@ export default class Home extends Component {
     else{
       storeFiltersSelected.splice(index, 1);
     }
-    this.setState({ storeFiltersSelected : storeFiltersSelected });
+    this.setState({
+      storeFiltersSelected : storeFiltersSelected,
+      page: 0
+    });
   }
 
   categoryFilterClick = (category) => {
@@ -281,7 +288,7 @@ export default class Home extends Component {
     if((page+1)*20 > Products.length){
       hasMore = false;
     }
-    var ProductsSlice = Products.slice(0, (page + 1) * 20);
+    var ProductsSlice = Products.slice(0, (page + 1) * 15);
 
     var ProductList;
     if(ProductsSlice.length != 0){
@@ -294,10 +301,7 @@ export default class Home extends Component {
     }
 
     return (
-      <div>
-        <h1>Walt Steve Picasso</h1>
-        <p>WaSP scrapes the latest menswear products from a bunch of places</p>
-        <hr/>
+      <div style={{padding : 40, marginTop: 70, marginRight: 150}}>
         <StoreFilters
           storeFilters={storeFilters}
           storeFiltersSelected={storeFiltersSelected}
@@ -308,8 +312,9 @@ export default class Home extends Component {
           categoryFilterSelected={categoryFilterSelected}
           categoryFilterClick={this.categoryFilterClick}
         />
-      <br/>
+        <br/>
         <p>sort by price: low to high</p>
+        <hr/>
         <InfiniteScroll
             pageStart={0}
             loadMore={this.loadMore}

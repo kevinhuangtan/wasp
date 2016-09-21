@@ -5,6 +5,7 @@ exports.large = "20px";
 exports.medium = "14px";
 exports.small = "12px";
 
+exports.black = 'rgb(30,30,30)';
 exports.buttonColor = "#BACFA1";
 exports.gray = "rgb(180,180,180)";
 exports.red = "#D74848";
