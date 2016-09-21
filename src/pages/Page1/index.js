@@ -166,7 +166,7 @@ export default class Home extends Component {
 
   state = {
     storeFilters : ['uo', 'asos', 'topman', 'uniqlo', 'hm', 'jcrew', 'forever21'],
-    storeFiltersSelected: [''],
+    storeFiltersSelected: [],
     categoryFilters : ['all', 'sweaters', 'loungewear', 'hoodies', 'jackets', 'shirts', 'denim', 'cardigans', 'pants', 'tees', 'polos', 'sweatpants', 'basics','vintage' ],
     categoryFilterSelected: "all",
     allProducts : [],
@@ -299,6 +299,11 @@ export default class Home extends Component {
           )
         })
     }
+    var Notify;
+    if(storeFiltersSelected.length == 0){
+      Notify = <h3 style={{float:'right'}}>start by selecting a source --------></h3>
+    }
+    console.log(storeFiltersSelected)
 
     return (
       <div style={{padding : 40, marginTop: 70, marginRight: 150}}>
@@ -315,6 +320,7 @@ export default class Home extends Component {
         <br/>
         <p>sort by price: low to high</p>
         <hr/>
+        {Notify}
         <InfiniteScroll
             pageStart={0}
             loadMore={this.loadMore}
