@@ -173,25 +173,42 @@ class Product extends Component {
   }
 
   render(){
-    const { product } = this.props;
+
+    const { savedProducts, product } = this.props;
+    if(!product){
+      return null
+    }
+    var saved = false;
+    if(savedProducts.indexOf(product.key) != -1){
+      saved = true;
+    }
+
+    var Save =
+      <span
+        style={{cursor: 'pointer'}}
+        className="hover-underline"
+        onClick={this.saveProduct}>save</span>
+    if(saved){
+      Save = <span
+        style={{cursor: 'pointer', textDecoration: 'underline'}}
+        className="hover-underline"
+        onClick={this.saveProduct}>unsave</span>
+    }
     return (
       <div
         style={{margin: 15, width: 300}}>
         <img
-          onClick={() => this.goToProduct(product.url)}
+          onClick={() => this.goToProduct(product.href)}
           className="hover-opacity"
-          style={styles.productImage} src={product.img}/>
+          style={styles.productImage} src={product.image.src}/>
         <br/><br/>
         <p
-          onClick={() => this.goToProduct(product.url)}
+          onClick={() => this.goToProduct(product.href)}
           className="hover-opacity"
           style={{cursor:'pointer'}}>{product.name}</p>
         <p>${product.price.toFixed(2)} from <b>{product.store}</b></p>
         <p>
-          <span
-            style={{cursor: 'pointer'}}
-            className="hover-underline"
-            onClick={this.saveProduct}>{this.state.saved ? "saved" : "save"}</span>
+          {Save}
           {/*}<span
             className="hover-underline"
             onClick={() => this.goToProduct(product.url)}
@@ -205,56 +222,18 @@ class Product extends Component {
   }
 }
 
-
-export default class Home extends Component {
-
+class SearchView extends Component {
   state = {
     storeFilters : storeKeys, // HACK:
     storeFiltersSelected: [],
     categoryFilters : ['all', 'sweaters', 'loungewear', 'hoodies', 'jackets', 'shirts', 'denim', 'cardigans', 'pants', 'tees', 'polos', 'sweatpants', 'basics','vintage' ],
     categoryFilterSelected: "all",
-    allProducts : [],
     page : 0,
     showBackToTop: false,
     priceFloor : 0,
     priceCeiling : 1000,
-    savedProducts: []
-  };
-
-  ////////////////// loading ///////////////////
-  componentDidMount(){
-    document.addEventListener('scroll', this.handleScroll);
-
-    var refProducts = firebase.database().ref('products');
-    refProducts.on('value', (snap) => {
-      this.setState({ products : snap.val()});
-      this.setProducts(snap.val());
-    });
   }
 
-  setProducts = (products) => {
-    var productsRet = [];
-    var productKeys = Object.keys(products);
-    for(var i=0; i<productKeys.length; i++){
-      var key = productKeys[i];
-
-      var product = products[key];
-      if(product.price && product.name && product.image && product.category){
-        // necessary ?
-        productsRet.push({
-          store: product.store,
-          name: product.name,
-          price: parseFloat(product.price),
-          url: product.href,
-          img: product.image.src,
-          category: product.category,
-          key: product.key
-        })
-      }
-    }
-
-    this.setState({ allProducts: productsRet });
-  }
   loadMore = (p) => {
     this.setState({ page : p });
   }
@@ -363,29 +342,30 @@ export default class Home extends Component {
       priceCeiling : this.refs.priceCeiling.value,
     })
   }
-
-  saveProduct = (product) => {
-    console.log(product)
-    var savedProducts = this.state.savedProducts;
-    var productKey = product.key;
-    console.log(product)
-    var index = savedProducts.indexOf(productKey);
-    if(index == -1){
-      savedProducts.push(productKey);
-    }
-    else{
-      savedProducts.splice(index, 1);
-    }
-    this.setState({ savedProducts : savedProducts });
-  }
-
-  render() {
-
+  render(){
     const {
       page, storeFilters, storeFiltersSelected,
-      categoryFilters, categoryFilterSelected, allProducts, showBackToTop,
-      priceFloor, priceCeiling,
-      savedProducts} = this.state;
+      categoryFilters, categoryFilterSelected , showBackToTop,
+      priceFloor, priceCeiling } = this.state;
+    const { savedProducts, allProducts, saveProduct } = this.props;
+
+    var Notify;
+    if(storeFiltersSelected.length == 0){
+      Notify = <h2 style={{float:'right'}}>select source(s) --------></h2>
+    }
+
+    var ScrollToTopButton =
+    showBackToTop ?
+      <button style={{ position: 'fixed',
+          zIndex: 1000, left:0,right:0, width: 150, margin: '0 auto',
+          borderRadius: 5, top: 70,
+          boxShadow: '0px 2px 2px rgba(0,0,0,.2)',
+          backgroundColor: Styles.black,
+          color: Styles.offwhite,
+          borderWidth:0 }}
+          onClick={this.scrollToTop}>back to top</button>
+      : null;
+
 
     var productsFilteredByCategory = this.filterProductsByCategory(allProducts);
     var products = this.filterProductsByStore(productsFilteredByCategory);
@@ -402,41 +382,12 @@ export default class Home extends Component {
     if(productsSlice.length != 0){
       ProductList =  productsSlice.map((product, i) => {
           return (
-            <Product product={product} saveProduct={this.saveProduct} key={i}/>
+            <Product savedProducts={savedProducts} product={product} saveProduct={saveProduct} key={i}/>
           )
         })
     }
-    var Notify;
-    if(storeFiltersSelected.length == 0){
-      Notify = <h2 style={{float:'right'}}>select source(s) --------></h2>
-    }
-
-    console.log(savedProducts)
-    var ScrollToTopButton;
-    if(showBackToTop){
-      ScrollToTopButton =
-        <button style={{ position: 'fixed',
-          zIndex: 1000, left:0,right:0, width: 150, margin: '0 auto',
-          borderRadius: 5, top: 70,
-          boxShadow: '0px 2px 2px rgba(0,0,0,.2)',
-          backgroundColor: Styles.black,
-          color: Styles.offwhite,
-          borderWidth:0 }}
-          onClick={this.scrollToTop}>back to top</button>
-    }
-
     return (
-      <div style={{padding : 40, marginTop: 30, marginRight: 200}}>
-        <div
-          style={{
-            position: 'fixed', bottom: 25, right: 25, borderRadius : 5,
-            backgroundColor: colorMain,
-            padding: 10,
-            paddingLeft: 15,
-            paddingRight: 15,
-            color: 'white'}}>
-          <p style={{color: 'white', margin: 0}}>saved products ({savedProducts.length}) </p>
-        </div>
+      <section>
         <StoreFilters
           storeFilters={storeFilters}
           storeFiltersSelected={storeFiltersSelected}
@@ -474,6 +425,120 @@ export default class Home extends Component {
               {ProductList}
             </div>
         </InfiniteScroll>
+      </section>
+    )
+  }
+}
+
+class SavedView extends Component {
+  render(){
+    var { savedProducts, allProductsObj, saveProduct } = this.props;
+    var ProductList;
+    if(savedProducts.length != 0){
+      ProductList = savedProducts.map((productKey, i) => {
+        return (
+          <Product savedProducts={savedProducts} product={allProductsObj[productKey]} saveProduct={saveProduct} key={i}/>
+        )
+      })
+    }
+    else{
+      return (  <h3>No products saved!</h3>)
+    }
+
+    return (
+        <div  style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+          {ProductList}
+        </div>
+    )
+  }
+}
+
+export default class Home extends Component {
+
+  state = {
+    allProducts : [],
+    allProductsObj : {},
+    savedProducts: [],
+    savedProductsView: false
+  };
+
+  ////////////////// loading ///////////////////
+  componentDidMount(){
+    document.addEventListener('scroll', this.handleScroll);
+    var refProducts = firebase.database().ref('products');
+    refProducts.on('value', (snap) => {
+      this.setState({ allProductsObj : snap.val()});
+      this.setProducts(snap.val());
+    });
+  }
+
+  setProducts = (products) => {
+    var productsRet = [];
+    var productKeys = Object.keys(products);
+    for(var i=0; i<productKeys.length; i++){
+      var key = productKeys[i];
+
+      var product = products[key];
+      if(product.price && product.name && product.image && product.category){
+        // necessary ?
+        productsRet.push(product);
+      }
+    }
+
+    this.setState({ allProducts: productsRet });
+  }
+
+  saveProduct = (product) => {
+    var savedProducts = this.state.savedProducts;
+    var productKey = product.key;
+    var index = savedProducts.indexOf(productKey);
+    if(index == -1){
+      savedProducts.push(productKey);
+    }
+    else{
+      savedProducts.splice(index, 1);
+    }
+    this.setState({ savedProducts : savedProducts });
+  }
+
+  toggleSavedProductsView = () => {
+    this.setState({ savedProductsView : !this.state.savedProductsView});
+  }
+
+  render() {
+
+    const { allProducts, savedProducts, allProductsObj } = this.state;
+
+    var View =
+      <SearchView
+        allProducts={allProducts}
+        savedProducts={savedProducts}
+        saveProduct={this.saveProduct}/>
+      var text = `saved products (${savedProducts.length})`
+    if(this.state.savedProductsView){
+      View =
+        <SavedView
+          saveProduct={this.saveProduct}
+          allProductsObj={allProductsObj}
+          savedProducts={savedProducts}/>
+        text = "back to search"
+    }
+
+    return (
+      <div style={{padding : 40, marginTop: 30, marginRight: 200}}>
+        <button
+          onClick={this.toggleSavedProductsView}
+          style={{
+            position: 'fixed', bottom: 25, right: 25, borderRadius : 5,
+            backgroundColor: colorMain,
+            padding: 10,
+            paddingLeft: 15,
+            paddingRight: 15,
+            zIndex: 100,
+            color: 'white'}}>
+            {text}
+        </button>
+        {View}
       </div>
     )
   }
