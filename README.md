@@ -2,10 +2,8 @@ Node React Firebase Template
 ============================
 
 TODO:
-- add more sources + links *
-- back to top
-- price filtering
-- cart
+- add more sources + links
+- cart *
 - popularity by clicking
 - keywords
 - redux
