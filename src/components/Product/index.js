@@ -47,24 +47,26 @@ export default class Product extends Component {
     }
     return (
       <div
-        style={{margin: 15, width: 300}}>
+        style={{margin: 15, width: 280}}>
         <img
           onClick={() => this.goToProduct(product.href)}
           className="hover-opacity"
           style={styles.productImage} src={product.image.src}/>
         <br/><br/>
-        <p
-          onClick={() => this.goToProduct(product.href)}
-          className="hover-opacity"
-          style={{cursor:'pointer'}}>{product.name}</p>
-        <p>${product.price.toFixed(2)} from&nbsp;
-          <u
-            style={{cursor:'pointer'}}
+        <div style={{width:250}}>
+          <p
+            onClick={() => this.goToProduct(product.href)}
             className="hover-opacity"
-            onClick={() => this.goToProduct(product.href)}>{storeMap[product.store]}</u></p>
-        <p>
-          {Save}
-        </p>
+            style={{cursor:'pointer'}}>{product.name}</p>
+          <p>${product.price.toFixed(2)} from&nbsp;
+            <u
+              style={{cursor:'pointer'}}
+              className="hover-opacity"
+              onClick={() => this.goToProduct(product.href)}>{storeMap[product.store]}</u></p>
+          <p>
+            {Save}
+          </p>
+        </div>
       </div>
     )
   }

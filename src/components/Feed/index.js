@@ -160,7 +160,7 @@ class HomeContainer extends Component {
     }
 
     return (
-      <div style={{padding : 40, marginTop: 30, marginRight: 300}}>
+      <div style={{padding : 40, paddingRight:0, marginTop: 30, marginRight: 300}}>
         <button
           onClick={this.toggleSavedProductsView}
           style={{

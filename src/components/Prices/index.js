@@ -2,10 +2,12 @@ import React, { PropTypes, Component } from 'react';
 
 const styles = {
   priceInput:{
-    width: 60,
+    width: 50,
     margin: 20,
     marginBottom: 0,
-    marginTop: 0
+    marginTop: 0,
+    textAlign: 'right',
+    paddingRight: 5
   }
 }
 
