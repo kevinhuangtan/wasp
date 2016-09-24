@@ -7,13 +7,14 @@ export const DECREMENT_AMOUNT = 'DECREMENT_AMOUNT'
 export const TOGGLE_CATEGORY = 'TOGGLE_CATEGORY'
 export const TOGGLE_STORE = 'TOGGLE_STORE'
 
-export const STORE_KEYS = [ 'asos', 'topman', 'uo', 'uniqlo', 'hm', 'jcrew', 'forever21'];
+export const STORE_KEYS = [ 'asos', 'topman', 'zara', 'uo', 'uniqlo', 'hm', 'jcrew', 'forever21'];
 export const STORE_MAP = {
   'asos': 'Asos',
   'topman': 'Topman',
   'uo': 'Urban Outfitters',
   'uniqlo': 'Uniqlo',
   'hm': 'H&M',
+  'zara' : "Zara",
   'jcrew': 'J. Crew',
   'forever21': 'Forever 21'
 }

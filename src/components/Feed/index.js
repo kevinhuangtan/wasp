@@ -51,7 +51,7 @@ class SearchView extends Component {
     const { storesSelected, categorySelected, savedProducts, filteredProductsArr, onClickSave } = this.props;
 
     var isStores = storesSelected.length > 0;
-    var Notify = isStores ? null : <p>Welcome to Walt Steve Picasso! Start by selecting one or more stores from the right column --></p>;
+    var Notify = isStores ? null : <p>Welcome to WaSP! Start by selecting one or more stores from the right column --></p>;
     var products =  Object.assign([], filteredProductsArr);
     var hasMore = true;
     if((page + 1)*20 > products.length){
