@@ -47,7 +47,7 @@ export default class Product extends Component {
     }
     return (
       <div
-        style={{margin: 15, width: 280}}>
+        style={{margin: 25, width: 280}}>
         <img
           onClick={() => this.goToProduct(product.href)}
           className="hover-opacity"

@@ -35,13 +35,14 @@ const CategoriesKeys =
     'jackets',
     'shirts',
     'denim',
-    'cardigans',
+    // 'cardigans',
     'pants',
     'tees',
     'polos',
     'sweatpants',
+    'joggers',
     'basics',
-    'vintage'
+    // 'vintage'
   ];
 
 
