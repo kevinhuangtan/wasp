@@ -1,14 +1,15 @@
 import React, { PropTypes, Component } from 'react';
 import Styles from '../../styles';
 
+const margin = 7;
+
 const styles = {
   storeFilterSelected:{
     backgroundColor: Styles.colorMain,
     boxShadow: '0px 2px 4px 0px rgba(180,180,180,0.50)',
     borderRadius: '8px',
     borderWidth: '0',
-    margin: 10,
-    marginBottom: 5,
+    margin: margin,
     display: 'inline-block',
     color: 'white',
   },
@@ -17,8 +18,7 @@ const styles = {
     boxShadow: '0px 2px 4px 0px rgba(180,180,180,0.50)',
     borderRadius: '8px',
     borderWidth: '0',
-    margin: 10,
-    marginBottom: 5,
+    margin: margin,
     display: 'inline-block',
     color: '#737373',
     opacity: .7

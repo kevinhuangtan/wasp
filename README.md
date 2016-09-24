@@ -7,7 +7,6 @@ TODO:
 - add more sources + links
 - popularity by clicking
 - keywords
-- intro slides
 
 future:
 - similar products

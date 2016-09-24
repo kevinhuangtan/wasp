@@ -50,25 +50,9 @@ class SearchView extends Component {
     const { page, showBackToTop } = this.state;
     const { storesSelected, categorySelected, savedProducts, filteredProductsArr, onClickSave } = this.props;
 
-    var Notify;
-    if(storesSelected.length == 0){
-      Notify = <h2 style={{float:'right'}}>select source(s) --------></h2>
-    }
-
-    var ScrollToTopButton =
-    showBackToTop ?
-      <button style={{ position: 'fixed',
-          zIndex: 1000, left:0,right:0, width: 150, margin: '0 auto',
-          borderRadius: 5, top: 70,
-          boxShadow: '0px 2px 2px rgba(0,0,0,.2)',
-          backgroundColor: Styles.black,
-          color: Styles.offwhite,
-          borderWidth:0 }}
-          onClick={this.scrollToTop}>back to top</button>
-      : null;
-
+    var isStores = storesSelected.length > 0;
+    var Notify = isStores ? null : <p>Welcome to Walt Steve Picasso! Start by selecting one or more stores from the right column --></p>;
     var products =  Object.assign([], filteredProductsArr);
-
     var hasMore = true;
     if((page + 1)*20 > products.length){
       hasMore = false;
@@ -83,6 +67,7 @@ class SearchView extends Component {
         )
       })
     }
+
     return (
       <section>
         <Stores/>
@@ -91,7 +76,17 @@ class SearchView extends Component {
         <Prices/>
         <hr/>
         {Notify}
-        {ScrollToTopButton}
+        <button
+            style={{ position: 'fixed',
+              zIndex: 1000, left:0,right:0, width: 150, margin: '0 auto',
+              borderRadius: 5, top: 70,
+              boxShadow: '0px 2px 2px rgba(0,0,0,.2)',
+              backgroundColor: Styles.black,
+              color: Styles.offwhite,
+              borderWidth:0,
+              display: showBackToTop ? "block" : "none"
+            }}
+            onClick={this.scrollToTop}>back to top</button>
         <InfiniteScroll
             pageStart={0}
             loadMore={this.loadMore}
@@ -145,7 +140,6 @@ class HomeContainer extends Component {
   render() {
 
     const { storesSelected, categorySelected, savedProducts, allProductsObj, filteredProductsArr } = this.props;
-    var text;
     var View =
       <SearchView
         storesSelected={storesSelected}
@@ -162,11 +156,11 @@ class HomeContainer extends Component {
           onClickSave={this.onClickSave}
           allProductsObj={allProductsObj}
           savedProducts={savedProducts}/>
-        text = "back to search"
+      text = "back to search"
     }
 
     return (
-      <div style={{padding : 40, marginTop: 30, marginRight: 200}}>
+      <div style={{padding : 40, marginTop: 30, marginRight: 300}}>
         <button
           onClick={this.toggleSavedProductsView}
           style={{

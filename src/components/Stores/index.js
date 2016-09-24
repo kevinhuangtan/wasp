@@ -1,14 +1,15 @@
 import React, { PropTypes, Component } from 'react';
 import Styles from '../../styles';
 
+const margin = 7;
+
 const styles = {
   storeFilterSelected:{
     backgroundColor: Styles.colorMain,
     boxShadow: '0px 2px 4px 0px rgba(180,180,180,0.50)',
     borderRadius: '8px',
     borderWidth: '0',
-    margin: 10,
-    marginBottom: 5,
+    margin: margin,
     display: 'inline-block',
     color: 'white',
   },
@@ -17,8 +18,7 @@ const styles = {
     boxShadow: '0px 2px 4px 0px rgba(180,180,180,0.50)',
     borderRadius: '8px',
     borderWidth: '0',
-    margin: 10,
-    marginBottom: 5,
+    margin: margin,
     display: 'inline-block',
     color: '#737373',
     opacity: .7
@@ -53,7 +53,7 @@ const Stores = ({ storesSelected, storeTotals, storeKeys, storeMap, onStoreClick
 
   return (
     <div style={{position: 'fixed', right: 0, display: 'flex', flexDirection:'column', alignItems:'flex-end', padding: 20}}>
-      <p style={{opacity:.7, marginRight: 10}}><u>select sources</u></p>
+      <p style={{opacity:.7, marginRight: 10}}><u>select stores</u></p>
       {storeKeys.map((store, i) => {
         return (
           <StoreFilter

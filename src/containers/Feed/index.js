@@ -56,7 +56,7 @@ const mapStateToProps = (state) => {
 
   var filteredProductsArr = filterProducts(state);
   return {
-    storesSelected: state.categorySelected,
+    storesSelected: state.storesSelected,
     categorySelected: state.categorySelected,
     allProductsObj: state.products,
     savedProducts: state.savedProducts,
