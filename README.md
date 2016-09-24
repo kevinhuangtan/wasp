@@ -1,23 +1,18 @@
-Node React Firebase Template
-============================
+Walt Steve Picasso
+==================
+
+Free platform for aggregating men's fashion products from various sources
 
 TODO:
 - add more sources + links
 - popularity by clicking
 - keywords
-- redux
+- intro slides
 
 future:
 - similar products
 
-stores
-- end clothing ??
-- uniqlo
-- h&m
-- zara
-- mr porter ??
-- haberdasher
-- j crew
-- forever 21
-- net a porter
-- http://www.yoox.com/us/women
+stores to add
+- end clothing
+- mr porter
+- haberdasher (ebay)

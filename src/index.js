@@ -18,6 +18,7 @@ var config = {
  storageBucket: "walt-steve-picasso.appspot.com",
  messagingSenderId: "473516392362"
 };
+
 firebase.initializeApp(config);
 
 ////////////////////////////////////////////////
@@ -26,60 +27,49 @@ firebase.initializeApp(config);
 
 // These are modules defined by you
 
-import Page1 from './pages/Page1'; // you can 'Page1' to whatever makes sense
+import Feed from './containers/Feed';
+import Firebase from './containers/Firebase';
 import Styles from './styles';
 const black = Styles.black;
 
+/// initialize redux
+import { createStore } from 'redux'
+import todoApp from './redux/reducers'
+import { Provider } from 'react-redux'
+let store = createStore(todoApp)
 
 ////////////////////////////////////////////////
 ///////////////*~ React Component ~*////////////
 ////////////////////////////////////////////////
 
-// Routing
-function getCurrentPage(){
-  var CurrentPage;
-  switch (window.location.pathname){
-    case "/":
-      CurrentPage = <Page1/>
-      break
-    default:
-      CurrentPage = <Page1/>;
-      break
-  }
-  return CurrentPage
-}
 
-
-// Each module (i.e, /Page1/index.js) exports a React component
-// this is a React component
 class YourReactApp extends Component {
-
-  // every React component has a render()
   render(){
-
-    var Page = getCurrentPage();
     return (
-      <section>
-        <div
-          className="shadow"
-          style={{
-            position: 'fixed',
-            top:0,
-            zIndex:1000,
-            padding: 15,
-            backgroundColor: 'rgb(254,254,254)', paddingLeft: 40,
-            width: '100%',
-            borderStyle:'solid', borderColor:black, borderWidth: 0, borderBottomWidth: 3,
-            display: 'flex',
-            flexDirection:'row',
-            justifyContent:'space-between',
-            alignItems:'center'
-          }}>
-          <h4 style={{margin:0}}><b style={{color:black}}>Wa</b>lt <b style={{color:black}}>S</b>teve <b style={{color:black}}>P</b>icasso</h4>
-          <p style={{margin:0, fontSize: 12}}>WaSP is a free platform that aggregates the latest menswear products from a bunch of sources</p>
-        </div>
-        {Page}
-      </section>
+      <Provider store={store}>
+        <section>
+          <div
+            className="shadow"
+            style={{
+              position: 'fixed',
+              top:0,
+              zIndex:1000,
+              padding: 15,
+              backgroundColor: 'rgb(254,254,254)', paddingLeft: 40,
+              width: '100%',
+              borderStyle:'solid', borderColor:black, borderWidth: 0, borderBottomWidth: 3,
+              display: 'flex',
+              flexDirection:'row',
+              justifyContent:'space-between',
+              alignItems:'center'
+            }}>
+            <h4 style={{margin:0}}><b style={{color:black}}>Wa</b>lt <b style={{color:black}}>S</b>teve <b style={{color:black}}>P</b>icasso</h4>
+            <p style={{margin:0, fontSize: 12}}>WaSP is a free platform that aggregates the latest menswear products from a bunch of sources</p>
+          </div>
+          <Feed/>
+          <Firebase/>
+        </section>
+      </Provider>
     )
   }
 }
