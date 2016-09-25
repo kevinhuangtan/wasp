@@ -64,7 +64,7 @@ class YourReactApp extends Component {
               alignItems:'center'
             }}>
             <h4 style={{margin:0}}><b style={{color:black}}>Wa</b>lt <b style={{color:black}}>S</b>teve <b style={{color:black}}>P</b>icasso</h4>
-            <p style={{margin:0, fontSize: 12}}>WaSP is a free platform that aggregates the latest menswear products from a bunch of sources</p>
+            <p style={{margin:0, fontSize: 12}}>WaSP is a free platform for finding the latest menswear</p>
           </div>
           <Feed/>
           <Firebase/>

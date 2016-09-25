@@ -51,7 +51,14 @@ class SearchView extends Component {
     const { storesSelected, categorySelected, savedProducts, filteredProductsArr, onClickSave } = this.props;
 
     var isStores = storesSelected.length > 0;
-    var Notify = isStores ? null : <p>Welcome to WaSP! Start by selecting one or more stores from the right column --></p>;
+    var Notify = isStores ? null :
+      <p style={{width:600}}>
+        Welcome to WaSP!
+        <br/><br/>I made <a target="_blank" href="https://www.youtube.com/watch?v=irCZAR5xQ5A&feature=youtu.be&t=2s">Walt Steve Picasso</a> because I got tired of having a million tabs open whenever I wanted to shop online.<br/>
+        <br/>So I made this platform, which is free to use for everyone. WaSP periodically scrapes top menswear sites to get the latest products. It then lets you filter and save them for later.
+        <br/><br/>I hope WaSP helps you upgrade your look <i className="em em-fire"></i><i className="em em-fire"></i>
+        <br/><br/>Sincerely,<br/><a href="mailto:hello@kevintan.me?body=Hey! My name is Kevin and I like music and making products for people :)">Kevin</a>
+        <br/><br/>Start by selecting one or more stores from the right column <span className="blinker">--></span></p>;
     var products =  Object.assign([], filteredProductsArr);
     var hasMore = true;
     if((page + 1)*20 > products.length){
