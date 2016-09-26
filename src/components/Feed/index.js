@@ -13,6 +13,7 @@ import Categories from '../../containers/Categories';
 import Stores from '../../containers/Stores';
 import Prices from '../../containers/Prices';
 import Product from '../../containers/Product';
+import Login from '../../components/Login';
 
 import {  ChasingDots } from 'better-react-spinkit'
 
@@ -48,10 +49,16 @@ class WelcomeText extends Component {
         <br/><br/>I hope WaSP helps you upgrade your look <i className="em em-fire"></i><i className="em em-fire"></i>
         <br/><br/>Sincerely,<br/><a href="mailto:hello@kevintan.me?body=Hey! My name is Kevin and I like music and making products for people :)">Kevin</a>
         <br/><br/>Start by selecting one or more stores
-          <span className="blinker"
-            style={{
-              display : mobile ? 'none' : 'block'
-            }}>--></span></p>;
+        <span className="blinker"
+          style={{
+            display : mobile ? 'none' : 'block'
+          }}>-->
+        </span>
+        <br/>
+        <Login/>  
+      </p>;
+
+
     return Notify
   }
 }
