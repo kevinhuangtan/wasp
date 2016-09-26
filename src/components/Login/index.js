@@ -7,10 +7,19 @@ import FacebookLogin from 'react-facebook-login';
 // }
 
 class LoginButton extends Component {
+  state = {
+    signedIn : false,
+    userName : ''
+  }
   componentDidMount(){
+    var self = this;
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        console.log(user)
+        console.log('user', user.email);
+        self.setState({
+          signedIn : true,
+          userName : user.email
+         })
         // User is signed in.
       } else {
         // No user is signed in.
@@ -24,9 +33,10 @@ class LoginButton extends Component {
     firebase.auth().signInWithPopup(provider).then(function(result) {
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       var token = result.credential.accessToken;
+      console.log('token', token);
       // The signed-in user info.
       var user = result.user;
-      console.log(user.email, user.displayName, user.uid,)
+      console.log('logged in: ', user.email, user.displayName, user.uid,)
       // ...
     }).catch(function(error) {
       // Handle Errors here.
@@ -41,20 +51,21 @@ class LoginButton extends Component {
     });
 
   }
+  signout = () => {
+
+  }
   render(){
-      return(
-        <button onClick={this.login}>Facebook Login</button>
-      )
+    const { signedIn, userName } = this.state;
+    if(signedIn){
+      return <span>{userName}</span>
+    }
+    return(
+      <button
+        className="btn btn-block btn-social btn-facebook"
+        onClick={this.login}><span className="fa fa-facebook"></span> Sign in with Facebook</button>
+    )
   }
 }
-// <FacebookLogin
-//   appId="180398319064354"
-//   autoLoad={true}
-//   scope="name,email,picture,public_profile,user_friends"
-//   callback={responseFacebook}
-//   cssClass="fb-login-button"
-//   icon="fa-facebook"
-// />
 
 const Container = ({ }) => {
   return (
