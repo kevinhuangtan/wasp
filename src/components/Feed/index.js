@@ -102,7 +102,14 @@ class SearchView extends Component {
 
   render(){
     const { page, showBackToTop } = this.state;
-    const { storesSelected, categorySelected, savedProducts, filteredProductsArr, onClickSave } = this.props;
+    const {
+      storesSelected,
+      categorySelected,
+      savedProducts,
+      allProductsObj,
+      filteredProductsArr,
+      onClickSave
+    } = this.props;
 
     var products =  Object.assign([], filteredProductsArr);
     var hasMore = true;
@@ -115,7 +122,7 @@ class SearchView extends Component {
     var ProductList;
 
     if(productsSlice.length != 0){
-      ProductList =  productsSlice.map((product, i) => {
+      ProductList = productsSlice.map((product, i) => {
         return (
           <Product savedProducts={savedProducts} product={product} onClickSave={onClickSave} key={i}/>
         )
@@ -132,7 +139,7 @@ class SearchView extends Component {
             {ProductList}
           </div>
       </InfiniteScroll>
-    if(storesSelected.length > 0 && productsSlice.length == 0){
+    if(storesSelected.length > 0 && Object.keys(allProductsObj).length == 0){
       Content = <ChasingDots size={100} />
     }
 
@@ -234,6 +241,7 @@ class HomeContainer extends Component {
           allProductsObj={allProductsObj}
           savedProducts={savedProducts}/>
       : <SearchView
+          allProductsObj={allProductsObj}
           storesSelected={storesSelected}
           categorySelected={categorySelected}
           filteredProductsArr={filteredProductsArr}
