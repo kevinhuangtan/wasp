@@ -2,9 +2,31 @@ import { connect } from 'react-redux'
 import { toggleCategory } from '../../redux/actions'
 import Categories from '../../components/Categories'
 
+const CategoriesKeys =
+  [
+    'all',
+    'sweaters',
+    // 'loungewear',
+    'hoodies',
+    'jackets',
+    'shirts',
+    'denim',
+    // 'cardigans',
+    'pants',
+    'tees',
+    'polos',
+    'sweatpants',
+    'joggers',
+    // 'basics',
+    // 'vintage'
+  ];
+
+
+
 const mapStateToProps = (state) => {
   return {
-    categorySelected: state.categorySelected
+    categorySelected: state.categorySelected,
+    categoriesKeys: CategoriesKeys
   }
 }
 

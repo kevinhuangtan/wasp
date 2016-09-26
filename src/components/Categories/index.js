@@ -1,9 +1,17 @@
 import React, { PropTypes, Component } from 'react';
 import Styles from '../../styles';
 
+var MobileDetect = require('mobile-detect');
+var mobile = new MobileDetect(window.navigator.userAgent).mobile();
+
 const margin = 7;
 
 const styles = {
+  container: {
+    alignItems:'flex-end',
+    overflowX: mobile ? 'scroll' : 'none',
+    whiteSpace: mobile ? 'nowrap' : 'inherit'
+  },
   storeFilterSelected:{
     backgroundColor: Styles.colorMain,
     boxShadow: '0px 2px 4px 0px rgba(180,180,180,0.50)',
@@ -26,26 +34,6 @@ const styles = {
   },
 }
 
-const CategoriesKeys =
-  [
-    'all',
-    'sweaters',
-    'loungewear',
-    'hoodies',
-    'jackets',
-    'shirts',
-    'denim',
-    // 'cardigans',
-    'pants',
-    'tees',
-    'polos',
-    'sweatpants',
-    'joggers',
-    'basics',
-    // 'vintage'
-  ];
-
-
 class CategoryFilter extends Component {
 
   handleClick = () => {
@@ -67,11 +55,11 @@ class CategoryFilter extends Component {
 }
 
 
-const Categories  = ({ categorySelected, onCategoryClick } ) => {
+const Categories  = ({ categorySelected, categoriesKeys, onCategoryClick } ) => {
 
     return (
-      <div>
-        {CategoriesKeys.map((category, i) => {
+      <div style={styles.container}>
+        {categoriesKeys.map((category, i) => {
           return (
             <CategoryFilter
               key={i}

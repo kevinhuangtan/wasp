@@ -32,6 +32,10 @@ import Firebase from './containers/Firebase';
 import Styles from './styles';
 const black = Styles.black;
 
+var MobileDetect = require('mobile-detect');
+var mobile = new MobileDetect(window.navigator.userAgent).mobile();
+
+
 /// initialize redux
 import { createStore } from 'redux'
 import todoApp from './redux/reducers'
@@ -51,7 +55,7 @@ class YourReactApp extends Component {
           <div
             className="shadow"
             style={{
-              position: 'fixed',
+              position: mobile ? 'absolute' : 'fixed',
               top:0,
               zIndex:1000,
               padding: 15,
