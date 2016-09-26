@@ -9,7 +9,7 @@ import FacebookLogin from 'react-facebook-login';
 class LoginButton extends Component {
   login = () => {
     var provider = new firebase.auth.FacebookAuthProvider();
-    provider.addScope('name,image,public_profile,email,user_friends');
+    provider.addScope('public_profile,email,user_friends');
 
     firebase.auth().signInWithPopup(provider).then(function(result) {
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
