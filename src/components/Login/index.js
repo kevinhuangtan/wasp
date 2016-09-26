@@ -7,6 +7,16 @@ import FacebookLogin from 'react-facebook-login';
 // }
 
 class LoginButton extends Component {
+  componentDidMount(){
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        console.log(user)
+        // User is signed in.
+      } else {
+        // No user is signed in.
+      }
+    });
+  }
   login = () => {
     var provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('public_profile,email,user_friends');
@@ -16,7 +26,7 @@ class LoginButton extends Component {
       var token = result.credential.accessToken;
       // The signed-in user info.
       var user = result.user;
-      console.log(user)
+      console.log(user.email, user.displayName, user.uid,)
       // ...
     }).catch(function(error) {
       // Handle Errors here.
