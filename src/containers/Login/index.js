@@ -4,7 +4,8 @@ import Login from '../../components/Login'
 
 const mapStateToProps = (state) => {
   return {
-    savedProducts: state.savedProducts,
+    savedProducts: state.savedProducts || [],
+    storesSelected: state.storesSelected
   }
 }
 

@@ -7,10 +7,14 @@ TODO:
 - popularity by clicking
 - more stores
 - keywords + https://github.com/prakhar1989/react-tags
+- activity feed
+- adjust size of products
+- admin, remove product
+- sold out remove
 
 future:
 - similar products
-- machine learning tagging
+- machine learning tagging, collaborative filtering
 
 stores to add
 - end clothing

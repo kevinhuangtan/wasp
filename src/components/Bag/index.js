@@ -6,6 +6,9 @@ var MobileDetect = require('mobile-detect');
 var mobile = new MobileDetect(window.navigator.userAgent).mobile();
 
 export default class Bag extends Component {
+  state = {
+    firstName : ""
+  }
   componentDidMount(){
     var self = this;
     // retrieve user's bag from previous session
@@ -13,20 +16,35 @@ export default class Bag extends Component {
       if (user) {
         var refProducts = firebase.database().ref(`users/${user.uid}/bag`);
         refProducts.once('value', (snap) => {
-          self.props.setBag(snap.val());
+          self.props.setBag(snap.val() || []);
         });
+        var refName = firebase.database().ref(`users/${user.uid}/name`);
+        refName.once('value', (snap) => {
+          if(snap.val()){
+            var nameWords = snap.val().split(/[ ,]+/);
+            self.setState({ firstName : nameWords[0]})
+          }
+        })
       }
     });
   }
   render(){
     const {savedProducts, view, handleClick} = this.props;
+    const { firstName } = this.state;
     var isSaved = savedProducts.length > 0;
-    var text = "back to search";
+    var text;
     if(view == "feed"){
       text = `Bag (${savedProducts.length})`
+      if(firstName){
+        text = `${firstName}'s ${text}`;
+      }
+    }
+    else{
+      text = "back to search"
     }
     return(
       <button
+        className="hover-opacity-light"
         onClick={handleClick}
         style={{
             position: 'fixed',

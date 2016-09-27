@@ -16,6 +16,7 @@ const storeFilter = {
   padding: 5,
   paddingLeft: 10,
   paddingRight:10,
+  paddingTop: 7,
   borderRadius: 0,
   margin: 2,
   marginBottom: 10

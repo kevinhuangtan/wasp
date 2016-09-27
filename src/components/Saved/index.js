@@ -16,7 +16,7 @@ const Saved = ({ allProductsObj, savedProducts, view }) => {
     })
   }
   else{
-    ProductList = ( <h3>No products saved!</h3>)
+    ProductList = ( <h3>Your bag is empty!</h3>)
   }
 
   return (

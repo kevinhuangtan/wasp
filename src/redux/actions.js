@@ -19,6 +19,9 @@ export const STORE_MAP = {
   'forever21': 'forever 21'
 }
 
+////////////////////////////////////////////////
+//////////////*~ Price Filter ~*////////////////
+////////////////////////////////////////////////
 
 export function changePriceCeiling(price) {
  return { type: 'CHANGE_PRICE_CEILING', price }
@@ -31,18 +34,25 @@ export function incrementAmount(){
   return {type: INCREMENT_AMOUNT}
 }
 
+////////////////////////////////////////////////
+//////////////*~ Category Filter ~*/////////////
+////////////////////////////////////////////////
+
 export function toggleCategory(category) {
   return { type: TOGGLE_CATEGORY, category }
 }
+
+////////////////////////////////////////////////
+////////////////*~ Store Filter ~*//////////////
+////////////////////////////////////////////////
 
 export function toggleStore(store) {
   return { type: TOGGLE_STORE, store }
 }
 
-
-export function toggleView() {
-  return { type: 'TOGGLE_VIEW' }
-}
+////////////////////////////////////////////////
+////////*~ Fetch Products from Firebase~*///////
+////////////////////////////////////////////////
 
 export function requestProducts() {
   return { type: 'FETCH_PRODUCTS_REQUEST' }
@@ -52,13 +62,9 @@ export function receiveProducts(products) {
   return { type: 'FETCH_PRODUCTS_SUCCESS', products }
 }
 
-export function requestActivity() {
-  return { type: 'FETCH_ACTIVITY_REQUEST' }
-}
-
-export function receiveActivity(products) {
-  return { type: 'FETCH_ACTIVITY_SUCCESS', products }
-}
+////////////////////////////////////////////////
+/////////////////////*~ Bag ~*//////////////////
+////////////////////////////////////////////////
 
 export function toggleSave(product) {
   return { type: 'TOGGLE_SAVED_PRODUCT', product }
@@ -66,4 +72,20 @@ export function toggleSave(product) {
 
 export function setBagFromSession(bag) {
   return { type: 'SET_BAG', bag }
+}
+
+////////////////////////////////////////////////
+///////////////////*~ Other ~*//////////////////
+////////////////////////////////////////////////
+
+export function toggleView() {
+  return { type: 'TOGGLE_VIEW' }
+}
+
+export function requestActivity() {
+  return { type: 'FETCH_ACTIVITY_REQUEST' }
+}
+
+export function receiveActivity(products) {
+  return { type: 'FETCH_ACTIVITY_SUCCESS', products }
 }

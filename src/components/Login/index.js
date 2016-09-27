@@ -30,7 +30,12 @@ export default class LoginButton extends Component {
       console.log('token', token);
       // The signed-in user info.
       var user = result.user;
-      console.log('logged in: ', user.email, user.displayName, user.uid,)
+      console.log('logged in: ', user.email, user.displayName, user.uid,);
+      firebase.database().ref(`users/${user.uid}`).update({
+        name: user.displayName,
+        email: user.email,
+        token: token
+      });
       // ...
     }).catch(function(error) {
       // Handle Errors here.
@@ -46,11 +51,15 @@ export default class LoginButton extends Component {
 
   }
   render(){
-    const { savedProducts } = this.props;
+    const { savedProducts, storesSelected } = this.props;
     const { signedIn, userName, user } = this.state;
-    if(savedProducts.length == 0 || this.state.user){
+    if(user){
       return null
     }
+    if(storesSelected.length == 0){
+      return null
+    }
+
     return(
       <div style={{
           backgroundColor:'white',

@@ -50,10 +50,15 @@ export default class SearchView extends Component {
   state = {
     page : 0,
     showBackToTop: false,
+    productsLength: 0
   }
 
   componentDidMount(){
     document.addEventListener('scroll', this.handleScroll);
+    this.detectChangeFilters(this.props.filteredProductsArr);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.detectChangeFilters(nextProps.filteredProductsArr);
   }
 
   loadMore = (p) => {
@@ -74,6 +79,17 @@ export default class SearchView extends Component {
     }
   }
 
+  // reset page number so products don't have to all refresh
+  detectChangeFilters = (filteredProductsArr) => {
+    var length = filteredProductsArr.length;
+    if(length - this.state.productsLength != 0){
+      this.setState( {
+        page : 0,
+        productsLength : length
+      })
+    }
+  }
+
   render(){
 
     const { page, showBackToTop } = this.state;
@@ -87,7 +103,7 @@ export default class SearchView extends Component {
     if(view != "feed"){return null}
     var products =  Object.assign([], filteredProductsArr);
     var hasMore = true;
-    if((page + 1)*20 > products.length){
+    if((page + 1) * 20 > products.length){
       hasMore = false;
     }
     var productsSlice = products.slice(0, (page + 1) * 15);

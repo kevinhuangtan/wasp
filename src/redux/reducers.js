@@ -64,10 +64,11 @@ function activity(state = {}, action){
 }
 
 function updateUserBag(savedProducts){
+  // console.log('start updating')
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-      console.log('updated bag for user ', user.uid);
-      firebase.database().ref(`users/${user.uid}/bag`).update(savedProducts);
+      // console.log('updated bag for user ', user.uid);
+      firebase.database().ref(`users/${user.uid}/bag`).set(savedProducts || []);
     }
   });
 }
@@ -87,7 +88,7 @@ function savedProducts(state = [], action){
       updateUserBag(ret)
       return ret
     case 'SET_BAG':
-      return action.bag
+      return action.bag || []
     default:
       return state
   }

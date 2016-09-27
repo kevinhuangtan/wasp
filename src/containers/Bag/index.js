@@ -4,7 +4,7 @@ import Bag from '../../components/Bag'
 
 const mapStateToProps = (state) => {
   return {
-    savedProducts: state.savedProducts,
+    savedProducts: state.savedProducts || [],
     view: state.view
   }
 }
