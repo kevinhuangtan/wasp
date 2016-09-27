@@ -1,25 +1,21 @@
 import { connect } from 'react-redux'
-import { toggleSave, STORE_MAP } from '../../redux/actions'
-import Product from '../../components/Product'
+import { toggleCategory } from '../../redux/actions'
+import Login from '../../components/Login'
 
 const mapStateToProps = (state) => {
   return {
     savedProducts: state.savedProducts,
-    storeMap: STORE_MAP
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClickSave: (category) => {
-      dispatch(toggleSave(category))
-    }
   }
 }
 
 const Container = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Product)
+)(Login)
 
 export default Container

@@ -1,18 +1,21 @@
 import { connect } from 'react-redux'
-import { toggleSave, STORE_MAP } from '../../redux/actions'
-import Product from '../../components/Product'
+import { toggleView, setBagFromSession } from '../../redux/actions'
+import Bag from '../../components/Bag'
 
 const mapStateToProps = (state) => {
   return {
     savedProducts: state.savedProducts,
-    storeMap: STORE_MAP
+    view: state.view
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClickSave: (category) => {
-      dispatch(toggleSave(category))
+    handleClick: () => {
+      dispatch(toggleView())
+    },
+    setBag: (bag) => {
+      dispatch(setBagFromSession(bag))
     }
   }
 }
@@ -20,6 +23,6 @@ const mapDispatchToProps = (dispatch) => {
 const Container = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Product)
+)(Bag)
 
 export default Container

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { toggleSave } from '../../redux/actions'
-import Feed from '../../components/Feed'
+import Search from '../../components/Search'
+
 
 const filterByStore = (product, storesSelected) => {
   if(storesSelected.indexOf(product.store) == -1){
@@ -53,29 +54,25 @@ const filterProducts = (state) => {
 
 // subscribe to store's state
 const mapStateToProps = (state) => {
-
   var filteredProductsArr = filterProducts(state);
   return {
-    storesSelected: state.storesSelected,
-    categorySelected: state.categorySelected,
     allProductsObj: state.products,
-    savedProducts: state.savedProducts,
-    filteredProductsArr: filteredProductsArr, // filter products
+    view: state.view,
+    categorySelected: state.categorySelected,
+    storesSelected: state.storesSelected,
+    filteredProductsArr: filteredProductsArr
   }
 }
 
 // create handler than dispatches an action
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClickSave: (product) => {
-      dispatch(toggleSave(product))
-    }
   }
 }
 
 const Container = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Feed)
+)(Search)
 
 export default Container

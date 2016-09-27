@@ -39,6 +39,11 @@ export function toggleStore(store) {
   return { type: TOGGLE_STORE, store }
 }
 
+
+export function toggleView() {
+  return { type: 'TOGGLE_VIEW' }
+}
+
 export function requestProducts() {
   return { type: 'FETCH_PRODUCTS_REQUEST' }
 }
@@ -57,4 +62,8 @@ export function receiveActivity(products) {
 
 export function toggleSave(product) {
   return { type: 'TOGGLE_SAVED_PRODUCT', product }
+}
+
+export function setBagFromSession(bag) {
+  return { type: 'SET_BAG', bag }
 }

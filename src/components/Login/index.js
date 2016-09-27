@@ -1,15 +1,11 @@
 import React, { PropTypes, Component } from 'react';
-import FacebookLogin from 'react-facebook-login';
+import Styles from '../../styles';
 
-// const responseFacebook = (response) => {
-//   console.log(response);
-//   var provider = new firebase.auth.FacebookAuthProvider();
-// }
-
-class LoginButton extends Component {
+export default class LoginButton extends Component {
   state = {
     signedIn : false,
-    userName : ''
+    userName : '',
+    user : ""
   }
   componentDidMount(){
     var self = this;
@@ -18,11 +14,9 @@ class LoginButton extends Component {
         console.log('user', user.email);
         self.setState({
           signedIn : true,
-          userName : user.email
-         })
-        // User is signed in.
-      } else {
-        // No user is signed in.
+          userName : user.email,
+          user: user
+        })
       }
     });
   }
@@ -51,25 +45,31 @@ class LoginButton extends Component {
     });
 
   }
-  signout = () => {
-
-  }
   render(){
-    const { signedIn, userName } = this.state;
-    if(signedIn){
-      return <span>{userName}</span>
+    const { savedProducts } = this.props;
+    const { signedIn, userName, user } = this.state;
+    if(savedProducts.length == 0 || this.state.user){
+      return null
     }
     return(
-      <button
-        className="btn btn-block btn-social btn-facebook"
-        onClick={this.login}><span className="fa fa-facebook"></span> Sign in with Facebook</button>
+      <div style={{
+          backgroundColor:'white',
+          border: '1px solid black',
+          position:'fixed',
+          bottom:85,
+          right: 25,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems:'flex-start',
+          width: 250,
+          padding:10,
+          ...Styles.boxShadow
+        }}>
+        <p>If you want to save products for later, login with facebook. It takes just a second!</p>
+        <button
+          className="btn btn-block btn-social btn-facebook"
+          onClick={this.login}><span className="fa fa-facebook"></span> Login with Facebook</button>
+      </div>
     )
   }
 }
-
-const Container = ({ }) => {
-  return (
-    <LoginButton/>
-  )
-}
-export default Container

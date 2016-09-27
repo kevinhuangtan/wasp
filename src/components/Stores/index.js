@@ -18,23 +18,17 @@ const storeFilter = {
   paddingLeft: 10,
   paddingRight:10,
   borderRadius: 0,
-  margin: 2
+  margin: 2,
+  marginBottom: 10
 
 }
 
 const styles = {
   container: {
-    // position: mobile ? 'relative' : 'fixed',
-    // right: 0,
-    display: mobile ? 'block' : 'flex',
-    // flexDirection: 'column',
-    // alignItems:'flex-end',
     alignItems:'flex-end',
-    marginTop: mobile ? 120 : 0,
     overflowX: mobile ? 'scroll' : 'none',
     whiteSpace: mobile ? 'nowrap' : 'inherit',
-    fontSize : 12,
-    marginBottom: 15,
+    fontSize: Styles.small,
     marginTop : mobile ? 100: 0,
 
   },
@@ -59,8 +53,8 @@ class StoreFilter extends Component {
     const { store, storeMap, storesSelected, total } = this.props;
     const storeName = storeMap[store];
 
-    // var text = `${storeName} (${total})`;
-    var text = `${storeName}`;
+    var text = `${storeName} ${total}`;
+    // var text = `${storeName}`;
 
     if(storesSelected.indexOf(store) == -1){
       return (
@@ -73,24 +67,15 @@ class StoreFilter extends Component {
   }
 }
 
-class StoreAll extends Component {
-  handleClick = () => {
-
-  }
-
-  render(){
-    return (
-      <button onClick={this.handleClick} style={styles.storeFilterSelected} onClick={this.handleClick}>all</button>
-    )
-  }
-}
-
-class Container extends Component {
+export default class Container extends Component {
   render(){
     const {storesSelected, storeTotals, storeKeys, storeMap, onStoreClick} = this.props;
     return (
 
       <div style={styles.container}>
+        <button
+          className="btn-no-hover"
+          style={{marginRight: 0, border:0, cursor:'inherit', paddingLeft:0, whiteSpace:'nowrap'}}>stores: </button>
         {storeKeys.map((store, i) => {
           return (
             <StoreFilter
@@ -106,18 +91,3 @@ class Container extends Component {
     )
   }
 }
-
-const Stores = ({ storesSelected, storeTotals, storeKeys, storeMap, onStoreClick }) => {
-  return(
-    <Container
-      storesSelected={storesSelected}
-      storeTotals={storeTotals}
-      storeKeys={storeKeys}
-      storeMap={storeMap}
-      onStoreClick={onStoreClick}
-      />
-  )
-
-}
-
-export default Stores

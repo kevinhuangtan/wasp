@@ -63,6 +63,15 @@ function activity(state = {}, action){
   }
 }
 
+function updateUserBag(savedProducts){
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      console.log('updated bag for user ', user.uid);
+      firebase.database().ref(`users/${user.uid}/bag`).update(savedProducts);
+    }
+  });
+}
+
 function savedProducts(state = [], action){
   switch (action.type) {
     case 'TOGGLE_SAVED_PRODUCT':
@@ -75,11 +84,15 @@ function savedProducts(state = [], action){
       else{
         ret.splice(index, 1);
       }
+      updateUserBag(ret)
       return ret
+    case 'SET_BAG':
+      return action.bag
     default:
       return state
   }
 }
+
 
 function prices(state = {priceFloor : 0, priceCeiling : 1000}, action){
   switch (action.type) {
@@ -96,6 +109,15 @@ function prices(state = {priceFloor : 0, priceCeiling : 1000}, action){
   }
 }
 
+function view(state = "feed", action){
+  switch (action.type) {
+    case 'TOGGLE_VIEW':
+      var ret = (state == "feed") ? "bag" : "feed";
+      return ret
+    default:
+      return state
+  }
+}
 
 const todoApp = combineReducers({
   amount,
@@ -103,7 +125,8 @@ const todoApp = combineReducers({
   storesSelected,
   products,
   savedProducts,
-  prices
+  prices,
+  view
 })
 
 export default todoApp

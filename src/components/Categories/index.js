@@ -17,7 +17,8 @@ const storeFilter = {
   paddingLeft: 10,
   paddingRight:10,
   borderRadius: 0,
-  margin: 2
+  margin: 2,
+  marginBottom: 10
 }
 
 const styles = {
@@ -25,7 +26,7 @@ const styles = {
     alignItems:'flex-end',
     overflowX: mobile ? 'scroll' : 'none',
     whiteSpace: mobile ? 'nowrap' : 'inherit',
-    fontSize: 12
+    fontSize: Styles.small
   },
   storeFilterSelected:{
     ...storeFilter,
@@ -58,10 +59,14 @@ class CategoryFilter extends Component {
 }
 
 
-const Categories  = ({ categorySelected, categoriesKeys, onCategoryClick } ) => {
-
+export default class Categories extends Component {
+  render(){
+    const { categorySelected, categoriesKeys, onCategoryClick } = this.props;
     return (
       <div style={styles.container}>
+        <button
+          className="btn-no-hover"
+          style={{marginRight: 0, border:0, cursor:'inherit', paddingLeft:0}}>category: </button>
         {categoriesKeys.map((category, i) => {
           return (
             <CategoryFilter
@@ -73,7 +78,7 @@ const Categories  = ({ categorySelected, categoriesKeys, onCategoryClick } ) => 
         })}
       </div>
     )
-
+  }
 }
 
 
@@ -82,5 +87,3 @@ const Categories  = ({ categorySelected, categoriesKeys, onCategoryClick } ) => 
 //   completed: PropTypes.bool.isRequired,
 //   text: PropTypes.string.isRequired
 // }
-
-export default Categories

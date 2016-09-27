@@ -68,6 +68,11 @@ button:focus{
   outline: none;
 }
 
+.btn-no-hover:hover{
+  box-shadow: none;
+
+}
+
 select{
   -webkit-transition: all 100ms ease;
   -moz-transition: all 100ms ease;
