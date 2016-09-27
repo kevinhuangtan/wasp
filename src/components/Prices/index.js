@@ -7,14 +7,14 @@ const styles = {
     marginBottom: 0,
     marginTop: 0,
     textAlign: 'right',
-    paddingRight: 5
+    paddingRight: 5,
   }
 }
 
 const Prices = ({prices, handleChangePriceFloor, handleChangePriceCeiling }) => {
   return (
-    <div>
-      <span>price range: </span>
+    <div style={{fontSize : 12}}>
+      <span>price range:</span>
       <input
         style={styles.priceInput}
         placeholder="low"

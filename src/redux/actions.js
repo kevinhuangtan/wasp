@@ -9,14 +9,14 @@ export const TOGGLE_STORE = 'TOGGLE_STORE'
 
 export const STORE_KEYS = [ 'asos', 'topman', 'zara', 'uo', 'uniqlo', 'hm', 'jcrew', 'forever21'];
 export const STORE_MAP = {
-  'asos': 'Asos',
-  'topman': 'Topman',
-  'uo': 'Urban Outfitters',
-  'uniqlo': 'Uniqlo',
-  'hm': 'H&M',
-  'zara' : "Zara",
-  'jcrew': 'J. Crew',
-  'forever21': 'Forever 21'
+  'asos': 'asos',
+  'topman': 'topman',
+  'uo': 'urban outfitters',
+  'uniqlo': 'uniqlo',
+  'hm': 'h&m',
+  'zara' : "zara",
+  'jcrew': 'j. crew',
+  'forever21': 'forever 21'
 }
 
 
@@ -39,6 +39,11 @@ export function toggleStore(store) {
   return { type: TOGGLE_STORE, store }
 }
 
+
+export function toggleView() {
+  return { type: 'TOGGLE_VIEW' }
+}
+
 export function requestProducts() {
   return { type: 'FETCH_PRODUCTS_REQUEST' }
 }
@@ -47,6 +52,18 @@ export function receiveProducts(products) {
   return { type: 'FETCH_PRODUCTS_SUCCESS', products }
 }
 
+export function requestActivity() {
+  return { type: 'FETCH_ACTIVITY_REQUEST' }
+}
+
+export function receiveActivity(products) {
+  return { type: 'FETCH_ACTIVITY_SUCCESS', products }
+}
+
 export function toggleSave(product) {
   return { type: 'TOGGLE_SAVED_PRODUCT', product }
+}
+
+export function setBagFromSession(bag) {
+  return { type: 'SET_BAG', bag }
 }

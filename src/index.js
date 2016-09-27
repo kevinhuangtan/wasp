@@ -27,14 +27,10 @@ firebase.initializeApp(config);
 
 // These are modules defined by you
 
-import Feed from './containers/Feed';
-import Firebase from './containers/Firebase';
 import Styles from './styles';
-const black = Styles.black;
 
 var MobileDetect = require('mobile-detect');
 var mobile = new MobileDetect(window.navigator.userAgent).mobile();
-
 
 /// initialize redux
 import { createStore } from 'redux'
@@ -42,10 +38,38 @@ import todoApp from './redux/reducers'
 import { Provider } from 'react-redux'
 let store = createStore(todoApp)
 
+// your defined Classes
+import Firebase from './containers/Firebase';
+import Login from './containers/Login';
+import Saved from './containers/Saved';
+import Search from './containers/Search';
+import Bag from './containers/Bag';
+
+const styles = {
+  banner:{
+    position: mobile ? 'absolute' : 'fixed',
+    top:0,
+    zIndex:1000,
+    padding: 15,
+    backgroundColor: 'rgb(254,254,254)', paddingLeft: 40,
+    width: '100%',
+    borderStyle:'solid', borderColor: Styles.black, borderWidth: 0, borderBottomWidth: 3,
+    display: 'flex',
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center'
+  },
+  container:{
+    padding: mobile ? 15 : 40,
+    marginTop: mobile ? 0 : 30,
+    paddingRight: mobile ? 0 : 50,
+    paddingBottom: mobile ? 150 : 0
+  }
+}
+
 ////////////////////////////////////////////////
 ///////////////*~ React Component ~*////////////
 ////////////////////////////////////////////////
-
 
 class YourReactApp extends Component {
   render(){
@@ -54,23 +78,17 @@ class YourReactApp extends Component {
         <section>
           <div
             className="shadow"
-            style={{
-              position: mobile ? 'absolute' : 'fixed',
-              top:0,
-              zIndex:1000,
-              padding: 15,
-              backgroundColor: 'rgb(254,254,254)', paddingLeft: 40,
-              width: '100%',
-              borderStyle:'solid', borderColor:black, borderWidth: 0, borderBottomWidth: 3,
-              display: 'flex',
-              flexDirection:'row',
-              justifyContent:'space-between',
-              alignItems:'center'
-            }}>
-            <h4 style={{margin:0}}><b style={{color:black}}>Wa</b>lt <b style={{color:black}}>S</b>teve <b style={{color:black}}>P</b>icasso</h4>
-            <p style={{margin:0, fontSize: 12}}>WaSP is a free platform for finding the latest menswear</p>
+            style={styles.banner}>
+            <h4 style={{margin:0}}>
+              <b style={{color: Styles.black}}>Wa</b>lt <b style={{color: Styles.black}}>S</b>teve <b style={{color: Styles.black}}>P</b>icasso</h4>
+            <p style={{margin:0, fontSize: Styles.small}}>WaSP is a free platform for finding the latest menswear</p>
           </div>
-          <Feed/>
+          <div style={styles.container}>
+            <Bag/>
+            <Saved/>
+            <Search/>
+          </div>
+          <Login/>
           <Firebase/>
         </section>
       </Provider>

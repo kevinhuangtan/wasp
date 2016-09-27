@@ -6,36 +6,40 @@ var mobile = new MobileDetect(window.navigator.userAgent).mobile();
 
 const margin = 7;
 
+const storeFilter = {
+  backgroundColor: '#E7E7E7',
+  boxShadow: '0px 2px 4px 0px rgba(180,180,180,0.50)',
+  borderWidth: 0,
+  display: 'inline-block',
+  color: '#737373',
+  opacity: .7,
+  whiteSpace: 'nowrap',
+  padding: 5,
+  paddingLeft: 10,
+  paddingRight:10,
+  borderRadius: 0,
+  margin: 2,
+  marginBottom: 10
+
+}
+
 const styles = {
   container: {
-    position: mobile ? 'relative' : 'fixed',
-    right: 0,
-    display: mobile ? 'block' : 'flex',
-    flexDirection: 'column',
     alignItems:'flex-end',
-    padding: mobile ? 0 : 20,
-    marginTop: mobile ? 90 : 0,
     overflowX: mobile ? 'scroll' : 'none',
-    whiteSpace: mobile ? 'nowrap' : 'inherit'
+    whiteSpace: mobile ? 'nowrap' : 'inherit',
+    fontSize: Styles.small,
+    marginTop : mobile ? 100: 0,
+
+  },
+
+  storeFilter:{
+    ...storeFilter
   },
   storeFilterSelected:{
+    ...storeFilter,
     backgroundColor: Styles.colorMain,
-    boxShadow: '0px 2px 4px 0px rgba(180,180,180,0.50)',
-    borderRadius: '8px',
-    borderWidth: '0',
-    margin: margin,
-    display: 'inline-block',
     color: 'white',
-  },
-  storeFilter:{
-    backgroundColor: '#E7E7E7',
-    boxShadow: '0px 2px 4px 0px rgba(180,180,180,0.50)',
-    borderRadius: '8px',
-    borderWidth: '0',
-    margin: margin,
-    display: 'inline-block',
-    color: '#737373',
-    opacity: .7
   },
 }
 
@@ -49,7 +53,8 @@ class StoreFilter extends Component {
     const { store, storeMap, storesSelected, total } = this.props;
     const storeName = storeMap[store];
 
-    var text = `${storeName} (${total})`
+    var text = `${storeName} ${total}`;
+    // var text = `${storeName}`;
 
     if(storesSelected.indexOf(store) == -1){
       return (
@@ -62,28 +67,27 @@ class StoreFilter extends Component {
   }
 }
 
-const Stores = ({ storesSelected, storeTotals, storeKeys, storeMap, onStoreClick }) => {
+export default class Container extends Component {
+  render(){
+    const {storesSelected, storeTotals, storeKeys, storeMap, onStoreClick} = this.props;
+    return (
 
-  return (
-    <div style={styles.container}>
-      <p style={{
-          opacity:.7,
-          marginRight: 10,
-          display: mobile ? 'none' : 'block'
-        }}><u>select stores</u></p>
-      {storeKeys.map((store, i) => {
-        return (
-          <StoreFilter
-            key={i}
-            store={store}
-            storeMap={storeMap}
-            storesSelected={storesSelected}
-            total={storeTotals[store]}
-            onStoreClick={onStoreClick}/>
-        )
-      })}
-    </div>
-  )
+      <div style={styles.container}>
+        <button
+          className="btn-no-hover"
+          style={{marginRight: 0, border:0, cursor:'inherit', paddingLeft:0, whiteSpace:'nowrap'}}>stores: </button>
+        {storeKeys.map((store, i) => {
+          return (
+            <StoreFilter
+              key={i}
+              store={store}
+              storeMap={storeMap}
+              storesSelected={storesSelected}
+              total={storeTotals[store]}
+              onStoreClick={onStoreClick}/>
+          )
+        })}
+      </div>
+    )
+  }
 }
-
-export default Stores
