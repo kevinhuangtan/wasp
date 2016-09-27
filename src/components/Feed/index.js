@@ -55,7 +55,6 @@ class WelcomeText extends Component {
           }}>-->
         </span>
         <br/>
-        <Login/>  
       </p>;
 
 
