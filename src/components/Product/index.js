@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import Stores from '../../containers/Stores';
+import Styles from '../../styles';
 
 const styles = {
   productImage:{
@@ -38,12 +39,12 @@ export default class Product extends Component {
       <span
         style={{cursor: 'pointer'}}
         className="hover-underline"
-        onClick={this.onClickSave}>save</span>
+        onClick={this.onClickSave}>add to bag</span>
     if(saved){
       Save = <span
         style={{cursor: 'pointer', textDecoration: 'underline'}}
         className="hover-underline"
-        onClick={this.onClickSave}>saved</span>
+        onClick={this.onClickSave}>bagged</span>
     }
     return (
       <div
@@ -58,7 +59,7 @@ export default class Product extends Component {
             onClick={() => this.goToProduct(product.href)}
             className="hover-opacity"
             style={{cursor:'pointer'}}>{product.name}</p>
-          <p>${product.price.toFixed(2)} from&nbsp;
+          <p><span style={{color:Styles.red}}>${product.price.toFixed(2)}</span> from&nbsp;
             <u
               style={{cursor:'pointer'}}
               className="hover-opacity"

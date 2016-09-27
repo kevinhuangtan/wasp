@@ -12,7 +12,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onClickSave: (category) => {
-      console.log('dispatch: ', category)
       dispatch(toggleSave(category))
     }
   }

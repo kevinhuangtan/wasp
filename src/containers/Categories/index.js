@@ -33,7 +33,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onCategoryClick: (category) => {
-      console.log('dispatch: ', category)
       dispatch(toggleCategory(category))
     }
   }

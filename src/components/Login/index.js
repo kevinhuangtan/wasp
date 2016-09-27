@@ -1,19 +1,22 @@
 import React, { PropTypes, Component } from 'react';
-import FacebookLogin from 'react-facebook-login';
+import Styles from '../../styles';
 
-// const responseFacebook = (response) => {
-//   console.log(response);
-//   var provider = new firebase.auth.FacebookAuthProvider();
-// }
-
-class LoginButton extends Component {
+export default class LoginButton extends Component {
+  state = {
+    signedIn : false,
+    userName : '',
+    user : ""
+  }
   componentDidMount(){
+    var self = this;
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        console.log(user)
-        // User is signed in.
-      } else {
-        // No user is signed in.
+        console.log('user', user.email);
+        self.setState({
+          signedIn : true,
+          userName : user.email,
+          user: user
+        })
       }
     });
   }
@@ -24,9 +27,10 @@ class LoginButton extends Component {
     firebase.auth().signInWithPopup(provider).then(function(result) {
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       var token = result.credential.accessToken;
+      console.log('token', token);
       // The signed-in user info.
       var user = result.user;
-      console.log(user.email, user.displayName, user.uid,)
+      console.log('logged in: ', user.email, user.displayName, user.uid,)
       // ...
     }).catch(function(error) {
       // Handle Errors here.
@@ -42,23 +46,30 @@ class LoginButton extends Component {
 
   }
   render(){
-      return(
-        <button onClick={this.login}>Facebook Login</button>
-      )
+    const { savedProducts } = this.props;
+    const { signedIn, userName, user } = this.state;
+    if(savedProducts.length == 0 || this.state.user){
+      return null
+    }
+    return(
+      <div style={{
+          backgroundColor:'white',
+          border: '1px solid black',
+          position:'fixed',
+          bottom:85,
+          right: 25,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems:'flex-start',
+          width: 250,
+          padding:10,
+          ...Styles.boxShadow
+        }}>
+        <p>If you want to save products for later, login with facebook. It takes just a second!</p>
+        <button
+          className="btn btn-block btn-social btn-facebook"
+          onClick={this.login}><span className="fa fa-facebook"></span> Login with Facebook</button>
+      </div>
+    )
   }
 }
-// <FacebookLogin
-//   appId="180398319064354"
-//   autoLoad={true}
-//   scope="name,email,picture,public_profile,user_friends"
-//   callback={responseFacebook}
-//   cssClass="fb-login-button"
-//   icon="fa-facebook"
-// />
-
-const Container = ({ }) => {
-  return (
-    <LoginButton/>
-  )
-}
-export default Container
