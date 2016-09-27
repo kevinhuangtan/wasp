@@ -6,31 +6,34 @@ var mobile = new MobileDetect(window.navigator.userAgent).mobile();
 
 const margin = 7;
 
+const storeFilter = {
+  backgroundColor: '#E7E7E7',
+  boxShadow: '0px 2px 4px 0px rgba(180,180,180,0.50)',
+  borderWidth: 0,
+  display: 'inline-block',
+  color: '#737373',
+  opacity: .7,
+  padding: 5,
+  paddingLeft: 10,
+  paddingRight:10,
+  borderRadius: 0,
+  margin: 2
+}
+
 const styles = {
   container: {
     alignItems:'flex-end',
     overflowX: mobile ? 'scroll' : 'none',
-    whiteSpace: mobile ? 'nowrap' : 'inherit'
+    whiteSpace: mobile ? 'nowrap' : 'inherit',
+    fontSize: 12
   },
   storeFilterSelected:{
+    ...storeFilter,
     backgroundColor: Styles.colorMain,
-    boxShadow: '0px 2px 4px 0px rgba(180,180,180,0.50)',
-    borderRadius: '8px',
-    borderWidth: '0',
-    margin: margin,
-    display: 'inline-block',
     color: 'white',
   },
   storeFilter:{
-    backgroundColor: '#E7E7E7',
-    boxShadow: '0px 2px 4px 0px rgba(180,180,180,0.50)',
-    borderRadius: '8px',
-    borderWidth: '0',
-    margin: margin,
-    display: 'inline-block',
-    color: '#737373',
-    opacity: .7
-
+    ...storeFilter
   },
 }
 

@@ -54,6 +54,15 @@ function products(state = {}, action){
   }
 }
 
+function activity(state = {}, action){
+  switch (action.type) {
+    case 'FETCH_ACTIVITY_SUCCESS':
+      return action.activity
+    default:
+      return state
+  }
+}
+
 function savedProducts(state = [], action){
   switch (action.type) {
     case 'TOGGLE_SAVED_PRODUCT':
@@ -86,6 +95,7 @@ function prices(state = {priceFloor : 0, priceCeiling : 1000}, action){
       return state
   }
 }
+
 
 const todoApp = combineReducers({
   amount,

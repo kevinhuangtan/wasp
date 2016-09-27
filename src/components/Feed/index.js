@@ -13,7 +13,7 @@ import Categories from '../../containers/Categories';
 import Stores from '../../containers/Stores';
 import Prices from '../../containers/Prices';
 import Product from '../../containers/Product';
-import Login from '../../components/Login';
+import Welcome from '../../containers/Welcome';
 
 import {  ChasingDots } from 'better-react-spinkit'
 
@@ -22,9 +22,6 @@ const colorSecondary = Styles.colorSecondary;
 const colorText = Styles.colorText;
 
 const styles = {
-  welcomeText:{
-    width: mobile ? "90%" : 600
-  },
   backToTopBtn: {
     position: 'fixed',
     zIndex: 1000, left:0,right:0, width: 150, margin: '0 auto',
@@ -37,31 +34,7 @@ const styles = {
   }
 }
 
-class WelcomeText extends Component {
-  render(){
-    const { storesSelected } = this.props;
-    var isStores = storesSelected.length > 0;
-    var Notify = isStores ? null :
-      <p style={styles.welcomeText}>
-        Welcome to WaSP!
-        <br/><br/>I made <a target="_blank" href="https://www.youtube.com/watch?v=irCZAR5xQ5A&feature=youtu.be&t=2s">Walt Steve Picasso</a> because I got tired of having a million tabs open whenever I wanted to shop online.<br/>
-        <br/>So I made this platform, which is free to use for everyone. WaSP periodically scrapes top menswear sites to get the latest products. It then lets you filter and save them for later.
-        <br/><br/>I hope WaSP helps you upgrade your look <i className="em em-fire"></i><i className="em em-fire"></i>
-        <br/><br/>Sincerely,<br/><a href="mailto:hello@kevintan.me?body=Hey! My name is Kevin and I like music and making products for people :)">Kevin</a>
-        <br/><br/>Start by selecting one or more stores
-        <span className="blinker"
-          style={{
-            display : mobile ? 'none' : 'block'
-          }}>-->
-        </span>
-        <br/>
-        <Login/>  
-      </p>;
 
-
-    return Notify
-  }
-}
 
 class BackToTopBtn extends Component {
     render(){
@@ -157,7 +130,7 @@ class SearchView extends Component {
         <br/>
         <Prices/>
         <hr/>
-        <WelcomeText storesSelected={storesSelected}/>
+        <Welcome storesSelected={storesSelected}/>
         <BackToTopBtn
           showBackToTop={showBackToTop} scrollToTop={this.scrollToTop}/>
         {Content}
