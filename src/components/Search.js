@@ -214,13 +214,16 @@ export default class SearchView extends Component {
             {ProductList}
           </div>
       </InfiniteScroll>
-    if(storesSelected.length > 0 && Object.keys(allProductsObj).length == 0){
-      Content = <ChasingDots size={100} />
-    }
+
 
     var Showing;
     if(productsSlice.length == 0){
-      Content = <NoProducts tagsSelected={tagsSelected} storesSelected={storesSelected}/>
+      if(storesSelected.length > 0 && Object.keys(allProductsObj).length == 0){
+        Content = <ChasingDots size={100} />
+      }
+      else{
+        Content = <NoProducts tagsSelected={tagsSelected} storesSelected={storesSelected}/>        
+      }
     }
     else{
       Showing =
@@ -231,7 +234,11 @@ export default class SearchView extends Component {
     }
 
     return (
-      <section style={{paddingBottom : 100}}>
+      <section style={{
+          padding: mobile ? 10 : 0,
+          paddingBottom : 100,
+          paddingTop: mobile ? 50 : 0
+        }}>
         <Stores/>
         {/*}<Categories/>*/}
         <Tags/>

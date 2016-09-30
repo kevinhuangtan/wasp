@@ -42,7 +42,7 @@ const styles = {
   banner:{
     position: mobile ? 'absolute' : 'fixed',
     top:0,
-    zIndex:1000,
+    zIndex: 1000,
     padding: 15,
     backgroundColor: 'rgb(254,254,254)', paddingLeft: 40,
     width: '100%',
@@ -53,8 +53,8 @@ const styles = {
     alignItems:'center'
   },
   container:{
-    padding: mobile ? 15 : 40,
-    marginTop: mobile ? 0 : 30,
+    padding: mobile ? 0 : 40,
+    marginTop: mobile ? 60 : 30,
     paddingRight: mobile ? 0 : 50,
     paddingBottom: mobile ? 150 : 0
   }

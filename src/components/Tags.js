@@ -54,7 +54,6 @@ class TagsContainer extends Component {
         const { suggestions } = this.state;
         const { tagsSelected } = this.props;
         var tagsSelectedTransform = this.transform(tagsSelected);
-        console.log(suggestions)
         return (
             <div style={{marginTop: 20}}>
               <ReactTags

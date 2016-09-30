@@ -6,13 +6,18 @@ import Stores from '../containers/Stores';
 import Tags from '../containers/Tags';
 import FBLogin from '../components/FBLogin';
 
+var MobileDetect = require('mobile-detect');
+var mobile = new MobileDetect(window.navigator.userAgent).mobile();
+
 const styles = {
   step_container:{
-    height: 150,
+    height: mobile? 250 : 150,
+    padding: mobile ? 20 : 0,
     display: 'flex',
     flexDirection:'column',
     justifyContent:'flex-end',
-    paddingBottom: 30
+    paddingBottom: 30,
+    // overflow: 'hidden'
   }
 }
 
@@ -34,7 +39,7 @@ class Step_3 extends Component {
     return (
       <div>
         <div style={styles.step_container}>
-          <p>add one or more tags to narrow down.</p>
+          <p>add one or more tags to narrow down</p>
             <p style={{
                 opacity: 1,
                 marginBottom:0,
@@ -71,8 +76,13 @@ class Step_2 extends Component {
     return (
       <div>
         <div style={styles.step_container}>
-          <p>login to save products for later.</p>
-          <FBLogin/>
+          <p>login to save products for later</p>
+          <div style={{
+              width: mobile ? 200 : 'auto',
+              margin: mobile ? '0 auto' : 'auto'
+            }}>
+            <FBLogin/>
+          </div>
         </div>
         <button onClick={() => this.props.setStep(3)}>skip</button>
       </div>
@@ -94,7 +104,9 @@ class Step_1 extends Component {
         <div style={styles.step_container}>
           <p>select one or more stores you want products from</p>
           <br/>
-          <Stores/>
+          <div>
+            <Stores/>
+          </div>
         </div>
         {Button}
       </div>
@@ -164,12 +176,14 @@ export default class Onboard extends Component {
           alignItems: 'center',
           textAlign: 'center',
           marginTop: 20,
-          display: 'flex'
+          display: mobile ? 'block' : 'flex',
+          overflow: mobile ? 'auto' : 'hidden'
         }}>
         <div
           style={{
             opacity: step == 0 ? 0 : 1,
-            margin: '0 auto', width: 270,
+            margin: '0 auto',
+            width: 270,
             marginBottom: 50
           }}>
           <ProgressSteps steps={3} current={step} />

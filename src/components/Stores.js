@@ -26,11 +26,11 @@ const storeFilter = {
 
 const styles = {
   container: {
+    // display: 'flex',
     alignItems:'flex-end',
     overflowX: mobile ? 'scroll' : 'none',
     whiteSpace: mobile ? 'nowrap' : 'inherit',
     fontSize: Styles.small,
-    marginTop : mobile ? 100: 0,
 
   },
 
@@ -77,10 +77,6 @@ export default class Container extends Component {
     return (
 
       <div style={styles.container}>
-          {/*}<button
-            className="btn-no-hover"
-            style={{marginRight: 0, border:0, cursor:'inherit', paddingLeft:0, whiteSpace:'nowrap'}}>stores:
-            </button>*/}
         <button
           className="hover-opacity-light"
           onClick={this.handleClickAll}
@@ -88,7 +84,7 @@ export default class Container extends Component {
             ...styles.storeFilter,
             textTransform: 'uppercase'
           }}>
-            <b>toggle all: </b>
+            <b>select all </b>
           </button>
 
         {storeKeys.map((store, i) => {
