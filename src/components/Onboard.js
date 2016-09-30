@@ -5,6 +5,7 @@ import ProgressSteps from 'react-progress-steps';
 import Stores from '../containers/Stores';
 import Tags from '../containers/Tags';
 import FBLogin from '../components/FBLogin';
+import GoogleLogin from '../components/GoogleLogin';
 
 var MobileDetect = require('mobile-detect');
 var mobile = new MobileDetect(window.navigator.userAgent).mobile();
@@ -18,7 +19,8 @@ const styles = {
     flexDirection:'column',
     justifyContent:'flex-end',
     paddingBottom: 30,
-  }
+  },
+  italic:{fontStyle:'italic', fontSize: Styles.small, opacity : .8, marginBottom: 0}
 }
 
 
@@ -77,11 +79,15 @@ class Step_2 extends Component {
       <div>
         <div style={styles.step_container}>
           <p>login to save products for later</p>
+          <p>we will NOT bother you with emails. and your info is secure 🔒</p>
+
           <div style={{
               width: mobile ? 200 : 'auto',
               margin: mobile ? '0 auto' : 'auto'
             }}>
+            <br/>
             <FBLogin/>
+            <GoogleLogin/>
           </div>
         </div>
         <button onClick={() => this.props.setStep(3)}>skip</button>
@@ -102,7 +108,7 @@ class Step_1 extends Component {
     return (
       <div>
         <div style={styles.step_container}>
-          <p>select one or more stores you want products from</p>
+          <p>select one or more stores you want to see products from</p>
           <br/>
           <div>
             <Stores/>
@@ -120,23 +126,43 @@ class Step_0 extends Component {
   }
 
   render(){
+    const { numProducts } = this.props;
+    const storeImages = ['asos', 'jcrew', 'uo', 'zara','topman','uniqlo']
+    var text = "WaSP scrapes products from all these sites so you don't have to";
+    // var text = "Discover and compare products in one place: WaSP, a free fashion platform for men.";
     return (
       <div>
         <div style={styles.step_container}>
-          <p>{"You don't need a million tabs open to find exactly what you're looking for..."}</p>
-          <p>WaSP is a free platform that lets you search and compare products in one place.</p>
+          <p>{"You don't need a million tabs open to find what you're looking for..."}</p>
+          <p>{text}</p>
         </div>
         <button onClick={() => this.props.setStep(1)}>start <span style={{fontSize:20}}>🏁</span></button><br/><br/>
+        <br/>
+        <br/><br/>
+        <p style={styles.italic}>featuring {numProducts} products from</p>
+        <div style={{
+            margin: '0 auto'
+          }}>
+          {storeImages.map((store, i) =>{
+            console.log(store)
+            return (
+              <img
+                style={{width: 80, opacity: .8, margin: 5}}
+                src={`images/storeImages/${store}.png`}/>
+            )
+          })}
+        </div>
+
       </div>
     )
   }
 }
 
 
-function setStep(step, setStep, storesSelected, tagsSelected){
+function setStep(step, setStep, storesSelected, tagsSelected, numProducts){
   switch (step){
     case 0:
-      return <Step_0 setStep={setStep}/>
+      return <Step_0 setStep={setStep} numProducts={numProducts}/>
     case 1:
       return <Step_1 setStep={setStep} storesSelected={storesSelected}/>
     case 2:
@@ -163,12 +189,15 @@ export default class Onboard extends Component {
   }
 
   static propTypes = {
+    numProducts: PropTypes.number.isRequired,
+    storesSelected: PropTypes.array.isRequired,
+    tagsSelected: PropTypes.array.isRequired
   }
 
   render(){
     const { step } = this.state;
-    const { storesSelected, tagsSelected } = this.props;
-    let Step = setStep(step, this.setStep, storesSelected, tagsSelected);
+    const { storesSelected, tagsSelected, numProducts } = this.props;
+    let Step = setStep(step, this.setStep, storesSelected, tagsSelected, numProducts);
     return (
       <div
         style={{
@@ -177,7 +206,7 @@ export default class Onboard extends Component {
           textAlign: 'center',
           marginTop: 20,
           display: mobile ? 'block' : 'flex',
-          overflow: mobile ? 'auto' : 'hidden'
+          // overflow: mobile ? 'auto' : 'hidden'
         }}>
         <div
           style={{

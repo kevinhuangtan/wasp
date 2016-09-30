@@ -5,7 +5,8 @@ import Product from '../components/Product'
 const mapStateToProps = (state) => {
   return {
     savedProducts: state.savedProducts,
-    storeMap: STORE_MAP
+    storeMap: STORE_MAP,
+    view: state.view
   }
 }
 

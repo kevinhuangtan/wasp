@@ -30,10 +30,13 @@ export default class Product extends Component {
   }
 
   componentDidMount(){
-    var user = firebase.auth().currentUser;
-    if (user) {
-      this.setState({ user : user})
-    }
+    var self = this;
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        self.setState({ user : user})
+
+      }
+    });
   }
   goToProduct = (url) => {
     window.open(url, '_blank');
@@ -41,8 +44,7 @@ export default class Product extends Component {
 
   onClickSave = () => {
     var self= this;
-    if(!this.state.saved && self.state.user){
-      console.log('save')
+    if(!this.state.saved && self.state.user && this.props.view != "BAG"){
       firebase.database().ref("activity").push({
         uid: self.state.user.uid,
         product: self.props.product.key,

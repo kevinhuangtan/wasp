@@ -64,7 +64,7 @@ export default class Bag extends Component {
         style={{
             position: 'fixed',
             bottom: 25,
-            right: 25,
+            left: 25,
             borderRadius : 5,
             backgroundColor: isSaved ? Styles.colorMain : Styles.colorSecondary,
             padding: 10,
@@ -72,7 +72,7 @@ export default class Bag extends Component {
             paddingRight: 15,
             zIndex: 100,
             borderWidth: 0,
-            opacity: isSaved ? 1 : .5,
+            // opacity: isSaved ? 1 : .5,
             color: isSaved ? 'white' : Styles.colorText
           }}>
           {text}

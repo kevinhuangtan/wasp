@@ -1,6 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import Styles from '../styles';
 
+import FBLogin from '../components/FBLogin';
+import GoogleLogin from '../components/GoogleLogin';
+
 export default class LoginButton extends Component {
   state = {
     signedIn : false,
@@ -23,36 +26,6 @@ export default class LoginButton extends Component {
       }
     });
   }
-  login = () => {
-    var provider = new firebase.auth.FacebookAuthProvider();
-    provider.addScope('public_profile,email,user_friends');
-
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      var token = result.credential.accessToken;
-      console.log('token', token);
-      // The signed-in user info.
-      var user = result.user;
-      console.log('logged in: ', user.email, user.displayName, user.uid,);
-      firebase.database().ref(`users/${user.uid}`).update({
-        name: user.displayName,
-        email: user.email,
-        token: token
-      });
-      // ...
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      console.log(error)
-      // ...
-    });
-
-  }
   render(){
     const { savedProducts, storesSelected, view } = this.props;
     const { signedIn, user } = this.state;
@@ -70,7 +43,7 @@ export default class LoginButton extends Component {
           border: '1px solid black',
           position:'fixed',
           bottom:85,
-          right: 25,
+          left: 25,
           display: 'flex',
           flexDirection: 'column',
           alignItems:'flex-start',
@@ -78,10 +51,9 @@ export default class LoginButton extends Component {
           padding:10,
           ...Styles.boxShadow
         }}>
-        <p>If you want to save products for later, login with facebook. It takes just a second!</p>
-        <button
-          className="btn btn-block btn-social btn-facebook"
-          onClick={this.login}><span className="fa fa-facebook"></span> Login with Facebook</button>
+        <p style={{fontSize:Styles.small}}>If you want to save products for later, login here. It takes just a second!</p>
+        <FBLogin/>
+        <GoogleLogin/>
       </div>
     )
   }

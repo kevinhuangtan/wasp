@@ -6,7 +6,8 @@ const mapStateToProps = (state) => {
   return {
     savedProducts: state.savedProducts || [],
     storesSelected: state.storesSelected,
-    tagsSelected: state.tags.tagsSelected
+    tagsSelected: state.tags.tagsSelected,
+    numProducts: Object.keys(state.products).length
   }
 }
 

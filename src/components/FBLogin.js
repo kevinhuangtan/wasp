@@ -2,19 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import Styles from '../styles';
 
 export default class LoginButton extends Component {
-  state = {
-    signedIn : false,
-  }
-  componentDidMount(){
-    var self = this;
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        self.setState({
-          signedIn : true,
-        })
-      }
-    });
-  }
   login = () => {
     var provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('public_profile,email,user_friends');
@@ -46,7 +33,6 @@ export default class LoginButton extends Component {
 
   }
   render(){
-    const { signedIn } = this.state;
 
     return(
         <button
