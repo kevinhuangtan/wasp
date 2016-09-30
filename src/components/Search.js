@@ -222,7 +222,7 @@ export default class SearchView extends Component {
         Content = <ChasingDots size={100} />
       }
       else{
-        Content = <NoProducts tagsSelected={tagsSelected} storesSelected={storesSelected}/>        
+        Content = <NoProducts tagsSelected={tagsSelected} storesSelected={storesSelected}/>
       }
     }
     else{
@@ -237,10 +237,8 @@ export default class SearchView extends Component {
       <section style={{
           padding: mobile ? 10 : 0,
           paddingBottom : 100,
-          paddingTop: mobile ? 50 : 0
         }}>
         <Stores/>
-        {/*}<Categories/>*/}
         <Tags/>
         <br/>
         <Prices/>

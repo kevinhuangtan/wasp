@@ -47,14 +47,14 @@ const styles = {
     backgroundColor: 'rgb(254,254,254)', paddingLeft: 40,
     width: '100%',
     borderStyle:'solid', borderColor: Styles.black, borderWidth: 0, borderBottomWidth: 3,
-    display: 'flex',
+    display: mobile ? 'block' : 'flex',
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center'
   },
   container:{
     padding: mobile ? 0 : 40,
-    marginTop: mobile ? 60 : 30,
+    marginTop: mobile ? 80 : 30,
     paddingRight: mobile ? 0 : 50,
     paddingBottom: mobile ? 150 : 0
   }
@@ -71,7 +71,11 @@ const Banner = () => {
       style={styles.banner}>
       <h4 style={{margin:0}}>
         <b style={{color: Styles.black}}>Wa</b>lt <b style={{color: Styles.black}}>S</b>teve <b style={{color: Styles.black}}>P</b>icasso</h4>
-      <p style={{margin:0, fontSize: Styles.small}}>WaSP is a free platform for finding the latest menswear</p>
+      <p style={{
+          margin:0,
+          fontSize: Styles.small,
+          display: mobile ? 'none' : 'block'
+        }}>WaSP is a free platform for finding the latest menswear</p>
     </div>
   )
 }
@@ -80,6 +84,7 @@ import View from './containers/View';
 import Firebase from './containers/Firebase';
 import Login from './containers/Login';
 import Bag from './containers/Bag';
+import Activity from './containers/Activity';
 
 
 class YourReactApp extends Component {
@@ -94,6 +99,7 @@ class YourReactApp extends Component {
           <Login/>
           <Firebase/>
           <Bag/>
+          <Activity/>
         </section>
       </Provider>
     )

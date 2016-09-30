@@ -1,5 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 
+var MobileDetect = require('mobile-detect');
+var mobile = new MobileDetect(window.navigator.userAgent).mobile();
+
 const styles = {
   priceInput:{
     width: 50,
@@ -22,7 +25,10 @@ export default class Prices extends Component {
   render(){
     const {prices, handleChangePriceFloor, handleChangePriceCeiling } = this.props;
     return (
-      <div style={{fontSize : 12}}>
+      <div style={{
+          fontSize : 12,
+          display: mobile ? 'none' : 'block'
+        }}>
         <span>price range:</span>
         <input
           style={styles.priceInput}

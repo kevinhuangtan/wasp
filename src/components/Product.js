@@ -2,9 +2,14 @@ import React, { PropTypes, Component } from 'react';
 import Stores from '../containers/Stores';
 import Styles from '../styles';
 
+var MobileDetect = require('mobile-detect');
+var mobile = new MobileDetect(window.navigator.userAgent).mobile();
+
+
 const styles = {
   productImage:{
-    height: 300,
+    height: mobile ? 150: 300,
+
     cursor: 'pointer'
   },
 }
@@ -26,7 +31,6 @@ export default class Product extends Component {
 
   componentDidMount(){
     var user = firebase.auth().currentUser;
-
     if (user) {
       this.setState({ user : user})
     }
@@ -36,8 +40,19 @@ export default class Product extends Component {
   }
 
   onClickSave = () => {
+    var self= this;
+    if(!this.state.saved && self.state.user){
+      console.log('save')
+      firebase.database().ref("activity").push({
+        uid: self.state.user.uid,
+        product: self.props.product.key,
+        datetime: new Date().getTime(),
+        type: "ADD_TO_BAG"
+      })
+    }
     this.setState({ saved : !this.state.saved })
     this.props.onClickSave(this.props.product);
+
   }
 
   deleteProduct = () => {
@@ -83,13 +98,18 @@ export default class Product extends Component {
     }
     return (
       <div
-        style={{margin: 25, width: 280}}>
+        style={{
+          margin: mobile ? 10 : 25,
+          width: mobile ? 140 : 280
+        }}>
         <img
           onClick={() => this.goToProduct(product.href)}
           className="hover-opacity"
           style={styles.productImage} src={product.image.src}/>
         <br/><br/>
-        <div style={{width:250}}>
+        <div style={{
+            width: mobile ? 125 : 250,
+          }}>
           <p
             onClick={() => this.goToProduct(product.href)}
             className="hover-opacity"

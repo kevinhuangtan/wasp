@@ -11,13 +11,13 @@ var mobile = new MobileDetect(window.navigator.userAgent).mobile();
 
 const styles = {
   step_container:{
-    height: mobile? 250 : 150,
+    height: mobile? 180 : 150,
     padding: mobile ? 20 : 0,
+    paddingTop: mobile ? 0 : 0,
     display: 'flex',
     flexDirection:'column',
     justifyContent:'flex-end',
     paddingBottom: 30,
-    // overflow: 'hidden'
   }
 }
 
@@ -123,7 +123,7 @@ class Step_0 extends Component {
     return (
       <div>
         <div style={styles.step_container}>
-          <p>{"You don't need a million tabs open to find exactly what you're looking for.."}</p>
+          <p>{"You don't need a million tabs open to find exactly what you're looking for..."}</p>
           <p>WaSP is a free platform that lets you search and compare products in one place.</p>
         </div>
         <button onClick={() => this.props.setStep(1)}>start <span style={{fontSize:20}}>🏁</span></button><br/><br/>

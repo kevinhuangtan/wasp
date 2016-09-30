@@ -26,6 +26,7 @@ class TagsContainer extends Component {
         this.props.setTagsSelected(tagsSelected);
     }
     handleAddition = (tag) => {
+      tag = tag.toLowerCase();
       let tagsSelected = Object.assign([], this.props.tagsSelected);
       tagsSelected.push(tag);
       this.props.setTagsSelected(tagsSelected);
