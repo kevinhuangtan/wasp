@@ -54,6 +54,7 @@ class TagsContainer extends Component {
         const { suggestions } = this.state;
         const { tagsSelected } = this.props;
         var tagsSelectedTransform = this.transform(tagsSelected);
+        console.log(suggestions)
         return (
             <div style={{marginTop: 20}}>
               <ReactTags
@@ -79,12 +80,12 @@ export default class Tags extends Component {
   }
 
   componentDidMount(){
-    var refTags = firebase.database().ref('tagsTop');
+    var refTags = firebase.database().ref('tags');
     refTags.once('value', (snap) => {
       var tags = snap.val();
       var tagsKeys = Object.keys(tags);
       tagsKeys.forEach((tag) => {
-        if(Object.keys(tags[tag]).length < 30){
+        if(Object.keys(tags[tag]).length < 10){
           delete tags[tag]
         }
       })
