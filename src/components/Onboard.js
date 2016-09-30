@@ -130,6 +130,7 @@ class Step_0 extends Component {
     const storeImages = ['asos', 'jcrew', 'uo', 'zara','topman','uniqlo']
     var text = "WaSP scrapes products from all these sites so you don't have to";
     // var text = "Discover and compare products in one place: WaSP, a free fashion platform for men.";
+    let num = numProducts == 0 ? "" : numProducts;
     return (
       <div>
         <div style={styles.step_container}>
@@ -139,12 +140,11 @@ class Step_0 extends Component {
         <button onClick={() => this.props.setStep(1)}>start <span style={{fontSize:20}}>🏁</span></button><br/><br/>
         <br/>
         <br/><br/>
-        <p style={styles.italic}>featuring {numProducts} products from</p>
+        <p style={styles.italic}>featuring {num} products from</p>
         <div style={{
             margin: '0 auto'
           }}>
           {storeImages.map((store, i) =>{
-            console.log(store)
             return (
               <img
                 style={{width: 80, opacity: .8, margin: 5}}

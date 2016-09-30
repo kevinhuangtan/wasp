@@ -77,7 +77,8 @@ export default class Bag extends Component {
           backgroundColor: 'white',
           ...Styles.boxShadow,
           padding: 10,
-          borderWidth: 0
+          borderWidth: 0,
+          display : mobile ? "none": "block"
         }}>
         {activitySlice.map((a, i) => {
           let product = allProductsObj[a.product];
