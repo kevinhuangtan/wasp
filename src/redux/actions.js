@@ -7,7 +7,17 @@ export const DECREMENT_AMOUNT = 'DECREMENT_AMOUNT'
 export const TOGGLE_CATEGORY = 'TOGGLE_CATEGORY'
 export const TOGGLE_STORE = 'TOGGLE_STORE'
 
-export const STORE_KEYS = [ 'asos', 'topman', 'zara', 'uo', 'uniqlo', 'hm', 'jcrew', 'forever21'];
+export const STORE_KEYS =
+[
+  'asos',
+  'topman',
+  'zara',
+  'uo',
+  'uniqlo',
+  // 'hm',
+  'jcrew',
+  'forever21'
+];
 export const STORE_MAP = {
   'asos': 'asos',
   'topman': 'topman',
@@ -50,6 +60,10 @@ export function toggleStore(store) {
   return { type: TOGGLE_STORE, store }
 }
 
+export function selectAllStores(){
+  return { type: 'TOGGLE_ALL_STORES' }
+}
+
 ////////////////////////////////////////////////
 ////////*~ Fetch Products from Firebase~*///////
 ////////////////////////////////////////////////
@@ -60,6 +74,10 @@ export function requestProducts() {
 
 export function receiveProducts(products) {
   return { type: 'FETCH_PRODUCTS_SUCCESS', products }
+}
+
+export function deleteProduct(product){
+  return { type: 'DELETE_PRODUCT', product}
 }
 
 ////////////////////////////////////////////////
@@ -75,11 +93,30 @@ export function setBagFromSession(bag) {
 }
 
 ////////////////////////////////////////////////
+////////////////////*~ Tags ~*//////////////////
+////////////////////////////////////////////////
+
+
+export function setTags(tags) {
+  return { type: 'SET_TAGS', tags }
+}
+
+export function setTagsSelected(tagsSelected) {
+  return { type: 'SET_TAGS_SELECTED', tagsSelected }
+}
+
+
+////////////////////////////////////////////////
 ///////////////////*~ Other ~*//////////////////
 ////////////////////////////////////////////////
 
 export function toggleView() {
   return { type: 'TOGGLE_VIEW' }
+}
+
+export function setView(view){
+  return { type: 'SET_VIEW', view }
+
 }
 
 export function requestActivity() {

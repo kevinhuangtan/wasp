@@ -4,7 +4,8 @@ import {
   DECREMENT_AMOUNT,
   TOGGLE_CATEGORY,
   TOGGLE_STORE,
-  Categories
+  Categories,
+  STORE_KEYS
 } from './actions';
 
 import firebase from 'firebase';
@@ -39,6 +40,11 @@ function storesSelected(state = [], action){
         ret.splice(index, 1);
       }
       return ret
+    case 'TOGGLE_ALL_STORES':
+      if(state.length == STORE_KEYS.length){
+        return []
+      }
+      return STORE_KEYS
     default:
       return state
   }
@@ -49,6 +55,8 @@ function products(state = {}, action){
   switch (action.type) {
     case 'FETCH_PRODUCTS_SUCCESS':
       return action.products
+    case 'DELETE_PRODUCT':
+      return state
     default:
       return state
   }
@@ -110,11 +118,33 @@ function prices(state = {priceFloor : 0, priceCeiling : 1000}, action){
   }
 }
 
-function view(state = "feed", action){
+function view(state = "ONBOARD", action){
   switch (action.type) {
+    case 'SET_VIEW':
+      return action.view
     case 'TOGGLE_VIEW':
-      var ret = (state == "feed") ? "bag" : "feed";
-      return ret
+      if(state == "SEARCH"){
+        return "BAG"
+      }
+      if(state == "BAG"){
+        return "SEARCH"
+      }
+      return "SEARCH"
+    default:
+      return state
+  }
+}
+
+function tags(state = { tags : {}, tagsSelected : []}, action){
+  switch (action.type) {
+    case 'SET_TAGS':
+      return Object.assign({}, state, {
+        tags: action.tags
+      })
+    case 'SET_TAGS_SELECTED':
+      return Object.assign({}, state, {
+        tagsSelected: action.tagsSelected
+      })
     default:
       return state
   }
@@ -127,7 +157,8 @@ const todoApp = combineReducers({
   products,
   savedProducts,
   prices,
-  view
+  view,
+  tags
 })
 
 export default todoApp

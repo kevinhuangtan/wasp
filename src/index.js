@@ -38,13 +38,6 @@ import todoApp from './redux/reducers'
 import { Provider } from 'react-redux'
 let store = createStore(todoApp)
 
-// your defined Classes
-import Firebase from './containers/Firebase';
-import Login from './containers/Login';
-import Saved from './containers/Saved';
-import Search from './containers/Search';
-import Bag from './containers/Bag';
-
 const styles = {
   banner:{
     position: mobile ? 'absolute' : 'fixed',
@@ -71,35 +64,41 @@ const styles = {
 ///////////////*~ React Component ~*////////////
 ////////////////////////////////////////////////
 
+const Banner = () => {
+  return(
+    <div
+      className="shadow"
+      style={styles.banner}>
+      <h4 style={{margin:0}}>
+        <b style={{color: Styles.black}}>Wa</b>lt <b style={{color: Styles.black}}>S</b>teve <b style={{color: Styles.black}}>P</b>icasso</h4>
+      <p style={{margin:0, fontSize: Styles.small}}>WaSP is a free platform for finding the latest menswear</p>
+    </div>
+  )
+}
+
+import View from './containers/View';
+import Firebase from './containers/Firebase';
+import Login from './containers/Login';
+import Bag from './containers/Bag';
+
+
 class YourReactApp extends Component {
   render(){
     return (
       <Provider store={store}>
         <section>
-          <div
-            className="shadow"
-            style={styles.banner}>
-            <h4 style={{margin:0}}>
-              <b style={{color: Styles.black}}>Wa</b>lt <b style={{color: Styles.black}}>S</b>teve <b style={{color: Styles.black}}>P</b>icasso</h4>
-            <p style={{margin:0, fontSize: Styles.small}}>WaSP is a free platform for finding the latest menswear</p>
-          </div>
+          <Banner/>
           <div style={styles.container}>
-            <Bag/>
-            <Saved/>
-            <Search/>
+            <View/>
           </div>
           <Login/>
           <Firebase/>
+          <Bag/>
         </section>
       </Provider>
     )
   }
 }
-
-
-// Top of the Tree
-// React attaches all your React stuff - which is stored in a Virtual DOM  -
-// to #root in your HTML
 
 ReactDOM.render(
   <YourReactApp />,
