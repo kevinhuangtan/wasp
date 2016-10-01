@@ -72,7 +72,7 @@ export default class Bag extends Component {
             paddingRight: 15,
             zIndex: 100,
             borderWidth: 0,
-            // opacity: isSaved ? 1 : .5,
+            width: 'auto',
             color: isSaved ? 'white' : Styles.colorText
           }}>
           {text}

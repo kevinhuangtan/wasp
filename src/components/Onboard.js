@@ -11,16 +11,25 @@ var MobileDetect = require('mobile-detect');
 var mobile = new MobileDetect(window.navigator.userAgent).mobile();
 
 const styles = {
+  container:{
+    fontSize: 16
+  },
   step_container:{
-    height: mobile? 180 : 150,
+    height: mobile? 'auto' : 150,
     padding: mobile ? 20 : 0,
     paddingTop: mobile ? 0 : 0,
     display: 'flex',
     flexDirection:'column',
     justifyContent:'flex-end',
     paddingBottom: 30,
+    fontSize: 16
   },
-  italic:{fontStyle:'italic', fontSize: Styles.small, opacity : .8, marginBottom: 0}
+  step:{
+    width: "90%",
+    margin: mobile ? '0 auto' : 'auto',
+    marginTop: mobile ? 50 : 0
+  },
+  italic:{fontStyle:'italic', fontSize: 14, opacity : .8, marginBottom: 0}
 }
 
 
@@ -39,16 +48,10 @@ class Step_3 extends Component {
     }
 
     return (
-      <div>
+      <div style={styles.step}>
+        <p style={{fontSize: 16}}>add one or more tags to narrow down</p>
         <div style={styles.step_container}>
-          <p>add one or more tags to narrow down</p>
-            <p style={{
-                opacity: 1,
-                marginBottom:0,
-                fontSize: Styles.small,
-                fontStyle: 'italic',
-                marginLeft: 20
-              }}>ex: shirts, sweaters, plaid, denim, sweaters, joggers</p>
+          <p style={{...styles.italic, fontSize: Styles.small}}>ex: shirts, sweaters, plaid, denim, sweaters, joggers</p>
           <Tags/>
         </div>
         {Button}
@@ -76,11 +79,14 @@ class Step_2 extends Component {
   render(){
 
     return (
-      <div>
-        <div style={styles.step_container}>
-          <p>login to save products for later</p>
-          <p>we will NOT bother you with emails. and your info is secure 🔒</p>
+      <div
+        style={styles.step}
+      >
+        <p style={{fontSize: 16}}>login to save products for later<br/>
+          we will NOT bother you with emails. and your info is secure 🔒
+        </p>
 
+        <div style={styles.step_container}>
           <div style={{
               width: mobile ? 200 : 'auto',
               margin: mobile ? '0 auto' : 'auto'
@@ -106,9 +112,10 @@ class Step_1 extends Component {
       Button = <button onClick={() => this.props.setStep(2)}>next</button>
     }
     return (
-      <div>
+      <div style={styles.step}>
+        <p style={{fontSize: 16}}>select one or more stores you want to see products from</p>
+
         <div style={styles.step_container}>
-          <p>select one or more stores you want to see products from</p>
           <br/>
           <div>
             <Stores/>
@@ -128,13 +135,13 @@ class Step_0 extends Component {
   render(){
     const { numProducts } = this.props;
     const storeImages = ['asos', 'jcrew', 'uo', 'zara','topman','uniqlo']
-    var text = "WaSP scrapes products from all these sites so you don't have to";
+    var text = "WaSP scrapes products from fashion sites so you don't have to";
     // var text = "Discover and compare products in one place: WaSP, a free fashion platform for men.";
     let num = numProducts == 0 ? "" : numProducts;
     return (
       <div>
         <div style={styles.step_container}>
-          <p>{"You don't need a million tabs open to find what you're looking for..."}</p>
+          <p>{"You don't need to open a million tabs to find what you're looking for..."}</p>
           <p>{text}</p>
         </div>
         <button onClick={() => this.props.setStep(1)}>start <span style={{fontSize:20}}>🏁</span></button><br/><br/>
@@ -147,6 +154,7 @@ class Step_0 extends Component {
           {storeImages.map((store, i) =>{
             return (
               <img
+                key={i}
                 style={{width: 80, opacity: .8, margin: 5}}
                 src={`images/storeImages/${store}.png`}/>
             )
@@ -204,7 +212,7 @@ export default class Onboard extends Component {
           flexDirection: 'column',
           alignItems: 'center',
           textAlign: 'center',
-          marginTop: 20,
+          marginTop: 50,
           display: mobile ? 'block' : 'flex',
           // overflow: mobile ? 'auto' : 'hidden'
         }}>
@@ -213,7 +221,7 @@ export default class Onboard extends Component {
             opacity: step == 0 ? 0 : 1,
             margin: '0 auto',
             width: 270,
-            marginBottom: 50
+            marginBottom: 10
           }}>
           <ProgressSteps steps={3} current={step} />
         </div>

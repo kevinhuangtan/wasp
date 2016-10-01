@@ -5,7 +5,9 @@ import Styles from '../styles';
 var MobileDetect = require('mobile-detect');
 var mobile = new MobileDetect(window.navigator.userAgent).mobile();
 
-import { WithContext as ReactTags } from 'react-tag-input';
+// import { WithContext as ReactTags } from 'react-tag-input';
+
+import ReactTags from 'react-tag-autocomplete';
 
 class TagsContainer extends Component {
 
@@ -26,7 +28,7 @@ class TagsContainer extends Component {
         this.props.setTagsSelected(tagsSelected);
     }
     handleAddition = (tag) => {
-      tag = tag.toLowerCase();
+      tag = tag.name.toLowerCase();
       let tagsSelected = Object.assign([], this.props.tagsSelected);
       tagsSelected.push(tag);
       this.props.setTagsSelected(tagsSelected);
@@ -46,7 +48,7 @@ class TagsContainer extends Component {
       tags.map((tag, i) => {
         ret.push({
           id : i,
-          text : tag
+          name : tag
         })
       })
       return ret
@@ -55,14 +57,19 @@ class TagsContainer extends Component {
         const { suggestions } = this.state;
         const { tagsSelected } = this.props;
         var tagsSelectedTransform = this.transform(tagsSelected);
+        var suggestionsTransform = this.transform(suggestions);
         return (
-            <div style={{marginTop: 20}}>
+            <div
+              style={{
+                marginTop: 20,
+                width: 300,
+                fontSize: 14
+              }}>
               <ReactTags
                 tags={tagsSelectedTransform}
-                suggestions={suggestions}
+                suggestions={suggestionsTransform}
                 handleDelete={this.handleDelete}
                 handleAddition={this.handleAddition}
-                handleDrag={this.handleDrag}
                 minQueryLength={1}
                 placeholder={`add tags/categories`}
               />

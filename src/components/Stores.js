@@ -20,8 +20,8 @@ const storeFilter = {
   paddingTop: 7,
   borderRadius: 0,
   margin: 2,
-  marginBottom: 10
-
+  marginBottom: 10,
+  width: 'auto' 
 }
 
 const styles = {
