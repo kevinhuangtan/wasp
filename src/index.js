@@ -69,7 +69,14 @@ const Banner = () => {
     <div
       className="shadow"
       style={styles.banner}>
-      <h4 style={{margin:0}}>
+      <h4
+         onClick={()=>{
+            window.open('https://www.youtube.com/watch?v=irCZAR5xQ5A&feature=youtu.be&t=2s', '_blank');
+         }}
+         style={{
+           cursor:'pointer',
+           margin:0
+         }}>
         <b style={{color: Styles.black}}>Wa</b>lt <b style={{color: Styles.black}}>S</b>teve <b style={{color: Styles.black}}>P</b>icasso</h4>
       <p style={{
           margin:0,

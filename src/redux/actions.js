@@ -16,7 +16,7 @@ export const STORE_KEYS =
   'uniqlo',
   // 'hm',
   'jcrew',
-  'forever21'
+  // 'forever21'
 ];
 export const STORE_MAP = {
   'asos': 'asos',
