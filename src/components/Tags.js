@@ -63,7 +63,9 @@ class TagsContainer extends Component {
               style={{
                 marginTop: 20,
                 width: 300,
-                fontSize: 14
+                fontSize: 14,
+                marginTop: 10,
+                margin: '0 auto'
               }}>
               <ReactTags
                 tags={tagsSelectedTransform}
