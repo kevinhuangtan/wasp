@@ -239,7 +239,11 @@ export default class SearchView extends Component {
           paddingBottom : 100,
         }}>
         <Stores/>
-        <Tags/>
+        <div style={{
+            maxWidth: 400
+          }}>
+          <Tags/>
+        </div>
         <br/>
         <Prices/>
         <hr/>

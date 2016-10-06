@@ -33,16 +33,6 @@ class TagsContainer extends Component {
       tagsSelected.push(tag);
       this.props.setTagsSelected(tagsSelected);
     }
-    handleDrag = (tag, currPos, newPos) => {
-        // let tagsSelectedState = this.state.tagsSelectedState;
-        //
-        // // mutate array
-        // tags.splice(currPos, 1);
-        // tags.splice(newPos, 0, tag);
-        //
-        // // re-render
-        // this.setState({ tagsSelectedState: tagsSelectedState });
-    }
     transform = (tags) => {
       var ret = []
       tags.map((tag, i) => {
@@ -61,10 +51,10 @@ class TagsContainer extends Component {
         return (
             <div
               style={{
-                marginTop: 20,
-                width: 300,
                 fontSize: 14,
                 marginTop: 10,
+                textAlign: 'left',
+                minWidth: 200
               }}>
               <ReactTags
                 tags={tagsSelectedTransform}
@@ -72,7 +62,7 @@ class TagsContainer extends Component {
                 handleDelete={this.handleDelete}
                 handleAddition={this.handleAddition}
                 minQueryLength={1}
-                placeholder={`add tags/categories`}
+                placeholder={`add tags`}
               />
             </div>
         )

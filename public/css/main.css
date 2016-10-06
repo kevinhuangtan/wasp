@@ -283,6 +283,7 @@ select:focus {
 
 @media screen and (min-width: 30em) {
 
+
   .react-tags__suggestions {
     width: 240px;
   }
@@ -322,4 +323,11 @@ select:focus {
 .react-tags__suggestions li.is-disabled {
   opacity: 0.5;
   cursor: auto;
+}
+
+@media only screen and (max-width: 500px) {
+
+  .react-tags{
+    text-align: center;
+  }
 }

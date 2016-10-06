@@ -52,7 +52,11 @@ class Step_3 extends Component {
         <p style={{fontSize: 16}}>add one or more tags to narrow down</p>
         <div style={styles.step_container}>
           <p style={{...styles.italic, fontSize: Styles.small}}>ex: shirts, sweaters, plaid, denim, sweaters, joggers</p>
-          <Tags/>
+          <div style={{
+              margin: '0 auto', marginTop: 10
+            }}>
+            <Tags/>
+          </div>
         </div>
         {Button}
       </div>
