@@ -62,6 +62,8 @@ const filterProducts = (state) => {
 // subscribe to store's state
 const mapStateToProps = (state) => {
   var filteredProductsArr = filterProducts(state);
+  // var filteredProductsArr = [];
+
   return {
     allProductsObj: state.products,
     view: state.view,

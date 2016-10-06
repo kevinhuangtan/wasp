@@ -14,7 +14,7 @@ export const STORE_KEYS =
   'zara',
   'uo',
   'uniqlo',
-  // 'hm',
+  'hm',
   'jcrew',
   // 'forever21'
 ];

@@ -54,6 +54,7 @@ function storesSelected(state = [], action){
 function products(state = {}, action){
   switch (action.type) {
     case 'FETCH_PRODUCTS_SUCCESS':
+      console.log('reducer: fetch products', action.products);      
       return action.products
     case 'DELETE_PRODUCT':
       return state
@@ -96,6 +97,7 @@ function savedProducts(state = [], action){
       updateUserBag(ret)
       return ret
     case 'SET_BAG':
+      console.log('reducer: set bag', action.bag);
       return action.bag || []
     default:
       return state
