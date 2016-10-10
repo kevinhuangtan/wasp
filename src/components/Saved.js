@@ -18,9 +18,11 @@ export default class Saved extends Component {
     var ProductList;
     if(savedProducts.length != 0){
       ProductList = savedProducts.map((productKey, i) => {
-        return (
-          <Product product={allProductsObj[productKey]} key={i}/>
-        )
+        if(productKey in allProductsObj){
+          return (
+            <Product product={allProductsObj[productKey]} key={i}/>
+          )          
+        }
       })
     }
     else{

@@ -8,8 +8,6 @@ var mobile = new MobileDetect(window.navigator.userAgent).mobile();
 
 const styles = {
   productImage:{
-    height: mobile ? 150: 300,
-
     cursor: 'pointer'
   },
 }
@@ -71,7 +69,7 @@ export default class Product extends Component {
 
   render(){
 
-    const { savedProducts, storeMap, product } = this.props;
+    const { savedProducts, storeMap, product, small } = this.props;
     if(!product){
       return null
     }
@@ -98,19 +96,37 @@ export default class Product extends Component {
         className="hover-underline"
         onClick={this.onClickSave}>bagged</span>
     }
+    console.log(small)
+    let width;
+    let height;
+    let margin;
+    if(small){
+      width = 200
+      height = 220;
+      margin = 10;
+    }
+    else{
+      width = mobile ? 140 : 280
+      height = mobile ? 150: 300
+      margin = mobile ? 10 : 25;
+    }
     return (
       <div
         style={{
-          margin: mobile ? 10 : 25,
-          width: mobile ? 140 : 280
+          margin: margin,
+          width: width
         }}>
         <img
           onClick={() => this.goToProduct(product.href)}
           className="hover-opacity"
-          style={styles.productImage} src={product.image.src}/>
+          style={{
+            ...styles.productImage,
+            height: height
+
+          }} src={product.image.src}/>
         <br/><br/>
         <div style={{
-            width: mobile ? 125 : 250,
+            width: width - 30,
           }}>
           <p
             onClick={() => this.goToProduct(product.href)}

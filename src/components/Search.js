@@ -175,7 +175,9 @@ export default class SearchView extends Component {
       })
     }
   }
-
+  setRandomize = () => {
+    this.props.setView("MATCH")
+  }
   render(){
 
     const { page, showBackToTop } = this.state;
@@ -248,6 +250,8 @@ export default class SearchView extends Component {
         <Prices/>
         <hr/>
         {Showing}
+        <button onClick={()=>{this.setRandomize()}}>randomize</button>
+
         <BackToTopBtn
           showBackToTop={showBackToTop}
           scrollToTop={this.scrollToTop}/>

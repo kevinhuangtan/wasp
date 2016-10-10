@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { toggleSave } from '../redux/actions'
+import { toggleSave, setView } from '../redux/actions'
 import Search from '../components/Search'
 
 
@@ -76,6 +76,9 @@ const mapStateToProps = (state) => {
 // create handler than dispatches an action
 const mapDispatchToProps = (dispatch) => {
   return {
+    setView: (view) => {
+      dispatch(setView(view))
+    }
   }
 }
 

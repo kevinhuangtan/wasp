@@ -44,17 +44,16 @@ export default class Bag extends Component {
     var text;
     switch(view){
       case "SEARCH":
-
         text = `Bag (${savedProducts.length})`;
         if(firstName){
           text = `${firstName}'s ${text}`;
         }
         break
-      case "ONBOARD":
-        return null
+      case "BAG":
+        text = "back to search"
         break
       default:
-        text = "back to search"
+        return null
         break
     }
     return(

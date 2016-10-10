@@ -19,9 +19,9 @@ const mapDispatchToProps = (dispatch) => {
 class FetchComponent extends Component {
   componentDidMount(){
     var refProducts = firebase.database().ref('products');
-    refProducts.once('value', (snap) => {
+    refProducts.limitToFirst(10000).once('value', (snap) => {
       this.props.fetchUpdate(snap.val())
-    });    
+    });
   }
   render(){
     return null

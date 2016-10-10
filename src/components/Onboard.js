@@ -159,7 +159,7 @@ class Step_0 extends Component {
             return (
               <img
                 key={i}
-                style={{width: 80, opacity: .8, margin: 5}}
+                style={{width: 100, opacity: .8, margin: 5}}
                 src={`images/storeImages/${store}.png`}/>
             )
           })}
@@ -191,6 +191,7 @@ export default class Onboard extends Component {
 
   state = {
     step : 0,
+    user: ""
   };
 
   setStep = (step) =>{
@@ -198,6 +199,19 @@ export default class Onboard extends Component {
     if(step == 4){
       this.props.setView("SEARCH"); // finish onboarding
     }
+    if(step == 1 && this.state.user){
+      this.props.setView("SEARCH"); // only show first screen if user logged in
+
+    }
+  }
+
+  componentDidMount(){
+    var self = this;
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        self.setState({ user : user})
+      }
+    });
   }
 
   static propTypes = {
@@ -218,7 +232,6 @@ export default class Onboard extends Component {
           textAlign: 'center',
           marginTop: 50,
           display: mobile ? 'block' : 'flex',
-          // overflow: mobile ? 'auto' : 'hidden'
         }}>
         <div
           style={{

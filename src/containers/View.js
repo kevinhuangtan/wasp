@@ -6,6 +6,7 @@ import Saved from '../containers/Saved';
 import Search from '../containers/Search';
 import Bag from '../containers/Bag';
 import Onboard from '../containers/Onboard';
+import Match from '../containers/Match';
 
 
 // subscribe to store's state
@@ -28,10 +29,16 @@ function showView(view){
   switch (view){
     case 'ONBOARD':
       return <Onboard/>
+      break;
     case 'SEARCH':
       return  <Search/>
+      break;
     case 'BAG':
       return <Saved/>
+      break;
+    case 'MATCH':
+      return <Match/>
+      break;
     default:
       return <Search/>
   }
@@ -41,9 +48,6 @@ class View extends Component {
   componentDidMount(){
     var self = this;
     firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        self.props.setView("SEARCH");
-      }
     });
   }
   render(){

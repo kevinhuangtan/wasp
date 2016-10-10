@@ -106,6 +106,7 @@ class YourReactApp extends Component {
           <Login/>
           <Firebase/>
           <Bag/>
+
           <Activity/>
         </section>
       </Provider>

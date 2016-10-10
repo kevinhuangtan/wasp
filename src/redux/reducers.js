@@ -54,7 +54,6 @@ function storesSelected(state = [], action){
 function products(state = {}, action){
   switch (action.type) {
     case 'FETCH_PRODUCTS_SUCCESS':
-      console.log('reducer: fetch products', action.products);      
       return action.products
     case 'DELETE_PRODUCT':
       return state
@@ -97,7 +96,6 @@ function savedProducts(state = [], action){
       updateUserBag(ret)
       return ret
     case 'SET_BAG':
-      console.log('reducer: set bag', action.bag);
       return action.bag || []
     default:
       return state
@@ -120,9 +118,10 @@ function prices(state = {priceFloor : 0, priceCeiling : 1000}, action){
   }
 }
 
-function view(state = "ONBOARD", action){
+function view(state = "SEARCH", action){
   switch (action.type) {
     case 'SET_VIEW':
+      console.log(action.view)
       return action.view
     case 'TOGGLE_VIEW':
       if(state == "SEARCH"){

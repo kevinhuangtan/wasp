@@ -81,6 +81,9 @@ export default class Bag extends Component {
           display : mobile ? "none": "block"
         }}>
         {activitySlice.map((a, i) => {
+          if(!(a.product in allProductsObj)){
+            return null
+          }
           let product = allProductsObj[a.product];
           let productName = product.name.length > 20 ? product.name.slice(0,15) + ".." : product.name;
           return (
