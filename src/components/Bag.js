@@ -37,9 +37,12 @@ export default class Bag extends Component {
     });
   }
   generateText = () => {
-    let text = `👜 (${this.props.savedProducts.length})`;
+    let text;
     if(this.state.firstName){
-      text = `${this.state.firstName}'s ${text}`;
+      text = <span>{this.state.firstName}'s <span style={{fontSize: 18}}>👜</span>  ({this.props.savedProducts.length})</span>;
+    }
+    else{
+      text  = <span><span style={{fontSize: 18}}>👜</span> ({this.props.savedProducts.length})</span>;
     }
     return text
   }
@@ -65,7 +68,7 @@ export default class Bag extends Component {
         text = this.generateText()
         break
       case "BAG":
-        text = "back to search"
+        text = <span>back to search</span>
         break
       default:
         return null
@@ -78,13 +81,8 @@ export default class Bag extends Component {
             position: 'fixed',
             top: 25,
             right: 25,
-            borderRadius : 5,
             backgroundColor: isSaved ? Styles.colorTertiary : Styles.colorSecondary,
-            padding: 10,
-            paddingLeft: 15,
-            paddingRight: 15,
             zIndex: 100,
-            borderWidth: 0,
             width: 'auto',
             color: isSaved ? 'white' : Styles.colorText
           }}>

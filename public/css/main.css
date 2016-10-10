@@ -11,6 +11,16 @@ body{
 input{
   border-radius: 0px;
 }
+img{
+  -webkit-backface-visibility: hidden;
+}
+
+.noselect{
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */
+}
 
 @media screen and (max-device-width: 480px){
   body{
@@ -23,6 +33,8 @@ input{
     padding-bottom: 10px;
   }
 }
+
+
 
 .hover-opacity-light{
   -webkit-transition: all 100ms ease;

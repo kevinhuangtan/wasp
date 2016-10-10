@@ -38,7 +38,8 @@ const getTimePassed = (date) => {
 export default class Outfits extends Component {
   state = {
     outfits : [],
-    users: {}
+    users: {},
+    user: ""
   }
 
   static propTypes = {
@@ -53,16 +54,43 @@ export default class Outfits extends Component {
       var outfitsObj = snap.val();
       self.setState({ outfits : self.formatActivity(outfitsObj) });
     })
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        self.setState({ user : user})
+      }
+    });
   }
 
   formatActivity = (outfitsObj) => {
+    console.log(outfitsObj)
     var outfitsKeys = Object.keys(outfitsObj);
     outfitsKeys = outfitsKeys.reverse();
     var ret = [];
     outfitsKeys.map((key,i ) => {
+      outfitsObj[key]['.key'] = key;
       ret.push(outfitsObj[key])
     })
     return ret
+  }
+
+  calculateProps = (props) => {
+    let propsKeys = Object.keys(props);
+    var num_props = 0;
+    propsKeys.forEach((propKey, i)=>{
+      if(props[propKey]){
+        num_props += 1
+      }
+    })
+    return num_props
+  }
+
+  addProp = (outfit) => {
+    var ref = firebase.database().ref(`outfits/${outfit['.key']}/props/${this.state.user.uid}`);
+    ref.once("value", (snap)=>{
+
+      ref.set(!snap.val());
+    })
   }
 
   render(){
@@ -71,11 +99,20 @@ export default class Outfits extends Component {
     if(!allProductsObj){return null}
     if(Object.keys(allProductsObj).length == 0){return null};
 
+
     return(
       <div style={{
         }}>
         {outfits.map((outfit, i) => {
 
+          let props = outfit.props;
+          let num_props = 0
+          if(!props){
+            num_props = 0
+          }
+          else{
+            num_props = this.calculateProps(outfit.props);
+          }
 
           let products = outfit.products;
           return (
@@ -85,16 +122,18 @@ export default class Outfits extends Component {
                 display:'block',
                 backgroundColor: 'white',
                 ...Styles.boxShadow,
-                padding: 40,
+                padding: 25,
                 width: "80%",
-                minWidth: 800,
+                minWidth: 850,
                 margin: '0 auto',
                 marginBottom: 20,
+                position: 'relative'
               }}>
               <div
                 style={{
                   display : "flex",
                   flexWrap: "wrap",
+                  justifyContent: 'center'
                 }}>
                   {products.map((product, j) => {
                     return (
@@ -104,15 +143,31 @@ export default class Outfits extends Component {
               </div>
               <br/>
               <hr style={{marginTop: 5, marginBottom: 5}}/>
-              <span>outfit created by {users[outfit.uid].name.split(" ")[0]}
+              <br/>
+              <span>outfit created by {users[outfit.uid].name.split(" ")[0]}</span>
+              <br/>
+              <span>
+                <span
+                  onClick={() => this.addProp(outfit)}
+                  style={{
+                    fontSize:20,
+                    cursor: 'pointer',
+                    // opacity: .2
+                  }}>
+                  👏</span>
+                <span> x {num_props}</span></span>
+
               <span style={{
+                  position: 'absolute',
+                  right: 20,
+                  bottom: 20,
                   float: 'right',
                   opacity: .6,
-                }}>{getTimePassed(outfit.datetime)}</span></span>
+                }}>{getTimePassed(outfit.datetime)}</span>
 
             </div>
           )
-        })}
+        }, this)}
       </div>
     )
   }

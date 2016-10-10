@@ -87,14 +87,14 @@ export default class Product extends Component {
 
     var Save =
       <span
-        style={{cursor: 'pointer'}}
+        style={{cursor: 'pointer', opacity: .3, fontSize : 18}}
         className="hover-underline"
-        onClick={this.onClickSave}>add to bag</span>
+        onClick={this.onClickSave}>👜</span>
     if(saved){
       Save = <span
-        style={{cursor: 'pointer', textDecoration: 'underline'}}
+        style={{cursor: 'pointer', textDecoration: 'underline', opacity: 1, fontSize : 18}}
         className="hover-underline"
-        onClick={this.onClickSave}>bagged</span>
+        onClick={this.onClickSave}>👜</span>
     }
     let width;
     let height;

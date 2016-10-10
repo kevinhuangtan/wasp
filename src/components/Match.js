@@ -52,7 +52,8 @@ export default class RandomView extends Component {
     showBackToTop: false,
     productsLength: 0,
     randomNumbers : [],
-    randomProducts : []
+    randomProducts : [],
+    product_max : 4
   }
 
   static propTypes = {
@@ -88,7 +89,7 @@ export default class RandomView extends Component {
     if(productKeys.length == 0){
       return []
     }
-    while(ret.length < PRODUCT_MAX){
+    while(ret.length < this.state.product_max){
       let randInt = getRandomInt(0, productKeys.length);
 
       let prod = products[productKeys[randInt]];
@@ -129,7 +130,7 @@ export default class RandomView extends Component {
     ret.splice(switchOutIndex,1);
 
 
-    while(ret.length < PRODUCT_MAX){
+    while(ret.length < this.state.product_max){
       let randInt = getRandomInt(0, productKeys.length);
 
       let prod = products[productKeys[randInt]];
@@ -163,11 +164,29 @@ export default class RandomView extends Component {
         uid: self.state.user.uid,
         products: self.state.randomProducts,
         datetime: new Date().getTime(),
-        type: "ADD_TO_BAG"
+        type: "ADD_TO_BAG",
+        props: {}
       })
     }
 
 
+  }
+
+  increaseProducts = () => {
+    if(this.state.product_max < 4){
+      this.setState({ product_max : this.state.product_max + 1}, function(){
+        this.switchOut(this.state.randomProducts.length);
+
+      })
+    }
+  }
+  decreaseProducts = () => {
+    if(this.state.product_max > 1){
+      this.setState({
+        product_max : this.state.product_max - 1,
+        randomProducts : this.state.randomProducts.slice(0, this.state.randomProducts.length - 1)
+      })
+    }
   }
   render(){
 
@@ -187,7 +206,15 @@ export default class RandomView extends Component {
       return <ChasingDots/>
     }
 
-
+    let ClickRandomize;
+    if(randomProducts.length == 0){
+      ClickRandomize =
+      <h2 style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}>click RANDOMIZE to get started</h2>
+    }
     return (
       <section>
         <p style={{
@@ -205,8 +232,11 @@ export default class RandomView extends Component {
             flexWrap:'wrap',
             flexDirection:'row',
             justifyContent: 'center',
-            height: 450
+            height: 450,
+            minWidth: 950,
+            position: 'relative'
           }}>
+            {ClickRandomize}
             {randomProducts.map((product, i)=>{
               return (
                 <div key={i} style={{
@@ -222,7 +252,30 @@ export default class RandomView extends Component {
                 </div>
               )
             })}
+            <div
+              className="noselect"
+              style={{
+                position: 'absolute',
+                right: 20,
+                bottom: 10
+              }}>
+              <a
+                onClick={()=>this.increaseProducts()}
+                style={{
+                  fontSize:35,
+                  cursor: 'pointer'
+                }}>+</a>
+              <a
+                onClick={()=>this.decreaseProducts()}
+                style={{
+                  marginLeft:10,
+                  fontSize:35,
+                  cursor: 'pointer'
+                }}>-</a>
+
+            </div>
         </div>
+
         <div style={{
           textAlign: 'center',
           padding: 10,
@@ -238,11 +291,13 @@ export default class RandomView extends Component {
             }}
             onClick={() => this.publish()}>PUBLISH</button>
             <br/><br/>
-            <br/><br/>
+            <hr/>
+            <br/>
             <p><u>outfits created by peers</u></p>
         </div>
 
         <Outfits/>
+        <br/><br/><br/><br/><br/><br/><br/>
       </section>
     )
   }
