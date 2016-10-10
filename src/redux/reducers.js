@@ -118,7 +118,7 @@ function prices(state = {priceFloor : 0, priceCeiling : 1000}, action){
   }
 }
 
-function view(state = "MATCH", action){
+function view(state = "SEARCH", action){
   switch (action.type) {
     case 'SET_VIEW':
       console.log(action.view)
