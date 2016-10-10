@@ -15,6 +15,7 @@ import Prices from '../containers/Prices';
 import Product from '../containers/Product';
 import Welcome from '../containers/Welcome';
 import Tags from '../containers/Tags';
+import Match from '../containers/Match';
 
 const styles = {
   backToTopBtn: {
@@ -83,35 +84,9 @@ const NoProducts = ({tagsSelected, storesSelected}) => {
   if(storesSelected.length == 0){
     return <p>select one or more stores <span style={{fontSize: 20}}>☝️</span>🏽</p>
   }
-  var TopText;
-  if(tagsSelected.length == 1){
-    TopText =
-      <p>
-        there are no products with tag <span style={styles.tag}>{tagsSelected[0]}</span>
-      </p>
-  }
-  else{
-    TopText =
-      <p>
-        there are no products with tags {tagsSelected.map((tag, i) =>{
-          if(i == tagsSelected.length - 1){
-            return(
-              <span key={i}> <span style={styles.tag}>{tag}</span></span>
-            )
-          }
-          return(
-            <span key={i} > <span style={styles.tag}>{tag}</span>,</span>
-          )
-        })}
-        &nbsp;<span style={{fontSize: 20}}>😭😭😭</span>
-      </p>
-
-  }
-//       {TopText}
-
   return (
     <div>
-      0 results. Try removing tags or selecting more stores.
+      0 results 😭😭😭. Try removing tags or selecting more stores.
     </div>
   )
 }
@@ -201,7 +176,11 @@ export default class SearchView extends Component {
     if(productsSlice.length != 0){
       ProductList = productsSlice.map((product, i) => {
         return (
-          <Product product={product} key={i}/>
+          <div key={i} style={{
+              margin: 10
+            }}>
+            <Product product={product} />
+          </div>
         )
       })
     }
@@ -224,7 +203,12 @@ export default class SearchView extends Component {
         Content = <ChasingDots size={100} />
       }
       else{
-        Content = <NoProducts tagsSelected={tagsSelected} storesSelected={storesSelected}/>
+        Content =
+          <div style={{
+              textAlign:'center'
+            }}>
+            <button onClick={()=>{this.setRandomize()}}>RANDOMIZE an outfit</button>
+          </div>
       }
     }
     else{
@@ -250,7 +234,6 @@ export default class SearchView extends Component {
         <Prices/>
         <hr/>
         {Showing}
-        <button onClick={()=>{this.setRandomize()}}>randomize</button>
 
         <BackToTopBtn
           showBackToTop={showBackToTop}

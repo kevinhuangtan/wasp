@@ -5,16 +5,10 @@ import Styles from '../styles';
 var MobileDetect = require('mobile-detect');
 var mobile = new MobileDetect(window.navigator.userAgent).mobile();
 
-import $ from 'jquery';
-import InfiniteScroll from 'react-infinite-scroller';
 import { ChasingDots } from 'better-react-spinkit'
 
-import Categories from '../containers/Categories';
-import Stores from '../containers/Stores';
-import Prices from '../containers/Prices';
-import Product from '../containers/Product';
-import Welcome from '../containers/Welcome';
-import Tags from '../containers/Tags';
+import Outfits from '../containers/Outfits';
+import Product from '../containers/Product'
 
 const styles = {
   backToTopBtn: {
@@ -40,42 +34,6 @@ const styles = {
 }
 
 
-const NoProducts = ({tagsSelected, storesSelected}) => {
-  if(storesSelected.length == 0){
-    return <p>select one or more stores <span style={{fontSize: 20}}>☝️</span>🏽</p>
-  }
-  var TopText;
-  if(tagsSelected.length == 1){
-    TopText =
-      <p>
-        there are no products with tag <span style={styles.tag}>{tagsSelected[0]}</span>
-      </p>
-  }
-  else{
-    TopText =
-      <p>
-        there are no products with tags {tagsSelected.map((tag, i) =>{
-          if(i == tagsSelected.length - 1){
-            return(
-              <span key={i}> <span style={styles.tag}>{tag}</span></span>
-            )
-          }
-          return(
-            <span key={i} > <span style={styles.tag}>{tag}</span>,</span>
-          )
-        })}
-        &nbsp;<span style={{fontSize: 20}}>😭😭😭</span>
-      </p>
-
-  }
-//       {TopText}
-
-  return (
-    <div>
-      0 results. Try removing tags or selecting more stores.
-    </div>
-  )
-}
 
 
 function getRandomInt(min, max) {
@@ -86,8 +44,9 @@ function getRandomInt(min, max) {
 
 
 
+const PRODUCT_MAX = 4;
 
-export default class SearchView extends Component {
+export default class RandomView extends Component {
   state = {
     page : 0,
     showBackToTop: false,
@@ -104,7 +63,14 @@ export default class SearchView extends Component {
   }
 
   componentDidMount(){
-    this.randomize()
+    this.randomize();
+    var self = this;
+    // retrieve user's bag from previous session
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        self.setState({ user : user})
+      }
+    });
   }
 
   componentWillReceiveProps(nextProps){
@@ -113,7 +79,6 @@ export default class SearchView extends Component {
   }
 
   randomize = () => {
-    console.log('random', this.props.allProductsObj.length)
 
     let products = this.props.allProductsObj || {};
     var ret = [];
@@ -123,8 +88,7 @@ export default class SearchView extends Component {
     if(productKeys.length == 0){
       return []
     }
-    const product_max = 5;
-    while(ret.length < product_max){
+    while(ret.length < PRODUCT_MAX){
       let randInt = getRandomInt(0, productKeys.length);
 
       let prod = products[productKeys[randInt]];
@@ -145,11 +109,66 @@ export default class SearchView extends Component {
         currStores.push(prod.store);
       }
     }
-    console.log('random' , ret)
     this.setState({ randomProducts : ret})
   }
+  switchOut = (switchOutIndex) => {
+
+    let products = this.props.allProductsObj || {};
+    var productKeys = Object.keys(products) || [];
+
+    let ret = Object.assign([], this.state.randomProducts);
+    let currTags = [];
+    let currStores = [];
+    ret.forEach((prod, i) => {
+      if(i!=switchOutIndex){
+        currTags = currTags.concat(prod.tags);
+        currStores.push(prod.store);
+      }
+    })
+
+    ret.splice(switchOutIndex,1);
 
 
+    while(ret.length < PRODUCT_MAX){
+      let randInt = getRandomInt(0, productKeys.length);
+
+      let prod = products[productKeys[randInt]];
+
+      let pushProduct = true;
+
+      prod.tags.forEach((tag, i) => {
+        if(currTags.indexOf(tag) != -1){
+          pushProduct = false
+        }
+      })
+      if(currStores.indexOf(prod  .store) != -1){
+        pushProduct = false
+      }
+      if(pushProduct){
+        ret.splice(switchOutIndex, 0, prod);
+        currTags = currTags.concat(prod.tags);
+        currStores.push(prod.store);
+      }
+    }
+
+    this.setState({ randomProducts : ret})
+
+  }
+  publish = () => {
+    var self = this;
+
+    if(self.state.user){
+
+      firebase.database().ref("outfits").push({
+        uid: self.state.user.uid,
+        products: self.state.randomProducts,
+        datetime: new Date().getTime(),
+        type: "ADD_TO_BAG"
+      })
+    }
+
+
+  }
   render(){
 
     const { page,
@@ -164,38 +183,66 @@ export default class SearchView extends Component {
       view,
     } = this.props;
 
-    let Loader;
     if(Object.keys(allProductsObj).length == 0 || !allProductsObj){
-      Loader = <ChasingDots/>
+      return <ChasingDots/>
     }
 
+
     return (
-      <section style={{
-          padding: mobile ? 10 : 0,
-          paddingBottom : 100,
-        }}>
-        {/*}
-        <Stores/>
+      <section>
+        <p style={{
+            cursor: 'pointer'
+          }}
+          onClick={()=>this.props.setView("SEARCH")}>
+        <a>back to search</a></p>
+
+        <br/><br/>
         <div style={{
-            maxWidth: 400
-          }}>
-          <Tags/>
-        </div>
-        <br/>
-        <Prices/>
-        <hr/>*/}
-        {Loader}
-        <button onClick={() => this.randomize()}>Random</button>
-        <div style={{
+            padding: 10,
+            border: Styles.border,
+            boxShadow: Styles.boxShadow,
             display: 'flex',
             flexWrap:'wrap',
-            flexDirection:'row'
+            flexDirection:'row',
+            justifyContent: 'center',
+            height: 450
           }}>
-
-          {randomProducts.map((product, i)=>{
-            return <Product small product={product} key={i}/>
-          })}
+            {randomProducts.map((product, i)=>{
+              return (
+                <div key={i} style={{
+                    margin: 5
+                  }}>
+                  <a
+                    onClick={()=>this.switchOut(i)}
+                    style={{
+                      cursor:'pointer'
+                    }}>switch out</a>
+                  <br/><br/>
+                  <Product small product={product} />
+                </div>
+              )
+            })}
         </div>
+        <div style={{
+          textAlign: 'center',
+          padding: 10,
+          }}>
+          <button
+            style={{
+              margin: 10
+            }}
+            onClick={() => this.randomize()}>RANDOMIZE</button>
+          <button
+            style={{
+              margin: 10
+            }}
+            onClick={() => this.publish()}>PUBLISH</button>
+            <br/><br/>
+            <br/><br/>
+            <p><u>outfits created by peers</u></p>
+        </div>
+
+        <Outfits/>
       </section>
     )
   }

@@ -69,7 +69,7 @@ export default class Product extends Component {
 
   render(){
 
-    const { savedProducts, storeMap, product, small } = this.props;
+    const { savedProducts, storeMap, product, small, supersmall } = this.props;
     if(!product){
       return null
     }
@@ -96,47 +96,62 @@ export default class Product extends Component {
         className="hover-underline"
         onClick={this.onClickSave}>bagged</span>
     }
-    console.log(small)
     let width;
     let height;
-    let margin;
+
+    let fontSize = 14;
+    width = mobile ? 140 : 280
+    height = mobile ? 150: 300
     if(small){
-      width = 200
-      height = 220;
-      margin = 10;
+      width = 220
+      height = 240;
+      fontSize = 12;
     }
-    else{
-      width = mobile ? 140 : 280
-      height = mobile ? 150: 300
-      margin = mobile ? 10 : 25;
+    if(supersmall){
+      width = 180
+      height = 200;
+      fontSize = 10;
     }
+
     return (
       <div
         style={{
-          margin: margin,
-          width: width
+          width: width,
+          fontSize: fontSize
         }}>
-        <img
-          onClick={() => this.goToProduct(product.href)}
-          className="hover-opacity"
-          style={{
-            ...styles.productImage,
-            height: height
+        <a href={product.href}>
+          <img
+              onClick={() => this.goToProduct(product.href)}
+              className="hover-opacity"
+              style={{
+                ...styles.productImage,
+                height: height,
+                width: 'auto'
 
-          }} src={product.image.src}/>
+              }} src={product.image.src}/>
+        </a>
         <br/><br/>
         <div style={{
             width: width - 30,
           }}>
-          <p
+          <a href={product.href}
             onClick={() => this.goToProduct(product.href)}
             className="hover-opacity"
-            style={{cursor:'pointer'}}>{product.name}</p>
+            style={{
+              cursor:'pointer',
+              color: Styles.colorText
+            }}>{product.name}</a>
           <p><span style={{color:Styles.red}}>${product.price.toFixed(2)}</span> from&nbsp;
-            <u
-              style={{cursor:'pointer'}}
+            <a href={product.href}
+              style={{
+                cursor:'pointer',
+                color: Styles.colorText
+              }}
               className="hover-opacity"
-              onClick={() => this.goToProduct(product.href)}>{storeMap[product.store]}</u></p>
+              onClick={() => this.goToProduct(product.href)}>
+              <u>{storeMap[product.store]}</u>
+              </a>
+          </p>
           <p>
             {Save}
           </p>

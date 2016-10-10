@@ -16,9 +16,14 @@ exports.orange = "#E8652F";
 const border = "1px solid rgb(200, 200, 200)";
 exports.border = border;
 
+
 exports.colorMain = '#575D7E';
+
 exports.colorSecondary = '#E7E7E7';
-exports.colorText = '#737373';
+
+exports.colorTertiary = '#4d71e2';
+
+exports.colorText = '#686868';
 
 const shadow = "";
 exports.boxShadow = {

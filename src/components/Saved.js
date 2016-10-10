@@ -21,14 +21,13 @@ export default class Saved extends Component {
         if(productKey in allProductsObj){
           return (
             <Product product={allProductsObj[productKey]} key={i}/>
-          )          
+          )
         }
       })
     }
     else{
       ProductList = ( <p>Your bag is empty.</p>)
     }
-
     return (
       <section  style={{paddingBottom : 100}}>
         <div

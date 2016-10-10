@@ -36,6 +36,21 @@ export default class Bag extends Component {
       }
     });
   }
+  generateText = () => {
+    let text = `👜 (${this.props.savedProducts.length})`;
+    if(this.state.firstName){
+      text = `${this.state.firstName}'s ${text}`;
+    }
+    return text
+  }
+  handleClick = () => {
+    if(this.props.view == "BAG"){
+      this.props.handleClick("SEARCH")
+    }
+    else{
+      this.props.handleClick("BAG")
+    }
+  }
   render(){
     const {savedProducts, view, handleClick} = this.props;
     const { firstName } = this.state;
@@ -44,10 +59,10 @@ export default class Bag extends Component {
     var text;
     switch(view){
       case "SEARCH":
-        text = `Bag (${savedProducts.length})`;
-        if(firstName){
-          text = `${firstName}'s ${text}`;
-        }
+        text = this.generateText()
+        break
+      case "MATCH":
+        text = this.generateText()
         break
       case "BAG":
         text = "back to search"
@@ -58,14 +73,13 @@ export default class Bag extends Component {
     }
     return(
       <button
-        className="hover-opacity-light"
-        onClick={handleClick}
+        onClick={this.handleClick}
         style={{
             position: 'fixed',
-            bottom: 25,
-            left: 25,
+            top: 25,
+            right: 25,
             borderRadius : 5,
-            backgroundColor: isSaved ? Styles.colorMain : Styles.colorSecondary,
+            backgroundColor: isSaved ? Styles.colorTertiary : Styles.colorSecondary,
             padding: 10,
             paddingLeft: 15,
             paddingRight: 15,

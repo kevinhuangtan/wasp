@@ -52,12 +52,7 @@ const styles = {
     justifyContent:'space-between',
     alignItems:'center'
   },
-  container:{
-    padding: mobile ? 0 : 40,
-    marginTop: mobile ? 80 : 30,
-    paddingRight: mobile ? 0 : 50,
-    paddingBottom: mobile ? 150 : 0
-  }
+
 }
 
 ////////////////////////////////////////////////
@@ -99,15 +94,18 @@ class YourReactApp extends Component {
     return (
       <Provider store={store}>
         <section>
-          <Banner/>
-          <div style={styles.container}>
+          {/*}<Banner/>*/}
+          <div style={{
+              padding: mobile ? 0 : 40,
+              // marginTop: mobile ? 80 : 30,
+              paddingRight: mobile ? 0 : 50,
+              paddingBottom: mobile ? 150 : 0
+            }}>
             <View/>
           </div>
           <Login/>
           <Firebase/>
           <Bag/>
-
-          <Activity/>
         </section>
       </Provider>
     )

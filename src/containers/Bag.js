@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { toggleView, setBagFromSession } from '../redux/actions'
+import { toggleView, setBagFromSession, setView } from '../redux/actions'
 import Bag from '../components/Bag'
 
 const mapStateToProps = (state) => {
@@ -11,8 +11,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleClick: () => {
-      dispatch(toggleView())
+    handleClick: (view) => {
+      dispatch(setView(view))
     },
     setBag: (bag) => {
       dispatch(setBagFromSession(bag))
