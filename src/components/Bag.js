@@ -79,8 +79,9 @@ export default class Bag extends Component {
         onClick={this.handleClick}
         style={{
             position: 'fixed',
-            top: 25,
+            top: mobile ? 'auto' : 25,
             right: 25,
+            bottom: mobile ? 25 : ' auto',
             backgroundColor: isSaved ? Styles.colorTertiary : Styles.colorSecondary,
             zIndex: 100,
             width: 'auto',

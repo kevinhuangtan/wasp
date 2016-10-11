@@ -12,6 +12,57 @@ const styles = {
   },
 }
 
+class ProductInfo extends Component {
+  render(){
+    const { goToProduct, product, savedProducts, storeMap } = this.props;
+
+    var saved = false;
+    if(savedProducts.indexOf(product.key) != -1){
+      saved = true;
+    }
+
+    var Save =
+      <span
+        style={{cursor: 'pointer', opacity: .3, fontSize : 18}}
+        className="hover-underline"
+        onClick={this.onClickSave}>👜</span>
+    if(saved){
+      Save = <span
+        style={{cursor: 'pointer', textDecoration: 'underline', opacity: 1, fontSize : 18}}
+        className="hover-underline"
+        onClick={this.onClickSave}>👜</span>
+    }
+
+    return (
+      <div >
+        <a href={product.href}
+          target="_blank"
+          onClick={() => this.goToProduct(product.href)}
+          className="hover-opacity"
+          style={{
+            cursor:'pointer',
+            color: Styles.colorText
+          }}>{product.name}</a>
+        <p><span style={{color:Styles.red}}>${product.price.toFixed(2)}</span> from&nbsp;
+          <a
+            target="_blank"
+            href={product.href}
+            style={{
+              cursor:'pointer',
+              color: Styles.colorText
+            }}
+            className="hover-opacity"
+            onClick={() => this.goToProduct(product.href)}>
+            <u>{storeMap[product.store]}</u>
+            </a>
+        </p>
+        <p>
+          {Save}
+        </p>
+      </div>
+    )
+  }
+}
 
 export default class Product extends Component {
 
@@ -70,32 +121,11 @@ export default class Product extends Component {
   render(){
 
     const { savedProducts, storeMap, product, small, supersmall } = this.props;
-    if(!product){
+
+    if(!product || !product.image){
       return null
     }
-    var saved = false;
-    if(savedProducts.indexOf(product.key) != -1){
-      saved = true;
-    }
-    var deleteButton;
-    if(this.state.user.uid == "5jOwzCXFt5gkfB1SmCPpxG3nTRd2"){
-      deleteButton =
-       <span
-         style={{color: 'red', cursor:'pointer', opacity: .3}}
-         onClick={this.deleteProduct}>delete product</span>
-    }
 
-    var Save =
-      <span
-        style={{cursor: 'pointer', opacity: .3, fontSize : 18}}
-        className="hover-underline"
-        onClick={this.onClickSave}>👜</span>
-    if(saved){
-      Save = <span
-        style={{cursor: 'pointer', textDecoration: 'underline', opacity: 1, fontSize : 18}}
-        className="hover-underline"
-        onClick={this.onClickSave}>👜</span>
-    }
     let width;
     let height;
 
@@ -103,23 +133,24 @@ export default class Product extends Component {
     width = mobile ? 140 : 280
     height = mobile ? 150: 300
     if(small){
-      width = 220
-      height = 240;
+      width = mobile ? 150 : 220;
+      height = mobile ? 170 : 240;
       fontSize = 12;
     }
     if(supersmall){
-      width = 180
-      height = 200;
+      width = mobile ? 100 : 180;
+      height = mobile ? 150 : 200;
       fontSize = 10;
     }
 
     return (
       <div
         style={{
+          overflow: 'hidden',
           width: width,
           fontSize: fontSize
         }}>
-        <a href={product.href}>
+        <a target="_blank" href={product.href}>
           <img
               onClick={() => this.goToProduct(product.href)}
               className="hover-opacity"
@@ -127,36 +158,24 @@ export default class Product extends Component {
                 ...styles.productImage,
                 height: height,
                 width: 'auto'
-
               }} src={product.image.src}/>
         </a>
         <br/><br/>
-        <div style={{
-            width: width - 30,
-          }}>
-          <a href={product.href}
-            onClick={() => this.goToProduct(product.href)}
-            className="hover-opacity"
-            style={{
-              cursor:'pointer',
-              color: Styles.colorText
-            }}>{product.name}</a>
-          <p><span style={{color:Styles.red}}>${product.price.toFixed(2)}</span> from&nbsp;
-            <a href={product.href}
-              style={{
-                cursor:'pointer',
-                color: Styles.colorText
-              }}
-              className="hover-opacity"
-              onClick={() => this.goToProduct(product.href)}>
-              <u>{storeMap[product.store]}</u>
-              </a>
-          </p>
-          <p>
-            {Save}
-          </p>
-        </div>
+        <ProductInfo
+          goToProduct={this.goToProduct}
+          product={product}
+          storeMap={storeMap}
+          savedProducts={savedProducts}/>
       </div>
     )
   }
 }
+
+// console.log(product)
+// var deleteButton;
+// if(this.state.user.uid == "5jOwzCXFt5gkfB1SmCPpxG3nTRd2"){
+//   deleteButton =
+//    <span
+//      style={{color: 'red', cursor:'pointer', opacity: .3}}
+//      onClick={this.deleteProduct}>delete product</span>
+// }

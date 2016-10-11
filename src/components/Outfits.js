@@ -63,7 +63,6 @@ export default class Outfits extends Component {
   }
 
   formatActivity = (outfitsObj) => {
-    console.log(outfitsObj)
     var outfitsKeys = Object.keys(outfitsObj);
     outfitsKeys = outfitsKeys.reverse();
     var ret = [];
@@ -122,9 +121,9 @@ export default class Outfits extends Component {
                 display:'block',
                 backgroundColor: 'white',
                 ...Styles.boxShadow,
-                padding: 25,
+                padding: mobile ? 10 : 25,
                 width: "80%",
-                minWidth: 850,
+                minWidth: mobile ? 300 : 850,
                 margin: '0 auto',
                 marginBottom: 20,
                 position: 'relative'
@@ -133,18 +132,20 @@ export default class Outfits extends Component {
                 style={{
                   display : "flex",
                   flexWrap: "wrap",
-                  justifyContent: 'center'
+                  justifyContent: 'center',
                 }}>
                   {products.map((product, j) => {
                     return (
-                      <Product supersmall key={j} product={product} />
+                      <div style={{margin: 5}} key={j}>
+                        <Product supersmall  product={product} />
+                      </div>
                     )
                   })}
               </div>
               <br/>
               <hr style={{marginTop: 5, marginBottom: 5}}/>
               <br/>
-              <span>outfit created by {users[outfit.uid].name.split(" ")[0]}</span>
+              <span>outfit created by {users[outfit.uid].name.split(" ")[0] + " " + users[outfit.uid].name.split(" ")[1][0]}</span>
               <br/>
               <span>
                 <span

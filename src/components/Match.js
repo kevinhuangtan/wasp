@@ -64,7 +64,6 @@ export default class RandomView extends Component {
   }
 
   componentDidMount(){
-    this.randomize();
     var self = this;
     // retrieve user's bag from previous session
     firebase.auth().onAuthStateChanged(function(user) {
@@ -75,40 +74,107 @@ export default class RandomView extends Component {
   }
 
   componentWillReceiveProps(nextProps){
+    this.createWeights(nextProps.allProductsObj)
+  }
+  createWeights = (allProductsObj) => {
+    if(!allProductsObj){ return }
+    var allProductKeys = Object.keys(allProductsObj);
+    var storeProportions = {}
+    allProductKeys.forEach((productKey) => {
+      var product = allProductsObj[productKey];
 
-    this.randomize()
+      if(!(product.store in storeProportions)){
+        storeProportions[product.store] = 1;
+      }
+      else{
+          storeProportions[product.store] += 1;
+      }
+
+    })
+
+    let total_products_length = allProductKeys.length;
+    var weights = {};
+    var storeProportionsKeys =  Object.keys(storeProportions);
+    var num_stores = storeProportionsKeys.length;
+
+    var lowest = 100;
+
+    // calculate P, find lowest
+    storeProportionsKeys.forEach((storeKey) =>{
+        storeProportions[storeKey] = storeProportions[storeKey]/total_products_length;
+        if(storeProportions[storeKey] < lowest){
+          lowest = storeProportions[storeKey];
+        }
+    })
+
+
+    storeProportionsKeys.forEach((storeKey) =>{
+      weights[storeKey] = lowest / storeProportions[storeKey]
+    })
+
+    // W_i = P_lowest / P_i
+    this.setState({ weights : weights });
+
+
+  }
+  uniqueTag = (product, currTags) => {
+    var uniqueTag = true;
+    if(product.tags){
+      product.tags.forEach((tag, i) => {
+        if(currTags.indexOf(tag) != -1){
+          uniqueTag = false
+        }
+      })
+    }
+    return uniqueTag
   }
 
-  randomize = () => {
+  randomStore = (product, weights) => {
+    var store = product.store;
+    var weight = weights[store];
+    var random = Math.random();
+    if(random < weight){
+      return true
+    }
+    return false
+  }
 
+  chooseRandomProduct = (products, currTags) => {
+    var productKeys = Object.keys(products);
+    let found = false;
+    let product;
+    while(!found){
+      let randInt = getRandomInt(0, productKeys.length);
+      product = products[productKeys[randInt]];
+
+      if(
+        product
+        && this.uniqueTag(product, currTags)
+        && this.randomStore(product, this.state.weights)
+      ){
+        found = true
+      }
+      if(product.store == "mrporter"){
+        found = false;
+      }
+    }
+    currTags = currTags.concat(product.tags);
+
+    return product
+
+  }
+  randomize = () => {
     let products = this.props.allProductsObj || {};
-    var ret = [];
+    let ret = [];
     let currTags = [];
-    let currStores = [];
     var productKeys = Object.keys(products) || [];
     if(productKeys.length == 0){
       return []
     }
     while(ret.length < this.state.product_max){
-      let randInt = getRandomInt(0, productKeys.length);
-
-      let prod = products[productKeys[randInt]];
-
-      let pushProduct = true;
-
-      prod.tags.forEach((tag, i) => {
-        if(currTags.indexOf(tag) != -1){
-          pushProduct = false
-        }
-      })
-      if(currStores.indexOf(prod  .store) != -1){
-        pushProduct = false
-      }
-      if(pushProduct){
-        ret.push(prod);
-        currTags = currTags.concat(prod.tags);
-        currStores.push(prod.store);
-      }
+      var product = this.chooseRandomProduct(products, currTags);
+      ret.push(product);
+      currTags = currTags.concat(product.tags);
     }
     this.setState({ randomProducts : ret})
   }
@@ -119,59 +185,67 @@ export default class RandomView extends Component {
 
     let ret = Object.assign([], this.state.randomProducts);
     let currTags = [];
-    let currStores = [];
     ret.forEach((prod, i) => {
       if(i!=switchOutIndex){
         currTags = currTags.concat(prod.tags);
-        currStores.push(prod.store);
       }
     })
 
     ret.splice(switchOutIndex,1);
 
-
     while(ret.length < this.state.product_max){
-      let randInt = getRandomInt(0, productKeys.length);
-
-      let prod = products[productKeys[randInt]];
-
-      let pushProduct = true;
-
-      prod.tags.forEach((tag, i) => {
-        if(currTags.indexOf(tag) != -1){
-          pushProduct = false
-        }
-      })
-      if(currStores.indexOf(prod  .store) != -1){
-        pushProduct = false
-      }
-      if(pushProduct){
-        ret.splice(switchOutIndex, 0, prod);
-        currTags = currTags.concat(prod.tags);
-        currStores.push(prod.store);
-      }
+      ret.splice(switchOutIndex, 0, this.chooseRandomProduct(products, currTags));
     }
 
     this.setState({ randomProducts : ret})
 
   }
+  remove = (removeIndex) => {
+    if(this.state.product_max > 1){
+      var randomProducts = Object.assign([], this.state.randomProducts);
+      randomProducts.splice(removeIndex, 1);
+      this.setState({
+        product_max : this.state.product_max - 1,
+        randomProducts : randomProducts
+      })
+    }
+  }
   publish = () => {
     var self = this;
+    var randomProducts = this.state.randomProducts;
 
     if(self.state.user){
 
       firebase.database().ref("outfits").push({
         uid: self.state.user.uid,
-        products: self.state.randomProducts,
+        products: randomProducts,
         datetime: new Date().getTime(),
         type: "ADD_TO_BAG",
         props: {}
       })
+
+      // create outfit edges
+      var productsUpdate = {};
+      randomProducts.forEach((product)=>{
+        // productsUpdate[product.key] = {}; // replace with before
+        var updateProductEdges = {};
+        randomProducts.map((randProduct , i) => {
+          if(randProduct.key != product.key){
+            if(product.outfitEdges && product.outfitEdges[randProduct.key]){
+              updateProductEdges[randProduct.key] = product.outfitEdges[randProduct.key] + 1;
+            }
+            else{
+              updateProductEdges[randProduct.key] = 1;
+
+            }
+          }
+        })
+        productsUpdate[`${product.key}/outfitEdges`] = updateProductEdges;
+      })
+
+      firebase.database().ref("products").update(productsUpdate);
     }
-
-
   }
-
   increaseProducts = () => {
     if(this.state.product_max < 4){
       this.setState({ product_max : this.state.product_max + 1}, function(){
@@ -202,14 +276,17 @@ export default class RandomView extends Component {
       view,
     } = this.props;
 
-    if(Object.keys(allProductsObj).length == 0 || !allProductsObj){
-      return <ChasingDots/>
-    }
 
+    console.log(randomProducts)
+    if(Object.keys(allProductsObj).length == 0 || !allProductsObj){
+      return <ChasingDots size={100}/>
+    }
     let ClickRandomize;
     if(randomProducts.length == 0){
       ClickRandomize =
-      <h2 style={{
+      <h2
+        style={{
+          fontSize: mobile ? 20 : 'auto',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -232,21 +309,30 @@ export default class RandomView extends Component {
             flexWrap:'wrap',
             flexDirection:'row',
             justifyContent: 'center',
-            height: 450,
-            minWidth: 950,
-            position: 'relative'
+            height: mobile ? 'auto' : 450,
+            minWidth: mobile ? 300 : 950,
+            position: 'relative',
+            margin: 10
           }}>
             {ClickRandomize}
             {randomProducts.map((product, i)=>{
               return (
                 <div key={i} style={{
-                    margin: 5
+                    margin: 5,
+                    overflow:'hidden',
+                    // width : mobile ? 100 : 180,
                   }}>
                   <a
                     onClick={()=>this.switchOut(i)}
                     style={{
                       cursor:'pointer'
-                    }}>switch out</a>
+                    }}>switch</a>
+                  <a
+                    onClick={()=>this.remove(i)}
+                    style={{
+                      marginLeft: 10,
+                      cursor:'pointer'
+                    }}>remove</a>
                   <br/><br/>
                   <Product small product={product} />
                 </div>

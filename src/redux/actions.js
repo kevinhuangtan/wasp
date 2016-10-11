@@ -16,7 +16,10 @@ export const STORE_KEYS =
   'uniqlo',
   'hm',
   'jcrew',
-  // 'forever21'
+  'forever21',
+  'blueowl',
+  // 'nike',
+  // 'mrporter'
 ];
 export const STORE_MAP = {
   'asos': 'asos',
@@ -26,7 +29,10 @@ export const STORE_MAP = {
   'hm': 'h&m',
   'zara' : "zara",
   'jcrew': 'j. crew',
-  'forever21': 'forever 21'
+  'forever21': 'forever 21',
+  'blueowl' : 'Blue Owl',
+  'nike' : 'Nike',
+  'mrporter' : 'Mr. Porter'
 }
 
 ////////////////////////////////////////////////
