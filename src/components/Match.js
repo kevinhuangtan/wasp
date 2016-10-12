@@ -463,6 +463,9 @@ export default class RandomView extends Component {
             display: 'flex',
             height: 'auto',
             minWidth: 300,
+            maxWidth: 600,
+            justifyContent: 'center',
+
             position: 'relative',
           }}>
             {randomProducts.map((product, i)=>{

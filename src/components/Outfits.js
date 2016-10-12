@@ -126,6 +126,7 @@ export default class Outfits extends Component {
                 padding: mobile ? 5 : 25,
                 width: "95%",
                 minWidth: 300 ,
+                maxWidth: 650,
                 margin: '0 auto',
                 marginBottom: 20,
                 position: 'relative',
