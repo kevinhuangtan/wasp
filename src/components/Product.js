@@ -28,7 +28,7 @@ class ProductInfo extends Component {
         onClick={onClickSave}>👜</span>
     if(saved){
       Save = <span
-        style={{cursor: 'pointer', textDecoration: 'underline', opacity: 1, fontSize : 18}}
+        style={{cursor: 'pointer',  opacity: 1, fontSize : 18}}
         className="hover-underline"
         onClick={onClickSave}>👜</span>
     }
@@ -43,12 +43,12 @@ class ProductInfo extends Component {
               flex:4,
               marginBottom: 10
             }}>
-            <a
+            <span
               className="hover-opacity"
               style={{
                 cursor:'pointer',
                 color: Styles.colorText
-              }}>{product.name}</a>
+              }}>{product.name}</span>
             <br/>
             <span style={{color:Styles.red}}>${product.price.toFixed(2)}</span>
             <span
@@ -127,7 +127,12 @@ export default class Product extends Component {
 
   render(){
 
-    const { savedProducts, storeMap, product, small, supersmall } = this.props;
+    const { savedProducts,
+      storeMap,
+      product,
+      small,
+      supersmall,
+      supersupersmall } = this.props;
 
     if(!product || !product.image){
       return null
@@ -144,7 +149,7 @@ export default class Product extends Component {
       height = mobile ? 170 : 240;
       fontSize = 12;
     }
-    if(supersmall){
+    if(supersmall || supersupersmall){
       width = mobile ? "100%" : 180;
       height = mobile ? 150 : 200;
       fontSize = 9;
@@ -159,7 +164,7 @@ export default class Product extends Component {
         }}>
         <div
           style={{
-            height: mobile ? 200 : 'auto',
+            height: mobile ? ( supersupersmall ? 150 : 200) : 'auto',
             width:"100%",
             overflow:'hidden'
           }}
@@ -169,7 +174,7 @@ export default class Product extends Component {
               className="hover-opacity"
               style={{
                 ...styles.productImage,
-                height: 200,
+                height: supersupersmall ? 150 : 200,
                 width: "auto"
               }} src={product.image.src}/>
           </div>

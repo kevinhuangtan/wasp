@@ -181,7 +181,7 @@ export default class SearchView extends Component {
               margin: 5,
               width: mobile ? "45%" : 200
             }}>
-            <Product supersmall product={product} />
+            <Product supersupersmall product={product} />
             <button
               onClick={()=>pushProduct(product)}
               style={{

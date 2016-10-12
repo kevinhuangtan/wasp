@@ -277,6 +277,7 @@ export default class RandomView extends Component {
 
       if(
         product
+        && product.store
         && this.uniqueTag(product, currTags)
         && this.randomStore(product, this.state.weights)
       ){
@@ -329,7 +330,7 @@ export default class RandomView extends Component {
 
   }
   remove = (removeIndex) => {
-    if(this.state.product_max > 1){
+    if(this.state.product_max > 0){
       var randomProducts = Object.assign([], this.state.randomProducts);
       randomProducts.splice(removeIndex, 1);
       this.setState({
@@ -389,7 +390,7 @@ export default class RandomView extends Component {
     }
   }
   decreaseProducts = () => {
-    if(this.state.product_max > 1){
+    if(this.state.product_max > 0){
       this.setState({
         product_max : this.state.product_max - 1,
         randomProducts : this.state.randomProducts.slice(0, this.state.randomProducts.length - 1)
@@ -434,8 +435,6 @@ export default class RandomView extends Component {
         }}>
         <Modal
           isOpen={modalIsOpen}
-          onAfterOpen={console.log('here')}
-          onRequestClose={console.log('here')}
           closeTimeoutMS={500}
           style={Styles.modal}
         >
@@ -447,7 +446,7 @@ export default class RandomView extends Component {
               backgroundColor:Styles.red,
               color:'white',
               position:'fixed',
-              top:0,
+              bottom:0,
               left:0
             }}>close</button>
         </Modal>

@@ -20,7 +20,13 @@ export default class Saved extends Component {
       ProductList = savedProducts.map((productKey, i) => {
         if(productKey in allProductsObj){
           return (
-            <Product supersmall product={allProductsObj[productKey]} key={i}/>
+            <div key={i} style={{
+                margin: 5,
+                width: mobile ? "45%" : 200
+              }}>
+
+              <Product supersmall product={allProductsObj[productKey]} />
+            </div>
           )
         }
       })
@@ -30,12 +36,17 @@ export default class Saved extends Component {
     }
     return (
       <section  style={{paddingBottom : 100}}>
+        <hr/>
+        <h4 style={{
+            opacity: .7,
+            fontWeight:'bold',
+            textAlign: 'center'
+          }}>YOUR BAG</h4>
         <div
           style={{
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'wrap',
-            paddingTop: mobile ? 100 : 0
           }}>
           {ProductList}
         </div>
