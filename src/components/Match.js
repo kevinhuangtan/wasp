@@ -447,7 +447,7 @@ export default class RandomView extends Component {
               backgroundColor:Styles.red,
               color:'white',
               position:'fixed',
-              bottom:0,
+              top:0,
               left:0
             }}>close</button>
         </Modal>
