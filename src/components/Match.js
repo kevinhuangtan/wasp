@@ -6,9 +6,11 @@ var MobileDetect = require('mobile-detect');
 var mobile = new MobileDetect(window.navigator.userAgent).mobile();
 
 import { ChasingDots } from 'better-react-spinkit'
+import Modal from 'react-modal'
 
 import Outfits from '../containers/Outfits';
 import Product from '../containers/Product'
+import Search_Match from '../containers/Search_Match'
 
 const styles = {
   backToTopBtn: {
@@ -96,7 +98,79 @@ class Cover extends Component {
   }
 }
 
+class AddButton extends Component {
+  render(){
+    const { randomProducts, increaseProducts, openModal } = this.props;
+    return (
+      <div
+        className="noselect"
+        style={{
+          flex: 1,
+          ...Styles.flexVertical,
+          display: randomProducts.length < 4 ? 'flex' : 'none',
+          height: 200,
+        }}>
+          <div
+            onClick={()=>increaseProducts()}
+
+            style={{
+              border : Styles.border,
+              width: 100,
+              height: 100,
+              textAlign: 'center',
+              ...Styles.flexVertical,
+          }}>
+            <p style={{fontSize:35, marginBottom: 0}}>+</p>
+            <p>random</p>
+
+          </div>
+          <br/>
+          <div
+            onClick={() => openModal()}
+            style={{
+              border : Styles.border,
+              width: 100,
+              height:40,
+              textAlign: 'center',
+              ...Styles.flexVertical
+          }}>
+            <p style={{margin: 0}}>+ specific</p>
+          </div>
+      </div>
+
+    )
+  }
+}
+
 const PRODUCT_MAX = 4;
+
+class Buttons extends Component {
+  render(){
+    const { randomize, publish } = this.props;
+    return (
+      <div style={{
+        textAlign: 'center',
+        padding: 10,
+        display: 'flex',
+        flexDirection:'row'
+        }}>
+        <button
+          style={{
+            margin: 5
+          }}
+          onClick={() => randomize()}>RANDOMIZE</button>
+        <button
+          style={{
+            margin: 5
+          }}
+          onClick={() => publish()}>SAVE</button>
+          <br/><br/>
+          <hr/>
+          <br/>
+      </div>
+    )
+  }
+}
 
 export default class RandomView extends Component {
   state = {
@@ -105,7 +179,9 @@ export default class RandomView extends Component {
     productsLength: 0,
     randomNumbers : [],
     randomProducts : [],
-    product_max : 4
+    product_max : 4,
+    modalIsOpen : false
+
   }
 
   static propTypes = {
@@ -320,12 +396,21 @@ export default class RandomView extends Component {
       })
     }
   }
+  pushProduct = (product) => {
+    let ret = Object.assign([], this.state.randomProducts);
+    ret.push(product);
+    this.setState({
+      randomProducts : ret,
+      modalIsOpen : false
+    })
+  }
   render(){
 
     const { page,
       showBackToTop,
       randomProducts,
-      randomize
+      randomize,
+      modalIsOpen
     } = this.state;
     const {
       storesSelected,
@@ -333,8 +418,6 @@ export default class RandomView extends Component {
       allProductsObj,
       view,
     } = this.props;
-
-    console.log(randomProducts)
     if(Object.keys(allProductsObj).length == 0 || !allProductsObj){
       return <div style={{
           marginTop: 50,
@@ -342,23 +425,46 @@ export default class RandomView extends Component {
         justifyContent: 'center',
         }}><ChasingDots size={100}/></div>
     }
+
     return (
       <section style={{
           padding: 10,
           flexWrap:'wrap',
           ...Styles.flexVertical
         }}>
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={console.log('here')}
+          onRequestClose={console.log('here')}
+          closeTimeoutMS={500}
+          style={Styles.modal}
+        >
+          <Search_Match pushProduct={this.pushProduct}/>
+          <button
+            onClick={()=>this.setState({ modalIsOpen : false })}
+            style={{
+              width:"100%",
+              backgroundColor:Styles.red,
+              color:'white',
+              position:'fixed',
+              bottom:0,
+              left:0
+            }}>close</button>
+        </Modal>
         <Cover/>
+        <hr/>
+        <h4 style={{
+            opacity: .7,
+            fontWeight:'bold'
+          }}>YOUR OUTFIT</h4>
+        <Buttons randomize={this.randomize} publish={this.publish}/>
 
         <div style={{
-            border: Styles.border,
-            boxShadow: Styles.boxShadow,
             flexWrap:'wrap',
             display: 'flex',
             height: 'auto',
             minWidth: 300,
             position: 'relative',
-            margin: 10
           }}>
             {randomProducts.map((product, i)=>{
               return (
@@ -375,59 +481,18 @@ export default class RandomView extends Component {
                 </div>
               )
             })}
-            <div
-              className="noselect"
-              style={{
-                flex: 1,
-                width: "100%",
-                display: randomProducts.length < 4 ? 'flex' : 'none',
-                justifyContent:'center',
-                alignItems: 'center',
-                height: 200
-              }}>
-                <div
-                  onClick={()=>this.increaseProducts()}
-
-                  style={{
-                    border : Styles.border,
-                    width: 100,
-                    height: 100,
-                    textAlign: 'center',
-                    ...Styles.flexVertical
-
-                }}>
-                  <span
-                    style={{
-                      fontSize:35,
-                      cursor: 'pointer'
-                    }}>+</span>
-
-                </div>
-            </div>
+            <AddButton
+              openModal={()=>this.setState({ modalIsOpen : true })}
+              randomProducts={randomProducts}
+              increaseProducts={this.increaseProducts}/>
         </div>
-
-        <div style={{
-          textAlign: 'center',
-          padding: 10,
-          display: 'flex',
-          flexDirection:'row'
-          }}>
-          <button
-            style={{
-              margin: 5
-            }}
-            onClick={() => this.randomize()}>RANDOMIZE</button>
-          <button
-            style={{
-              margin: 5
-            }}
-            onClick={() => this.publish()}>SAVE</button>
-            <br/><br/>
-            <hr/>
-            <br/>
-        </div>
-        <br/><br/><br/><br/><br/><br/><br/>
+        <br/>
+        <br/><br/>
         <hr/>
+        <h4 style={{
+            opacity: .7,
+            fontWeight:'bold'
+          }}>OUTFITS BY OTHER PPL</h4>
         <Outfits/>
         <br/><br/><br/><br/><br/><br/><br/>
       </section>

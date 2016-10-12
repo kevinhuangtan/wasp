@@ -20,7 +20,7 @@ export default class Saved extends Component {
       ProductList = savedProducts.map((productKey, i) => {
         if(productKey in allProductsObj){
           return (
-            <Product product={allProductsObj[productKey]} key={i}/>
+            <Product supersmall product={allProductsObj[productKey]} key={i}/>
           )
         }
       })

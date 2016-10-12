@@ -103,7 +103,6 @@ export default class Outfits extends Component {
       <div style={{
         ...Styles.flexVertical
         }}>
-        <p><u>outfits other ppl created</u></p>
         <br/><br/>
         {outfits.map((outfit, i) => {
 

@@ -15,6 +15,9 @@ img{
   -webkit-backface-visibility: hidden;
 }
 
+hr{
+  width: 100%;
+}
 .noselect{
   -webkit-user-select: none;  /* Chrome all / Safari all */
   -moz-user-select: none;     /* Firefox all */

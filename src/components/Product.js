@@ -39,10 +39,11 @@ class ProductInfo extends Component {
           display:'flex',
           flexDirection:'row',
           flexWrap:'wrap'}}>
-          <div style={{flex:4}}>
-            <a href={product.href}
-              target="_blank"
-              onClick={() => this.goToProduct(product.href)}
+          <div style={{
+              flex:4,
+              marginBottom: 10
+            }}>
+            <a
               className="hover-opacity"
               style={{
                 cursor:'pointer',
@@ -50,21 +51,17 @@ class ProductInfo extends Component {
               }}>{product.name}</a>
             <br/>
             <span style={{color:Styles.red}}>${product.price.toFixed(2)}</span>
-            <p>
-              <a
-                  target="_blank"
-                  href={product.href}
-                  style={{
-                    fontWeight: 'bold',
-                    cursor:'pointer',
-                    color: Styles.colorText,
-                    opacity: .8
-                  }}
-                  className="hover-opacity"
-                  onClick={() => this.goToProduct(product.href)}>
-                  {storeMap[product.store]}
-                </a>
-            </p>
+            <span
+                style={{
+                  fontWeight: 'bold',
+                  cursor:'pointer',
+                  color: Styles.colorText,
+                  opacity: .8,
+                  marginLeft : 10
+                }}
+                >
+                {storeMap[product.store]}
+              </span>
             </div>
         <div style={{flex:1}}>
           {Save}
