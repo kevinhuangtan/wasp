@@ -11,8 +11,8 @@ const localhost = 3000;
 app.set('port', (process.env.PORT || localhost));
 app.use(express.static('public')); // you can get files in public folder, i.e src="css/main.css"
 
-if(app.get('port') == localhost){ // local
-
+// if(app.get('port') == localhost){ // local
+if(false){
   var webpack = require('webpack');
   var config = require('./webpack.config.dev');
   var compiler = webpack(config);
