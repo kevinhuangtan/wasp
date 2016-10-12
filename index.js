@@ -9,9 +9,12 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 const localhost = 3000;
 app.set('port', (process.env.PORT || localhost));
-app.use(express.static('public')); // you can get files in public folder, i.e src="css/main.css"
+app.use(express.static('assets')); // you can get files in public folder, i.e src="css/main.css"
+
 
 if(app.get('port') == localhost){ // local
+// if(false){
+
   var webpack = require('webpack');
   var config = require('./webpack.config.dev');
   var compiler = webpack(config);
@@ -22,17 +25,21 @@ if(app.get('port') == localhost){ // local
   }));
 
   app.use(require('webpack-hot-middleware')(compiler));
-  app.use('/src', express.static('src'));
+  // app.use('/src', express.static('src'));
 
 }
 else{
-  app.use('/static', express.static(__dirname + '/dist'));
+  // app.use('/src', express.static(path.join(__dirname, 'dist')))
+
+  const publicPath = express.static(path.join(__dirname, 'public'))
+
+  app.use('/public', publicPath)
 }
+
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
-
 
 app.listen(app.get('port'), function(err) {
   if (err) {
