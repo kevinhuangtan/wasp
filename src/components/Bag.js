@@ -48,7 +48,7 @@ export default class Bag extends Component {
   }
   handleClick = () => {
     if(this.props.view == "BAG"){
-      this.props.handleClick("SEARCH")
+      this.props.handleClick("MATCH")
     }
     else{
       this.props.handleClick("BAG")

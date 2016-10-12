@@ -31,3 +31,17 @@ exports.boxShadow = {
   padding: 15,
   boxShadow: 'rgb(220, 220, 220) 0px 0px 2px'
 }
+
+exports.flexVertical = {
+  display: 'flex',
+  flexDirection:'column',
+  justifyContent: 'center',
+  alignItems:'center',
+}
+
+exports.flexHorizontal = {
+  display: 'flex',
+  flexDirection:'row',
+  justifyContent: 'center',
+  alignItems:'center',
+}

@@ -14,7 +14,7 @@ const styles = {
 
 class ProductInfo extends Component {
   render(){
-    const { goToProduct, product, savedProducts, storeMap } = this.props;
+    const { goToProduct, product, savedProducts, storeMap, onClickSave } = this.props;
 
     var saved = false;
     if(savedProducts.indexOf(product.key) != -1){
@@ -25,12 +25,12 @@ class ProductInfo extends Component {
       <span
         style={{cursor: 'pointer', opacity: .3, fontSize : 18}}
         className="hover-underline"
-        onClick={this.onClickSave}>👜</span>
+        onClick={onClickSave}>👜</span>
     if(saved){
       Save = <span
         style={{cursor: 'pointer', textDecoration: 'underline', opacity: 1, fontSize : 18}}
         className="hover-underline"
-        onClick={this.onClickSave}>👜</span>
+        onClick={onClickSave}>👜</span>
     }
 
     return (
@@ -162,7 +162,7 @@ export default class Product extends Component {
         }}>
         <div
           style={{
-            height: mobile? 200 : 'auto',
+            height: mobile ? 200 : 'auto',
             width:"100%",
             overflow:'hidden'
           }}
@@ -172,8 +172,8 @@ export default class Product extends Component {
               className="hover-opacity"
               style={{
                 ...styles.productImage,
-                height: 'auto',
-                width: "100%"
+                height: 200,
+                width: "auto"
               }} src={product.image.src}/>
           </div>
         <br/>
@@ -181,6 +181,7 @@ export default class Product extends Component {
           goToProduct={this.goToProduct}
           product={product}
           storeMap={storeMap}
+          onClickSave={this.onClickSave}
           savedProducts={savedProducts}/>
       </div>
     )

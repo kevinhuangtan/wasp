@@ -101,12 +101,10 @@ export default class Outfits extends Component {
 
     return(
       <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
+        ...Styles.flexVertical
         }}>
-        <p><u>outfits created by peers</u></p>
-
+        <p><u>outfits other ppl created</u></p>
+        <br/><br/>
         {outfits.map((outfit, i) => {
 
           let props = outfit.props;

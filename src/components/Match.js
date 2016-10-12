@@ -78,6 +78,23 @@ class ProductControl extends Component {
   }
 }
 
+class Cover extends Component {
+  render(){
+    return (
+      <div style={{
+          height: 500,
+          textAlign:'center',
+          display: 'flex',
+          flexDirection:'column',
+          justifyContent: 'center',
+        }}>
+        <h2><u>Walt Steve</u></h2>
+        <h4>create an outfit<br/> or randomly generate one
+          <br/><br/>👕  👗 👖 👔</h4>
+      </div>
+    )
+  }
+}
 
 const PRODUCT_MAX = 4;
 
@@ -288,6 +305,12 @@ export default class RandomView extends Component {
 
       })
     }
+    if(this.state.randomProducts.length == 0){
+      this.setState({ product_max : 1}, function(){
+        this.switchOut(this.state.randomProducts.length);
+
+      })
+    }
   }
   decreaseProducts = () => {
     if(this.state.product_max > 1){
@@ -311,7 +334,6 @@ export default class RandomView extends Component {
       view,
     } = this.props;
 
-
     console.log(randomProducts)
     if(Object.keys(allProductsObj).length == 0 || !allProductsObj){
       return <div style={{
@@ -320,29 +342,19 @@ export default class RandomView extends Component {
         justifyContent: 'center',
         }}><ChasingDots size={100}/></div>
     }
-    let ClickRandomize;
-    // if(randomProducts.length == 0){
-    //   ClickRandomize =
-    //   <h2
-    //     style={{
-    //       fontSize: mobile ? 20 : 'auto',
-    //       display: 'flex',
-    //       flexDirection: 'column',
-    //       justifyContent: 'center',
-    //     }}>click RANDOMIZE to get started</h2>
-    // }
     return (
-      <section>
-        <p>build your outfit</p>
+      <section style={{
+          padding: 10,
+          flexWrap:'wrap',
+          ...Styles.flexVertical
+        }}>
+        <Cover/>
+
         <div style={{
-            padding: 10,
             border: Styles.border,
             boxShadow: Styles.boxShadow,
-            display: 'flex',
             flexWrap:'wrap',
-            flexDirection:'row',
-            justifyContent: 'center',
-            alignItems:'center',
+            display: 'flex',
             height: 'auto',
             minWidth: 300,
             position: 'relative',
@@ -377,14 +389,11 @@ export default class RandomView extends Component {
                   onClick={()=>this.increaseProducts()}
 
                   style={{
-                    // flex: 1,
                     border : Styles.border,
                     width: 100,
                     height: 100,
                     textAlign: 'center',
-                    display: 'flex',
-                    justifyContent:'center',
-                    alignItems: 'center',
+                    ...Styles.flexVertical
 
                 }}>
                   <span
@@ -417,8 +426,8 @@ export default class RandomView extends Component {
             <hr/>
             <br/>
         </div>
-        <br/>
-
+        <br/><br/><br/><br/><br/><br/><br/>
+        <hr/>
         <Outfits/>
         <br/><br/><br/><br/><br/><br/><br/>
       </section>
