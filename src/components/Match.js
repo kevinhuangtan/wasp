@@ -43,6 +43,41 @@ function getRandomInt(min, max) {
 }
 
 
+class ProductControl extends Component {
+  render() {
+    const { remove, switchOut, index } = this.props;
+    return (
+      <div style={{
+          width: "50%",
+          marginBottom: 5,
+          fontSize: 9
+        }}>
+        <span
+          onClick={()=>switchOut(index)}
+          style={{
+            cursor:'pointer',
+            backgroundColor: Styles.red,
+            color: 'white',
+            padding: 5,
+            borderRadius: 5
+          }}>swap</span>
+        <span
+          onClick={()=>remove(index)}
+          style={{
+            marginLeft: 10,
+            backgroundColor: Styles.red,
+            color: 'white',
+            padding: 5,
+            borderRadius: 5,
+            cursor:'pointer'
+          }}>remove</span>
+
+      </div>
+
+    )
+  }
+}
+
 
 const PRODUCT_MAX = 4;
 
@@ -279,28 +314,26 @@ export default class RandomView extends Component {
 
     console.log(randomProducts)
     if(Object.keys(allProductsObj).length == 0 || !allProductsObj){
-      return <ChasingDots size={100}/>
+      return <div style={{
+          marginTop: 50,
+        display: 'flex',
+        justifyContent: 'center',
+        }}><ChasingDots size={100}/></div>
     }
     let ClickRandomize;
-    if(randomProducts.length == 0){
-      ClickRandomize =
-      <h2
-        style={{
-          fontSize: mobile ? 20 : 'auto',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-        }}>click RANDOMIZE to get started</h2>
-    }
+    // if(randomProducts.length == 0){
+    //   ClickRandomize =
+    //   <h2
+    //     style={{
+    //       fontSize: mobile ? 20 : 'auto',
+    //       display: 'flex',
+    //       flexDirection: 'column',
+    //       justifyContent: 'center',
+    //     }}>click RANDOMIZE to get started</h2>
+    // }
     return (
       <section>
-        <p style={{
-            cursor: 'pointer'
-          }}
-          onClick={()=>this.props.setView("SEARCH")}>
-        <a>back to search</a></p>
-
-        <br/><br/>
+        <p>build your outfit</p>
         <div style={{
             padding: 10,
             border: Styles.border,
@@ -309,78 +342,82 @@ export default class RandomView extends Component {
             flexWrap:'wrap',
             flexDirection:'row',
             justifyContent: 'center',
-            height: mobile ? 'auto' : 450,
-            minWidth: mobile ? 300 : 950,
+            alignItems:'center',
+            height: 'auto',
+            minWidth: 300,
             position: 'relative',
             margin: 10
           }}>
-            {ClickRandomize}
             {randomProducts.map((product, i)=>{
               return (
                 <div key={i} style={{
                     margin: 5,
-                    overflow:'hidden',
-                    // width : mobile ? 100 : 180,
+                    width: mobile ? "45%" : 200
                   }}>
-                  <a
-                    onClick={()=>this.switchOut(i)}
-                    style={{
-                      cursor:'pointer'
-                    }}>switch</a>
-                  <a
-                    onClick={()=>this.remove(i)}
-                    style={{
-                      marginLeft: 10,
-                      cursor:'pointer'
-                    }}>remove</a>
-                  <br/><br/>
-                  <Product small product={product} />
+
+                  <Product supersmall product={product} />
+                    <ProductControl
+                      index={i}
+                      remove={this.remove}
+                      switchOut={this.switchOut}/>
                 </div>
               )
             })}
             <div
               className="noselect"
               style={{
-                position: 'absolute',
-                right: 20,
-                bottom: 10
+                flex: 1,
+                width: "100%",
+                display: randomProducts.length < 4 ? 'flex' : 'none',
+                justifyContent:'center',
+                alignItems: 'center',
+                height: 200
               }}>
-              <a
-                onClick={()=>this.increaseProducts()}
-                style={{
-                  fontSize:35,
-                  cursor: 'pointer'
-                }}>+</a>
-              <a
-                onClick={()=>this.decreaseProducts()}
-                style={{
-                  marginLeft:10,
-                  fontSize:35,
-                  cursor: 'pointer'
-                }}>-</a>
+                <div
+                  onClick={()=>this.increaseProducts()}
 
+                  style={{
+                    // flex: 1,
+                    border : Styles.border,
+                    width: 100,
+                    height: 100,
+                    textAlign: 'center',
+                    display: 'flex',
+                    justifyContent:'center',
+                    alignItems: 'center',
+
+                }}>
+                  <span
+                    style={{
+                      fontSize:35,
+                      cursor: 'pointer'
+                    }}>+</span>
+
+                </div>
             </div>
         </div>
 
         <div style={{
           textAlign: 'center',
           padding: 10,
+          display: 'flex',
+          flexDirection:'row'
           }}>
           <button
             style={{
-              margin: 10
+              margin: 5
             }}
             onClick={() => this.randomize()}>RANDOMIZE</button>
           <button
             style={{
-              margin: 10
+              margin: 5
             }}
-            onClick={() => this.publish()}>PUBLISH</button>
+            onClick={() => this.publish()}>SAVE</button>
             <br/><br/>
             <hr/>
             <br/>
-            <p><u>outfits created by peers</u></p>
         </div>
+        <br/>
 
         <Outfits/>
         <br/><br/><br/><br/><br/><br/><br/>

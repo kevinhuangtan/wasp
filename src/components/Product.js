@@ -34,31 +34,41 @@ class ProductInfo extends Component {
     }
 
     return (
-      <div >
-        <a href={product.href}
-          target="_blank"
-          onClick={() => this.goToProduct(product.href)}
-          className="hover-opacity"
-          style={{
-            cursor:'pointer',
-            color: Styles.colorText
-          }}>{product.name}</a>
-        <p><span style={{color:Styles.red}}>${product.price.toFixed(2)}</span> from&nbsp;
-          <a
-            target="_blank"
-            href={product.href}
-            style={{
-              cursor:'pointer',
-              color: Styles.colorText
-            }}
-            className="hover-opacity"
-            onClick={() => this.goToProduct(product.href)}>
-            <u>{storeMap[product.store]}</u>
-            </a>
-        </p>
-        <p>
+      <div
+        style={{
+          display:'flex',
+          flexDirection:'row',
+          flexWrap:'wrap'}}>
+          <div style={{flex:4}}>
+            <a href={product.href}
+              target="_blank"
+              onClick={() => this.goToProduct(product.href)}
+              className="hover-opacity"
+              style={{
+                cursor:'pointer',
+                color: Styles.colorText
+              }}>{product.name}</a>
+            <br/>
+            <span style={{color:Styles.red}}>${product.price.toFixed(2)}</span>
+            <p>
+              <a
+                  target="_blank"
+                  href={product.href}
+                  style={{
+                    fontWeight: 'bold',
+                    cursor:'pointer',
+                    color: Styles.colorText,
+                    opacity: .8
+                  }}
+                  className="hover-opacity"
+                  onClick={() => this.goToProduct(product.href)}>
+                  {storeMap[product.store]}
+                </a>
+            </p>
+            </div>
+        <div style={{flex:1}}>
           {Save}
-        </p>
+        </div>
       </div>
     )
   }
@@ -138,29 +148,35 @@ export default class Product extends Component {
       fontSize = 12;
     }
     if(supersmall){
-      width = mobile ? 100 : 180;
+      width = mobile ? "100%" : 180;
       height = mobile ? 150 : 200;
-      fontSize = 10;
+      fontSize = 9;
     }
 
     return (
       <div
         style={{
-          overflow: 'hidden',
+          // overflow: 'hidden',
           width: width,
           fontSize: fontSize
         }}>
-        <a target="_blank" href={product.href}>
+        <div
+          style={{
+            height: mobile? 200 : 'auto',
+            width:"100%",
+            overflow:'hidden'
+          }}
+          target="_blank" href={product.href}>
           <img
               onClick={() => this.goToProduct(product.href)}
               className="hover-opacity"
               style={{
                 ...styles.productImage,
-                height: height,
-                width: 'auto'
+                height: 'auto',
+                width: "100%"
               }} src={product.image.src}/>
-        </a>
-        <br/><br/>
+          </div>
+        <br/>
         <ProductInfo
           goToProduct={this.goToProduct}
           product={product}

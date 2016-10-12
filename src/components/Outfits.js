@@ -101,7 +101,12 @@ export default class Outfits extends Component {
 
     return(
       <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
         }}>
+        <p><u>outfits created by peers</u></p>
+
         {outfits.map((outfit, i) => {
 
           let props = outfit.props;
@@ -121,13 +126,15 @@ export default class Outfits extends Component {
                 display:'block',
                 backgroundColor: 'white',
                 ...Styles.boxShadow,
-                padding: mobile ? 10 : 25,
-                width: "80%",
-                minWidth: mobile ? 300 : 850,
+                padding: mobile ? 5 : 25,
+                width: "95%",
+                minWidth: 300 ,
                 margin: '0 auto',
                 marginBottom: 20,
-                position: 'relative'
+                position: 'relative',
+
               }}>
+
               <div
                 style={{
                   display : "flex",
@@ -136,7 +143,11 @@ export default class Outfits extends Component {
                 }}>
                   {products.map((product, j) => {
                     return (
-                      <div style={{margin: 5}} key={j}>
+                      <div style={{
+                          margin: 5,
+                          width: mobile ? "45%" : 200
+
+                        }} key={j}>
                         <Product supersmall  product={product} />
                       </div>
                     )
@@ -144,28 +155,28 @@ export default class Outfits extends Component {
               </div>
               <br/>
               <hr style={{marginTop: 5, marginBottom: 5}}/>
-              <br/>
-              <span>outfit created by {users[outfit.uid].name.split(" ")[0] + " " + users[outfit.uid].name.split(" ")[1][0]}</span>
-              <br/>
-              <span>
-                <span
-                  onClick={() => this.addProp(outfit)}
-                  style={{
-                    fontSize:20,
-                    cursor: 'pointer',
-                    // opacity: .2
-                  }}>
-                  👏</span>
-                <span> x {num_props}</span></span>
+              <div style={{padding:10}}>
+                <span>outfit created by {users[outfit.uid].name.split(" ")[0] + " " + users[outfit.uid].name.split(" ")[1][0]}</span>
+                <br/>
+                <span>
+                  <span
+                    onClick={() => this.addProp(outfit)}
+                    style={{
+                      fontSize:20,
+                      cursor: 'pointer',
+                      // opacity: .2
+                    }}>
+                    👏</span>
+                  <span> x {num_props}</span></span>
 
-              <span style={{
-                  position: 'absolute',
-                  right: 20,
-                  bottom: 20,
-                  float: 'right',
-                  opacity: .6,
-                }}>{getTimePassed(outfit.datetime)}</span>
-
+                <span style={{
+                    position: 'absolute',
+                    right: 20,
+                    bottom: 20,
+                    float: 'right',
+                    opacity: .6,
+                  }}>{getTimePassed(outfit.datetime)}</span>
+              </div>
             </div>
           )
         }, this)}

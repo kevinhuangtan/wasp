@@ -38,12 +38,12 @@ export default class Bag extends Component {
   }
   generateText = () => {
     let text;
-    if(this.state.firstName){
-      text = <span>{this.state.firstName}'s <span style={{fontSize: 18}}>👜</span>  ({this.props.savedProducts.length})</span>;
-    }
-    else{
+    // if(this.state.firstName){
+    //   text = <span>{this.state.firstName}'s <span style={{fontSize: 18}}>👜</span>  ({this.props.savedProducts.length})</span>;
+    // }
+    // else{
       text  = <span><span style={{fontSize: 18}}>👜</span> ({this.props.savedProducts.length})</span>;
-    }
+    // }
     return text
   }
   handleClick = () => {
@@ -82,10 +82,12 @@ export default class Bag extends Component {
             top: mobile ? 'auto' : 25,
             right: 25,
             bottom: mobile ? 25 : ' auto',
-            backgroundColor: isSaved ? Styles.colorTertiary : Styles.colorSecondary,
+            // backgroundColor: isSaved ? Styles.colorTertiary : Styles.colorSecondary,
+            backgroundColor : Styles.colorSecondary,
             zIndex: 100,
             width: 'auto',
-            color: isSaved ? 'white' : Styles.colorText
+            // color: isSaved ? 'white' : Styles.colorText
+            color: Styles.colorText
           }}>
           {text}
       </button>
