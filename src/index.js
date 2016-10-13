@@ -95,6 +95,8 @@ class YourReactApp extends Component {
       <Provider store={store}>
         <section>
           {/*}<Banner/>*/}
+          <Bag/>
+
           <div style={{
               padding: mobile ? 0 : 40,
               // marginTop: mobile ? 80 : 30,
@@ -105,7 +107,6 @@ class YourReactApp extends Component {
           </div>
           <Login/>
           <Firebase/>
-          <Bag/>
         </section>
       </Provider>
     )

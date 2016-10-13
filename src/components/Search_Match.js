@@ -120,7 +120,7 @@ export default class SearchView extends Component {
 
 
   loadMore = (p) => {
-    if(this.props.view != "SEARCH"){return}
+    // if(this.props.view != "SEARCH"){return}
 
     this.setState({ page : p });
   }
@@ -169,8 +169,14 @@ export default class SearchView extends Component {
     if((page + 1) * 20 > products.length){
       hasMore = false;
     }
-    var productsSlice = products.slice(0, (page + 1) * 15);
+    var productsSlice;
+    if(mobile){
+       productsSlice= products.slice(0, (page + 1) * 4);
+    }
+    else{
+      productsSlice = products.slice(0, (page + 1) * 15);
 
+    }
     var Content;
     var ProductList;
 

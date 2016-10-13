@@ -426,6 +426,26 @@ export default class RandomView extends Component {
         justifyContent: 'center',
         }}><ChasingDots size={100}/></div>
     }
+    if(modalIsOpen){
+      return(
+        <div style={{zIndex:1050}}>
+
+            <Search_Match pushProduct={this.pushProduct}/>
+              <button
+                onClick={()=>this.setState({ modalIsOpen : false })}
+                style={{
+                  width:"100%",
+                  backgroundColor:Styles.red,
+                  color:'white',
+                  position:'fixed',
+                  bottom:0,
+                  left:0,
+                  height:50,
+                  zIndex: 200
+                }}>close</button>
+        </div>
+      )
+    }
 
     return (
       <section style={{
@@ -438,17 +458,20 @@ export default class RandomView extends Component {
           closeTimeoutMS={500}
           style={Styles.modal}
         >
+        <button
+          onClick={()=>this.setState({ modalIsOpen : false })}
+          style={{
+            width:"100%",
+            backgroundColor:Styles.red,
+            color:'white',
+            position:'absolute',
+            top:0,
+            left:0,
+            zIndex: 200
+          }}>close</button>
+          <br/>
           <Search_Match pushProduct={this.pushProduct}/>
-          <button
-            onClick={()=>this.setState({ modalIsOpen : false })}
-            style={{
-              width:"100%",
-              backgroundColor:Styles.red,
-              color:'white',
-              position:'fixed',
-              bottom:0,
-              left:0
-            }}>close</button>
+
         </Modal>
         <Cover/>
         <hr/>
