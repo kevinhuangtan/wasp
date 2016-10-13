@@ -1,17 +1,19 @@
 import { connect } from 'react-redux'
-import { toggleCategory } from '../redux/actions'
+import { toggleCategory, showLogin } from '../redux/actions'
 import Login from '../components/Login'
 
 const mapStateToProps = (state) => {
   return {
     savedProducts: state.savedProducts || [],
     storesSelected: state.storesSelected,
-    view: state.view
+    view: state.view,
+    login: state.login
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+
   }
 }
 

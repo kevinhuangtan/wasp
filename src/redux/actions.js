@@ -116,6 +116,13 @@ export function setTagsSelected(tagsSelected) {
 ///////////////////*~ Other ~*//////////////////
 ////////////////////////////////////////////////
 
+
+
+export function showLogin() {
+  return { type: 'SHOW_LOGIN' }
+}
+
+
 export function toggleView() {
   return { type: 'TOGGLE_VIEW' }
 }

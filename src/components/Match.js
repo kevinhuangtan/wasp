@@ -340,6 +340,10 @@ export default class RandomView extends Component {
     }
   }
   publish = () => {
+    if(!this.state.user){
+      console.log('here')
+      this.props.showLogin()
+    }
     var self = this;
     var randomProducts = this.state.randomProducts;
 
@@ -411,7 +415,8 @@ export default class RandomView extends Component {
       showBackToTop,
       randomProducts,
       randomize,
-      modalIsOpen
+      modalIsOpen,
+      showLogin
     } = this.state;
     const {
       storesSelected,

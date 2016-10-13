@@ -27,14 +27,15 @@ export default class LoginButton extends Component {
     });
   }
   render(){
-    const { savedProducts, storesSelected, view } = this.props;
+    const { savedProducts, storesSelected, view, login } = this.props;
     const { signedIn, user } = this.state;
     if(user){
       return null
     }
-
-    if(view == "ONBOARD"){
+    console.log(login)
+    if(!login){
       return null
+
     }
 
     return(

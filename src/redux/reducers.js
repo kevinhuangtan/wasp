@@ -151,6 +151,19 @@ function tags(state = { tags : {}, tagsSelected : []}, action){
   }
 }
 
+
+function login(state = false, action){
+  switch (action.type) {
+    case 'SHOW_LOGIN':
+      console.log('reducer')
+      return true
+    default:
+      return state
+  }
+}
+
+
+
 const todoApp = combineReducers({
   amount,
   categorySelected,
@@ -159,7 +172,8 @@ const todoApp = combineReducers({
   savedProducts,
   prices,
   view,
-  tags
+  tags,
+  login
 })
 
 export default todoApp
