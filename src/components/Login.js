@@ -23,6 +23,16 @@ export default class LoginButton extends Component {
           signedIn : true,
           user: user
         })
+        var refVisits = firebase.database().ref(`users/${user.uid}/visits`);
+        refVisits.once('value', (snap) => {
+          if(snap.val()){
+            refVisits.set(snap.val() + 1)
+          }
+          else{
+            refVisits.set(1)
+
+          }
+        })
       }
     });
   }
@@ -32,7 +42,6 @@ export default class LoginButton extends Component {
     if(user){
       return null
     }
-    console.log(login)
     if(!login){
       return null
 

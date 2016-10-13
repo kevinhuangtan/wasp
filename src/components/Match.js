@@ -100,7 +100,7 @@ class Cover extends Component {
 
 class AddButton extends Component {
   render(){
-    const { randomProducts, increaseProducts, openModal } = this.props;
+    const { randomProducts, increaseProducts, searchSpecific } = this.props;
     return (
       <div
         className="noselect"
@@ -126,7 +126,7 @@ class AddButton extends Component {
           </div>
           <br/>
           <div
-            onClick={() => openModal()}
+            onClick={() => searchSpecific()}
             style={{
               border : Styles.border,
               width: 100,
@@ -306,6 +306,19 @@ export default class RandomView extends Component {
       currTags = currTags.concat(product.tags);
     }
     this.setState({ randomProducts : ret})
+    if(this.state.user){
+      var ref = firebase.database().ref(`users/${this.state.user.uid}/randomizeClicks`);
+      ref.once('value', (snap) => {
+        if(snap.val()){
+          ref.set(snap.val() + 1)
+        }
+        else{
+          ref.set(1)
+
+        }
+      })
+    }
+
   }
   switchOut = (switchOutIndex) => {
 
@@ -341,7 +354,6 @@ export default class RandomView extends Component {
   }
   publish = () => {
     if(!this.state.user){
-      console.log('here')
       this.props.showLogin()
     }
     var self = this;
@@ -408,6 +420,22 @@ export default class RandomView extends Component {
       randomProducts : ret,
       modalIsOpen : false
     })
+  }
+  searchSpecific = () => {
+    if(this.state.user){
+      var ref = firebase.database().ref(`users/${this.state.user.uid}/searchSpecificClicks`);
+      ref.once('value', (snap) => {
+        if(snap.val()){
+          ref.set(snap.val() + 1)
+        }
+        else{
+          ref.set(1)
+
+        }
+      })
+    }
+    this.setState({ modalIsOpen : true })
+
   }
   render(){
 
@@ -512,7 +540,7 @@ export default class RandomView extends Component {
               )
             })}
             <AddButton
-              openModal={()=>this.setState({ modalIsOpen : true })}
+              searchSpecific={this.searchSpecific}
               randomProducts={randomProducts}
               increaseProducts={this.increaseProducts}/>
         </div>

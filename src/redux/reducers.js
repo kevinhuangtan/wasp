@@ -155,7 +155,6 @@ function tags(state = { tags : {}, tagsSelected : []}, action){
 function login(state = false, action){
   switch (action.type) {
     case 'SHOW_LOGIN':
-      console.log('reducer')
       return true
     default:
       return state
